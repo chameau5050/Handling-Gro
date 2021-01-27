@@ -1,5 +1,9 @@
 #include <Arduino.h>
-#include "../lib/ArduinoJson.h"
+#include <ArduinoJson.h>
+
+
+#ifndef SERIALCOM_H
+#define SERIALCOM_H
 
 #define MaxSerialCommMessageSize 64
 
@@ -14,3 +18,5 @@ class SerialComm
     private:
         HardwareSerial* serialPort;
 };
+
+#endif
