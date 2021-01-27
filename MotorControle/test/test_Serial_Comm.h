@@ -1,5 +1,6 @@
-#include "abstractTest.h"
 #include <unity.h>
+#include "abstractTest.h"
+#include "SerialComm.cpp"
 
 #ifndef testSerialComm
 #define testSerialComm
@@ -10,20 +11,16 @@ class test_Serial_Comm : public  abstractTest
         void test();
  };
 
-    void test_one()
+    void isSendingGoodHardwareSerial()
     {
-        TEST_ASSERT_TRUE(true);
+        SerialComm a(Serial,115200);
+        TEST_ASSERT_EQUAL(Serial,a.getSerialPort());
     }
 
-    void test_two()
-    {
-        TEST_ASSERT_TRUE(true);
-    }
 
     void test_Serial_Comm::test()
     {
-        RUN_TEST(test_one);
-        RUN_TEST(test_two);
+        RUN_TEST(isSendingGoodHardwareSerial);
     }
 
 #endif
