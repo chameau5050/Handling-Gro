@@ -1,8 +1,10 @@
 #include <Arduino.h>
 #include <ArduinoJson.h>
 
+#define BAUD 115200 
+
 void setup() {
-  // put your setup code here, to run once:
+  Serial.begin(BAUD);
 }
 
 void loop() {

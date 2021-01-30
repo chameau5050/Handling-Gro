@@ -1,6 +1,7 @@
 #include <unity.h>
-#include "abstractTest.h"
-#include "ControlMessage.h"
+#include "../test/abstractTest.h"
+#include "../src/Comm/ControlMessage.h"
+#include "../src/Comm/ControlMessage.cpp"
 
 class testControlMessage : public  abstractTest 
  {

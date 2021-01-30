@@ -1,7 +1,7 @@
 #include <Arduino.h>
 #include <unity.h>
-#include "test_Serial_Comm.h"
-#include "test_ControlMessage.h"
+#include "testComm/testComm.h"
+
 
 void setup() {
     // NOTE!!! Wait for >2 secs
@@ -13,11 +13,10 @@ void setup() {
 
 void loop() 
 {
-    auto test_SerialComm = test_Serial_Comm();
-    auto test_ControlMessage = testControlMessage();
+    TestComm test_comm;
 
-    test_SerialComm.test();
-    test_ControlMessage.test();    
+    test_comm.test();
+
     UNITY_END(); // stop unit testing
     
 }

@@ -1,6 +1,6 @@
 #include <unity.h>
-#include "abstractTest.h"
-#include "SerialComm.cpp"
+#include "../test/abstractTest.h"
+#include "../src/Comm/SerialComm.cpp"
 
 #ifndef testSerialComm
 #define testSerialComm
@@ -13,7 +13,7 @@ class test_Serial_Comm : public  abstractTest
 
     void isSendingGoodHardwareSerial()
     {
-        SerialComm a(Serial,115200);
+        SerialComm a(Serial);
         TEST_ASSERT_EQUAL(Serial,a.getSerialPort());
     }
 
