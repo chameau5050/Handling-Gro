@@ -1,5 +1,5 @@
 #include <unity.h>
-#include "../abstractTest.h"
+#include "../test/abstractTest.h"
 #include "../src/Comm/SerialComm.h"
 #include "../src/Comm/MessageIO.cpp"
 

@@ -1,5 +1,4 @@
 #include "../test/abstractTest.h"
-#include "../abstractTest.h"
 #include "test_ControlMessage.h"
 #include "test_Serial_Comm.h"
 #include "test_MessageIO.h"
