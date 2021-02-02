@@ -10,7 +10,7 @@
 class SerialComm : public CommDevice
 {
     public:
-        SerialComm(HardwareSerial serialPort);
+        SerialComm(HardwareSerial* serialPort);
         StaticJsonDocument<MaxJsonSize> ReadJSon();
         void sendJSon(StaticJsonDocument<MaxJsonSize> message);
         bool isMessageAvailable();

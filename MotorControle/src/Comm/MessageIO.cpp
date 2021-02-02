@@ -49,7 +49,7 @@ ControlMessage* MessageIO::parceMessage(StaticJsonDocument<MaxJsonSize> msg)
     if(msgPayloadSize > 0)
     {           
         int* data = new int[msgPayloadSize];
-        for(int x; x < msgPayloadSize; x++)
+        for(int x=0; x < msgPayloadSize; x++)
         {
             data[x] = msg["data"][x].as<int>();
         }

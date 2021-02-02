@@ -1,8 +1,8 @@
 #include "SerialComm.h"
 
-SerialComm::SerialComm(HardwareSerial serialPort)
+SerialComm::SerialComm(HardwareSerial *serialPort)
 {
-    this->serialPort = &serialPort;
+    this->serialPort = serialPort;
 }
 
 bool SerialComm::isMessageAvailable()
@@ -12,15 +12,22 @@ bool SerialComm::isMessageAvailable()
 
 StaticJsonDocument<MaxJsonSize> SerialComm::ReadJSon()
 {
+   
     StaticJsonDocument<MaxJsonSize> message;
     DeserializationError err = deserializeJson(message, *serialPort);
+    if(err) 
+    {
+        Serial.println("erreur deserialisation.");
+    }
+    
     return message;
 }
 
 
 void SerialComm::sendJSon(StaticJsonDocument<MaxJsonSize> message)
 {
-    serializeJson(message, Serial);
+    serializeJson(message, *serialPort);
+    serialPort->print('\n');
 }
 
 
