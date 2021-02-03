@@ -10,13 +10,12 @@ class SerialComm:
 
     def sendJSon(self, JSon):
         j = (json.dumps(JSon)+'\n').encode()
-        #j = bytes(j, 'utf-8')
         self.serial.write(j)
 
 
     def readJSon(self):
-        raw = self.serial.readline().decode()
-        return json.loads(raw)
+        rawJSon = self.serial.readline().decode()
+        return json.loads(rawJSon)
 
     def isMessageAvailable(self):
         return self.serial.in_waiting > 0

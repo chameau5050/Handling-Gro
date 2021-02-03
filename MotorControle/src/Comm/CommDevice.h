@@ -5,7 +5,7 @@
 #ifndef COMDEVICE_H
 #define COMDEVICE_H
 
-#define MaxJsonSize 64
+#define MaxJsonSize 256
 
 class CommDevice
 { 

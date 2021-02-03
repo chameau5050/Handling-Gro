@@ -13,7 +13,7 @@ class test_Serial_Comm : public  abstractTest
 
     void isSendingGoodHardwareSerial()
     {
-        SerialComm a(Serial);
+        SerialComm a(&Serial);
         TEST_ASSERT_EQUAL(Serial,a.getSerialPort());
     }
 

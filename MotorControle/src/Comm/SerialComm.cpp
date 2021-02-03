@@ -17,7 +17,7 @@ StaticJsonDocument<MaxJsonSize> SerialComm::ReadJSon()
     DeserializationError err = deserializeJson(message, *serialPort);
     if(err) 
     {
-        Serial.println("erreur deserialisation.");
+        message["error"] = "deserialisation";        
     }
     
     return message;

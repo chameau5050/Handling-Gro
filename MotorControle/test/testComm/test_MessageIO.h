@@ -2,32 +2,26 @@
 #include "../test/abstractTest.h"
 #include "../src/Comm/SerialComm.h"
 #include "../src/Comm/MessageIO.cpp"
+#include "testCommDevice.h"
 
 #ifndef TEST_MESSAGEIO
 #define TEST_MESSAGEIO
 
-class testMessageIO : public abstractTest, CommDevice
+class testMessageIO : public abstractTest
 {
     public:
-        testMessageIO(bool isMsgAvailable = true){ msgAvailble = isMsgAvailable;}
         void test();
         static void isSerialDeviceCorrectlyAdded();
         static void isSendCorrectMessageFormat();
         static void isCorrectlyReaddingMessage();
-        StaticJsonDocument<MaxJsonSize> ReadJSon(){return lastMessageSend;};
-        void sendJSon(StaticJsonDocument<MaxJsonSize> message){ lastMessageSend = message;};
-        bool isMessageAvailable(){ return msgAvailble;};
-        StaticJsonDocument<MaxJsonSize> getLastMessage(){return lastMessageSend;};
-    private:
-        bool msgAvailble;
-        StaticJsonDocument<MaxJsonSize> lastMessageSend;
+        static void isHandlingDeserialisationError();
 };
 
 void testMessageIO::isSerialDeviceCorrectlyAdded()
 {
     MessageIO msgIO;
     
-    SerialComm* device = new SerialComm(Serial);
+    SerialComm* device = new SerialComm(&Serial);
     
     TEST_ASSERT_EQUAL(0,msgIO.getNbrDevice());
     msgIO.addDevice(device);
@@ -43,7 +37,7 @@ void testMessageIO::isSerialDeviceCorrectlyAdded()
 void testMessageIO::isSendCorrectMessageFormat()
 {
     MessageIO msgIO;
-    testMessageIO device;
+    TestCommDevice device;
     
     msgIO.addDevice(&device);
 
@@ -68,7 +62,7 @@ void testMessageIO::isSendCorrectMessageFormat()
 void testMessageIO::isCorrectlyReaddingMessage()
 {
     MessageIO msgIO;
-    testMessageIO device;
+    TestCommDevice device;
     
     msgIO.addDevice(&device);
 
@@ -92,12 +86,31 @@ void testMessageIO::isCorrectlyReaddingMessage()
 }
 
 
+void testMessageIO::isHandlingDeserialisationError()
+{
+    MessageIO msgIO;
+    TestCommDevice device;
+    
+    msgIO.addDevice(&device);
+
+    int data[] = {1,2,3,4};
+
+    ControlMessage msg(2,4,data);
+
+    msgIO.sendMessage(0,msg);
+    device.failNextDeserialisation();
+    ControlMessage* Cmsg = msgIO.readMessage(0);
+    
+    TEST_ASSERT_EQUAL(NULL, Cmsg);
+}
+
 
 void testMessageIO::test()
 {
     RUN_TEST(isSerialDeviceCorrectlyAdded);
     RUN_TEST(isSendCorrectMessageFormat);
     RUN_TEST(isCorrectlyReaddingMessage);
+    RUN_TEST(isHandlingDeserialisationError);
 }
 
 

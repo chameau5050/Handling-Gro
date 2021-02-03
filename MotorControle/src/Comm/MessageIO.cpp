@@ -43,7 +43,9 @@ void MessageIO::sendMessage(int deviceIndex,ControlMessage& msg)
 
 ControlMessage* MessageIO::parceMessage(StaticJsonDocument<MaxJsonSize> msg)
 {
-    
+    if(msg.containsKey("error"))
+        return NULL;
+
     int msgType = msg["type"].as<int>();
     int msgPayloadSize = msg["PLS"].as<int>();
     if(msgPayloadSize > 0)

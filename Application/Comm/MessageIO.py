@@ -17,19 +17,21 @@ class MessageIO:
 
         self.devices[deviceIndex].sendJSon(j)
 
-    def readMessage(self,deviceIndex):
+    def parseJSonMessage(self, JSonMessage):
+        msgType = JSonMessage["type"]
+        if "data" in JSonMessage:
+            msgpayload = JSonMessage["data"]
+        else:
+            msgpayload = []
+
+        return ControlMessage(msgType, msgpayload)
+
+    def readMessage(self, deviceIndex):
         dev = self.devices[deviceIndex]
 
         if dev.isMessageAvailable():
             try:
-                jSonMessage = dev.readJSon()
-                msgType = jSonMessage["type"]
-                if "data" in jSonMessage:
-                    msgpayload = jSonMessage["data"]
-                else:
-                    msgpayload = []
-
-                return ControlMessage(msgType, msgpayload)
+                return self.parseJSonMessage(dev.readJSon())
             except:
                 return None
         else:
