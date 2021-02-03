@@ -1,7 +1,7 @@
 #include <unity.h>
 #include "../test/abstractTest.h"
-#include "../src/Comm/SerialComm.h"
-#include "../src/Comm/MessageIO.cpp"
+#include "Comm/SerialComm.h"
+#include "Comm/MessageIO.h"
 #include "testCommDevice.h"
 
 #ifndef TEST_MESSAGEIO

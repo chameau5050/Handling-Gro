@@ -1,6 +1,6 @@
 #include "Utils/Vector.h"
-#include "CommDevice.h"
-#include "ControlMessage.h"
+#include "Comm/CommDevice.h"
+#include "Comm/ControlMessage.h"
 
 #ifndef MESSAGEIO_H
 #define MESSAGEIO_H

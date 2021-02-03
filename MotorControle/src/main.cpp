@@ -1,3 +1,5 @@
+#ifndef UNIT_TEST
+
 #include <Arduino.h>
 #include <ArduinoJson.h>
 
@@ -34,3 +36,5 @@ void loop() {
   
   // put your main code here, to run repeatedly:
 }
+
+#endif

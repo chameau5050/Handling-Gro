@@ -1,9 +1,10 @@
+#ifndef SERIALCOM_H
+#define SERIALCOM_H
+
 #include <Arduino.h>
 #include <ArduinoJson.h>
 #include "CommDevice.h"
 
-#ifndef SERIALCOM_H
-#define SERIALCOM_H
 
 
 

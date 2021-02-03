@@ -33,7 +33,5 @@ void SerialComm::sendJSon(StaticJsonDocument<MaxJsonSize> message)
 
 HardwareSerial SerialComm::getSerialPort()
 {
-    
-    return *serialPort;
-    
+    return *serialPort;   
 }

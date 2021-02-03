@@ -1,6 +1,6 @@
 
-#ifndef CONTROLMESSAGE
-#define CONTROLMESSAGE
+#ifndef CONTROLMESSAGE_H
+#define CONTROLMESSAGE_H
 
 class ControlMessage
 {
