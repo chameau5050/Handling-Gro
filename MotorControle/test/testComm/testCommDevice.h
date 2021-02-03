@@ -1,7 +1,7 @@
 #include "Comm/CommDevice.h"
 
-#ifndef TESTCOMMDEVICE
-#define TESTCOMMDEVICE
+#ifndef TESTCOMMDEVICE_H
+#define TESTCOMMDEVICE_H
 
 class TestCommDevice : public CommDevice 
 {

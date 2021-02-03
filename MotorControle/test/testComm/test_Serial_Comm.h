@@ -2,8 +2,8 @@
 #include "../test/abstractTest.h"
 #include "Comm/SerialComm.h"
 
-#ifndef testSerialComm
-#define testSerialComm
+#ifndef TESTSERIALCOMM_H
+#define TESTSERIALCOMM_H
 
 class test_Serial_Comm : public  abstractTest 
 {
