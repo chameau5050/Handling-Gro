@@ -1,6 +1,7 @@
 #include <Arduino.h>
 #include <unity.h>
 #include "testComm/testComm.h"
+#include "Test_Join.h"
 
 
 void setup() {
@@ -13,9 +14,14 @@ void setup() {
 
 void loop() 
 {
+    //initialisation
     TestComm test_comm;
+    Test_Join test_join;
 
+    //lunch_ de_test
     test_comm.test();
+    test_join.test();
+
 
     UNITY_END(); // stop unit testing
     
