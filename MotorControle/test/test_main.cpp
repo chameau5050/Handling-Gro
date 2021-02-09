@@ -1,6 +1,7 @@
 #include <Arduino.h>
 #include <unity.h>
-#include "test_Serial_Comm.h"
+#include "testComm/testComm.h"
+
 
 void setup() {
     // NOTE!!! Wait for >2 secs
@@ -12,9 +13,10 @@ void setup() {
 
 void loop() 
 {
-    auto a = test_Serial_Comm();
+    TestComm test_comm;
 
-    a.test();    
+    test_comm.test();
+
     UNITY_END(); // stop unit testing
     
 }
