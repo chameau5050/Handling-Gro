@@ -12,4 +12,3 @@ CommandWindow::~CommandWindow()
 {
     delete ui;
 }
-
