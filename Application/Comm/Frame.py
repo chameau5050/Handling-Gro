@@ -57,7 +57,12 @@ class Frame:
     def getPayload(self):
         return self.buffer[Frame.PayloadIndex:Frame.PayloadIndex+self.getPayloadSize()]
 
+    def toBytes(self):
+        return self.buffer[0:Frame.PayloadIndex+self.getPayloadSize()]
+
     def resetPayload(self):
         self.payloadCurrentIndex = Frame.PayloadIndex
         self.setPayloadSize(0)
-        
+
+    def __eq__(self, frame):
+        return self.toBytes() == frame.toBytes()
