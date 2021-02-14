@@ -1,6 +1,15 @@
 import json
 from Comm.Accumulator import *
+import socket
 
+
+def waitForConnection(address, port, maxConection, objetToNotifie=None):
+    server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    server.bind((address, port))
+    server.listen(maxConection)
+
+    conn, addr = server.accept()
+    objetToNotifie.newConnection(conn)
 
 class EthernetComm:
 
@@ -11,6 +20,7 @@ class EthernetComm:
         self.sock.setblocking(False)
         self.acc = Accumulator(self)
         self.frameReceveList =[]
+        self.isSocketAlive = True
 
     def receveFrame(self,frame):
         self.frameReceveList.append(frame)
@@ -40,7 +50,7 @@ class EthernetComm:
                     break
                 else:
                     self.acc.accumulate(data)
-            except:
+            except BlockingIOError:
                 return None
 
     def sendJSON(self, JSON):
@@ -72,6 +82,12 @@ class EthernetComm:
                 return json.loads(str(frame.getPayload(), encoding="UTF-8"))
         return None
 
+    def isAlive(self):
+        return self.isSocketAlive
+
+    def closeConnection(self):
+        self.sock.close()
+
     def sendFrame(self, frame):
-        data = self.sock.sendall(frame.toBytes())
+        data = self.sock.send(frame.toBytes())
 

@@ -2,6 +2,10 @@ import unittest
 import socket
 from Comm.Frame import *
 from Comm.EthernetComm import *
+from test.TestComm.testMessageManager import *
+import threading
+
+import time
 
 
 class testEthernetComm(unittest.TestCase):
@@ -42,6 +46,20 @@ class testEthernetComm(unittest.TestCase):
         CommClient.sendJSON(Json)
 
         self.assertEqual(True, CommServer.isMessageAvailable())
+
+    def test_waitForConnection(self):
+        MsgManager = testMessageManager()
+
+        x = threading.Thread(target=waitForConnection, args=("127.0.0.1" , 50000, 1, MsgManager,))
+        x.start()
+
+        client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+        client.connect(('127.0.0.1', 50000))
+        time.sleep(1)
+
+        self.assertTrue(MsgManager.connection != None)
+
 
     def createServerAndClient(self):
         server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)

@@ -1,15 +1,7 @@
 import unittest
 from Comm.Accumulator import *
 from Util.BytesUtil import *
-
-
-class testMessageManager:
-    def __init__(self):
-        self.RXFrame = None
-
-    def receveFrame(self, frame):
-        self.RXFrame = frame
-
+from test.TestComm.testMessageManager import *
 
 class testAccumulator(unittest.TestCase):
     def test_inisalisation(self):
