@@ -26,12 +26,13 @@ class Join
         int getLimite();
         void setLimite(int newLimite);
 
-    private:
+    protected:
         int position; // c'est mon compteur
         int limite;
         int homePosition;
         int LimiteSwitchPinDroit;
         int LimiteSwitchPinGauche;
+        int Pin; // code pour indiquer les pin du arduino
 
 };
 #endif
