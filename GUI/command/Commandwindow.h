@@ -17,6 +17,8 @@ class CommandWindow : public QMainWindow
 public:
     CommandWindow(QWidget *parent = nullptr);
     ~CommandWindow();
+public slots:
+    void envoieValeur(int val);
 private slots:
 
 private:
