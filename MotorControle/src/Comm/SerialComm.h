@@ -5,17 +5,15 @@
 #ifndef SERIALCOM_H
 #define SERIALCOM_H
 
-
 class SerialComm : public CommDevice
 {
     public:
-        SerialComm(HardwareSerial* serialPort);
+        SerialComm(Stream* serialPort);
         StaticJsonDocument<MaxJsonSize> ReadJSon();
         void sendJSon(StaticJsonDocument<MaxJsonSize> message);
         bool isMessageAvailable();
-        HardwareSerial getSerialPort();
     private:
-        HardwareSerial* serialPort;
+        Stream* serialPort;
 };
 
 #endif
