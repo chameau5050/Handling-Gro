@@ -1,13 +1,13 @@
 #include "SerialComm.h"
 
-SerialComm::SerialComm(HardwareSerial *serialPort)
+SerialComm::SerialComm(Stream *serialPort)
 {
     this->serialPort = serialPort;
 }
 
 bool SerialComm::isMessageAvailable()
 {
-    return getSerialPort().available() > 0;
+    return serialPort->available() > 0;
 }
 
 StaticJsonDocument<MaxJsonSize> SerialComm::ReadJSon()
@@ -30,8 +30,9 @@ void SerialComm::sendJSon(StaticJsonDocument<MaxJsonSize> message)
     serialPort->print('\n');
 }
 
-
-HardwareSerial SerialComm::getSerialPort()
+/*
+Stream SerialComm::getSerialPort()
 {
     return *serialPort;   
 }
+*/
