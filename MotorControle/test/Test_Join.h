@@ -18,6 +18,7 @@ class Test_Join : public abstractTest //c'est de l'héritage de ?
         static void test_initialisation_getLimite();
         static void test_initialisation_setLimite();
         static void test_initialisation_goTo();
+        static void test_initialisation_goTo_avec_le_moteur();
 
 };
 #endif
