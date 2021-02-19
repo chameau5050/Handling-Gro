@@ -9,19 +9,18 @@ class test_Serial_Comm : public  abstractTest
 {
     public:
         void test();
-        static void isSendingGoodHardwareSerial();
+        static void testInit();
 };
 
-void test_Serial_Comm::isSendingGoodHardwareSerial()
+void test_Serial_Comm::testInit()
 {
     SerialComm a(&Serial);
-    TEST_ASSERT_EQUAL(Serial,a.getSerialPort());
 }
 
 
 void test_Serial_Comm::test()
 {
-    RUN_TEST(isSendingGoodHardwareSerial);
+    RUN_TEST(testInit);
 }
 
 #endif
