@@ -13,8 +13,7 @@ bool TestApp::test()
 {
     TestDataFrame::testAll();
 
-    if(!TestAccumulator::testAll())
-        return false;
+    TestAccumulator::testAll();
 
     if(!testMessageManager::testAll())
         return false;
