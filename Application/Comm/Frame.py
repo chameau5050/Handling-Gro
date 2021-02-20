@@ -1,8 +1,11 @@
 
 class Frame:
 
+    StartBytesValue = 0x00FF00FF
+    StartByteIndex = 0
+    StartByteSize = 4
     MaxSize = 1000
-    TypeIndex = 0
+    TypeIndex = StartByteIndex + StartByteSize
     TypeSize = 4
     PayloadSizeIndex = TypeIndex + TypeSize
     PayloadIndexSize = 4
@@ -17,6 +20,14 @@ class Frame:
             self.buffer = bytearray(Frame.MaxSize)
 
         self.payloadCurrentIndex = Frame.PayloadIndex
+        self.writeStartByte()
+
+
+    def writeStartByte(self):
+        self.writeInt(Frame.StartByteIndex,Frame.StartBytesValue)
+
+    def getStartBytes(self):
+        return self.readInt(Frame.StartByteIndex)
 
     def getType(self):
         return self.readInt(Frame.TypeIndex)

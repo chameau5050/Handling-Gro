@@ -3,9 +3,10 @@ from Comm.Frame import *
 from Util.BytesUtil import *
 
 class AccumulatorState(Enum):
-        READTYPE =0
-        READPAYLOADSIZE = 1
-        READPAYLOAD = 2
+        READSTARTBYTES = 0
+        READTYPE =1
+        READPAYLOADSIZE = 2
+        READPAYLOAD = 3
 
 
 class Accumulator:
@@ -13,7 +14,7 @@ class Accumulator:
 
     def __init__(self, messageManager):
         self.frame = Frame()
-        self.state = AccumulatorState.READTYPE
+        self.state = AccumulatorState.READSTARTBYTES
         self.buffer = bytearray(Accumulator.MaxBytes)
         self.endOfPayloadIndex = 0
         self.bufferIndex = 0
@@ -29,7 +30,16 @@ class Accumulator:
 
     def addData(self, byte):
 
-        if self.state == AccumulatorState.READTYPE:
+        if self.state == AccumulatorState.READSTARTBYTES:
+            self.writeByte(byte)
+
+            if self.bufferIndex == Frame.TypeIndex:
+                if BytesToInt(self.buffer[Frame.StartByteIndex:Frame.StartBytesValue]) == Frame.StartBytesValue:
+                    self.state = AccumulatorState.READTYPE
+                else:
+                    self.reset()
+
+        elif self.state == AccumulatorState.READTYPE:
             self.writeByte(byte)
 
             if self.bufferIndex == Frame.PayloadSizeIndex:
@@ -62,7 +72,7 @@ class Accumulator:
         return self.buffer[Frame.PayloadSizeIndex:Frame.PayloadIndex + Frame.PayloadIndexSize]
 
     def reset(self):
-        self.state = AccumulatorState.READTYPE
+        self.state = AccumulatorState.READSTARTBYTES
         self.bufferIndex = 0
 
     def getState(self):
