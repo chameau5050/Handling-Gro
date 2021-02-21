@@ -34,20 +34,20 @@ DataFrame::~DataFrame()
 
 void DataFrame::write_int_to_buffer(char* buffer, int const& nbr)
 {
-    buffer[3] = (nbr & 0xFF000000) >> 24;
-    buffer[2] = (nbr & 0x00FF0000) >> 16;
-    buffer[1] = (nbr & 0x0000FF00) >> 8;
-    buffer[0] = nbr & 0x000000FF;
+    buffer[0] = (nbr & 0xFF000000) >> 24;
+    buffer[1] = (nbr & 0x00FF0000) >> 16;
+    buffer[2] = (nbr & 0x0000FF00) >> 8;
+    buffer[3] = nbr & 0x000000FF;
 }
 
 int  DataFrame::convert_buffer_to_int(char* buffer)
 {
     int nbr = 0;
 
-    nbr |= (buffer[3] & 0xFF) << 24;
-    nbr |= (buffer[2] & 0xFF) << 16;
-    nbr |= (buffer[1] & 0xFF) << 8;
-    nbr |= buffer[0] & 0xFF;
+    nbr |= (buffer[0] & 0xFF) << 24;
+    nbr |= (buffer[1] & 0xFF) << 16;
+    nbr |= (buffer[2] & 0xFF) << 8;
+    nbr |= buffer[3] & 0xFF;
 
     return nbr;
 }

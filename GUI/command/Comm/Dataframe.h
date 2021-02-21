@@ -1,7 +1,7 @@
 #ifndef DATAFRAME_H
 #define DATAFRAME_H
 
-#define START_BYTE 0xFF00FF00
+#define START_BYTE 0x00FF00FF
 
 
 #define START_BYTE_SIZE 4

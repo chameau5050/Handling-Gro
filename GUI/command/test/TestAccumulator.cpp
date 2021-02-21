@@ -38,7 +38,7 @@ void TestAccumulator::testAddData()
 void TestAccumulator::testStateMachine()
 {
     char message[] = "test_data_is_live";
-    unsigned int messageId =2;
+    unsigned int messageId = 2 ;
 
     DataFrame frame = DataFrame(messageId,message,18);
 

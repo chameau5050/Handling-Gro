@@ -1,4 +1,4 @@
-QT       += core gui
+QT       += core gui network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -10,10 +10,26 @@ CONFIG += c++11
 
 SOURCES += \
     main.cpp \
-    Commandwindow.cpp
+    Comm/Controlmessage.cpp \
+    Commandwindow.cpp \
+    Comm/Accumulator.cpp \
+    Comm/DataFrame.cpp \
+    Comm/MessageInterpretor.cpp \
+    test/TestAccumulator.cpp \
+    test/TestApp.cpp \
+    test/TestDataFrame.cpp \
+    test/Testcontrolmessage.cpp
 
 HEADERS += \
-    Commandwindow.h
+    Comm/Controlmessage.h \
+    Commandwindow.h \
+    Comm/Accumulator.h \
+    Comm/DataFrame.h \
+    test/TestAccumulator.h \
+    test/TestApp.h \
+    test/TestDataFrame.h \
+    test/Testcontrolmessage.h
+
 
 FORMS += \
     Commandwindow.ui

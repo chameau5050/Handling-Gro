@@ -16,7 +16,13 @@ CommandWindow::CommandWindow(QWidget *parent)
     QObject::connect(ui->ConnectCommand, SIGNAL(pressed ()),this, SLOT(connectSocket()));
 
     socket = new QTcpSocket();
+    acc = new Accumulator(this);
 
+}
+
+bool CommandWindow::messageReceved(char* rawDataFrame,unsigned int lenght)
+{
+    return true;
 }
 
 CommandWindow::~CommandWindow()
