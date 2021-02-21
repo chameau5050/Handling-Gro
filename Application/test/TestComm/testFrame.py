@@ -8,6 +8,10 @@ class testFrame(unittest.TestCase):
         frame = Frame()
         self.assertEqual(len(frame.buffer), Frame.MaxSize)
 
+    def test_isWritingStartBytes(self):
+        frame = Frame()
+        self.assertEqual(Frame.StartBytesValue,frame.getStartBytes())
+
     def test_setTypeAndGetType(self):
         frame = Frame()
         frame.setType(1)
