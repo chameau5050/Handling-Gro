@@ -18,7 +18,7 @@ public:
     CommandWindow(QWidget *parent = nullptr);
     ~CommandWindow();
 public slots:
-    void envoieValeur(int val);
+    void sendJointPosition(int val);
 private slots:
 
 private:
