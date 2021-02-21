@@ -19,10 +19,10 @@ class EthernetComm:
         self.sock = socket
         self.sock.setblocking(False)
         self.acc = Accumulator(self)
-        self.frameReceveList =[]
+        self.frameReceveList = []
         self.isSocketAlive = True
 
-    def receveFrame(self,frame):
+    def receveFrame(self, frame):
         self.frameReceveList.append(frame)
 
 
@@ -73,7 +73,7 @@ class EthernetComm:
                 return True
         return False
 
-    def readJSON(self):
+    def readJSon(self):
         self.extractRecevedData()
 
         for frame in self.frameReceveList:
