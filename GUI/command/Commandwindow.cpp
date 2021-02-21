@@ -24,4 +24,5 @@ void CommandWindow::envoieValeur(int val)
     message[1] = ui->set_J2->value();
     message[2] = ui->set_J3->value();
     message[3] = ui->set_J4->value();
+    //INSERT SEND MESSAGE CODE HERE
 }

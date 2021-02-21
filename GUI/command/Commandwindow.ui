@@ -38,6 +38,9 @@
        </item>
        <item>
         <widget class="QSlider" name="set_J3">
+         <property name="maximum">
+          <number>3500</number>
+         </property>
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
@@ -59,6 +62,9 @@
        </item>
        <item>
         <widget class="QSlider" name="set_J4">
+         <property name="maximum">
+          <number>3500</number>
+         </property>
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
@@ -103,6 +109,9 @@
        </item>
        <item>
         <widget class="QSlider" name="set_J1">
+         <property name="maximum">
+          <number>12000</number>
+         </property>
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
@@ -124,6 +133,9 @@
        </item>
        <item>
         <widget class="QSlider" name="set_J2">
+         <property name="maximum">
+          <number>3500</number>
+         </property>
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
