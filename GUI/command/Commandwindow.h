@@ -2,6 +2,10 @@
 #define COMMANDWINDOW_H
 
 #include <QMainWindow>
+#include <QWidget>
+#include <QLabel>
+#include <QLCDNumber>
+#include <QSlider>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class CommandWindow; }
@@ -13,6 +17,10 @@ class CommandWindow : public QMainWindow
 public:
     CommandWindow(QWidget *parent = nullptr);
     ~CommandWindow();
+public slots:
+    void sendJointPosition(int val);
+private slots:
+
 private:
     Ui::CommandWindow *ui;
 };
