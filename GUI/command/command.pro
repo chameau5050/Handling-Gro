@@ -14,7 +14,6 @@ SOURCES += \
     Commandwindow.cpp \
     Comm/Accumulator.cpp \
     Comm/DataFrame.cpp \
-    Comm/MessageInterpretor.cpp \
     test/TestAccumulator.cpp \
     test/TestApp.cpp \
     test/TestDataFrame.cpp \
