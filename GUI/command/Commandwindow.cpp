@@ -34,7 +34,7 @@ CommandWindow::~CommandWindow()
 
 void CommandWindow::connectSocket()
 {
-     socket->connectToHost("127.0.0.1",50000);
+    socket->connectToHost(ui->targetIp->text(),ui->targetPort->text().toInt());
 }
 
 void CommandWindow::readData()
@@ -90,77 +90,4 @@ void CommandWindow::sendJSon(QJsonDocument doc)
 
      qint64 x = socket->write(frame.toRawData(),frame.getLength());
 }
-
-
-/*
-MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
-{
-    ui->setupUi(this);
-    m_server = new QTcpServer(this);
-    Sendsock = new QTcpSocket(this);
-
-    QObject::connect(ui->StartServerButton, SIGNAL(pressed ()),this, SLOT(startServer()));
-    QObject::connect(ui->showRemotInfo, SIGNAL(pressed ()),this, SLOT(showRemoteInfo()));
-    QObject::connect(ui->connectSocket, SIGNAL(pressed ()),this, SLOT(connectSocket()));
-    QObject::connect(ui->sendMessage, SIGNAL(pressed ()),this, SLOT(sendMessage()));
-}
-
-void MainWindow::startServer()
-{
-    m_server->setMaxPendingConnections(2);
-    QList<QNetworkInterface> list = QNetworkInterface::allInterfaces();
-    //list.at(0).toIPv4Address()
-    QHostAddress add = QHostAddress("192.168.50.51");
-    QHostAddress::LocalHost;
-
-    m_server->listen(QHostAddress("192.168.0.112"),6565);
-    ui->messageLabel->setText(QHostInfo(1).hostName());
-    QObject::connect(m_server, SIGNAL(newConnection()),this, SLOT(SocketConnected()));
-}
-
-void MainWindow::SocketConnected()
-{
-    sock = m_server->nextPendingConnection();
-    QObject::connect(sock, SIGNAL(disconnected()),this, SLOT(SocketDisConnected()));
-    QObject::connect(sock, SIGNAL(readyRead()),this, SLOT(checkForData()));
-}
-
-void MainWindow::SocketDisConnected()
-{
-    delete sock;
-}
-
-void MainWindow::checkForData()
-{
-    qint64 bytes = sock->bytesAvailable();
-    if(bytes >0)
-    {
-        QString a =(sock->readAll());
-        ui->messageLabel->setText(a);
-    }
-}
-
-void MainWindow::showRemoteInfo()
-{
-    QString info ="";
-    info += "address: " + sock->peerAddress().toString();
-    info += "\nport: "    + QString::number(int(sock->peerPort()));
-    info += "\nname:" + sock->peerName();
-    ui->textWindow->setPlainText(info);
-}
-
-void MainWindow::connectSocket()
-{
-    QHostInfo().hostName();
-    Sendsock->connectToHost(ui->Ip->text(),6565);
-
-}
-
-void MainWindow::sendMessage()
-{
-    Sendsock->write("patate",7);
-}
-*/
 
