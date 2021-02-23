@@ -3,48 +3,27 @@ from Comm.ControlMessage import *
 
 
 class DriveManagerPython:
-    def __init__(self, controller):
-        # payload buffer
-        self.axis = []
+    def __init__(self, controller, message):
         # Message to send to controllers
-        self.axisMsg = MessageIO()
-        # Get the number of controllers
-        self.conSort = controller.sorted()
-        self.ctrlNumber = conSort[len(conSort)]
+        self.axisMsg = message
         # Indexes of joints controlled by controllers
-        self.jointIndex = []
-        # create array of arrays
-        for y in range(0, self.ctrlNumber-1):
-            self.jointIndex[y] = []
-        # create number of messages and controller index equal to number of controllers
-        for n in range(1, self.ctrlNumber):
-            for i in range(0, len(controller)):
-                if controller[i] == n:
-                    temp = i
-                    self.jointIndex[n].append(temp)
+        self.jointIndex = controller
+        # Message type
+        self.msgType = message.getType()
 
-    def moveAxis(self, msg):
-        readMessage = msg.readMessage(0)
-        # if the message is of type int
-        if readMessage.getType == 1:
-            #get the actual message
-            payload = readMessage.getPayload()
-            #store payload
-            for x in range(0, readMessage.getPayloadSize()):
-                self.axis[x] = payload[x]
-            # create messages for the different controllers
-            msgPayloadSend = []
-            for m in range(0, len(self.jointIndex)):
-                msgPayloadSend.clear()
-                jointBuffer = self.jointIndex[m]
-                for k in range(0, len(jointIndex)):
-                    tempIndex = jointBuffer[k]
-                    msgPayloadSend[k] = self.axis[tempIndex]
-                axisMessage = ControlMessage(len(jointBuffer), msgPayloadSend)
-                self.axisMsg.sendMessage(0, axisMessage)
-        # if the message is not of type int, do nothing
-        else:
-            return None
+    def moveAxis(self, ctrlmsg):
+        readPayload = ctrlmsg.getPayload()
+        # Create a dictionnary to store the axis with controller number as keys
+        controllerDict = {}
+        for x in range(0, len(self.jointIndex)-1):
+            temp[x] = self.jointIndex[x]
+            if temp[x] in controllerDict is None:
+                controllerDict[temp[x]] = [readPayload[x]]
+            else:
+                controllerDict[temp[x]].append(readPayload[temp[x]])
+        for y in range(0, len(temp)-1):
+            newMessage = ControlMessage(self.msgType, controllerDict[temp[y]])
+            self.axisMsg.sendMessage(y, newMessage)
 
 
 
