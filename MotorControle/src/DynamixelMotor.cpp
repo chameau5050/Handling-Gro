@@ -13,7 +13,7 @@ DynamixelMotor::DynamixelMotor(uint8_t id)
     
 }
 
-DynamixelMotor~DynamixelMotor
+DynamixelMotor::~DynamixelMotor
 {
 
 }
