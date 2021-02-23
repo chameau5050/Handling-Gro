@@ -9,10 +9,11 @@ CommandWindow::CommandWindow(QWidget *parent)
     , ui(new Ui::CommandWindow)
 {
     ui->setupUi(this);
-    QObject::connect(ui->set_J1,SIGNAL(valueChanged(int)),this,SLOT(sendJointPosition(int)));
+    /*QObject::connect(ui->set_J1,SIGNAL(valueChanged(int)),this,SLOT(sendJointPosition(int)));
     QObject::connect(ui->set_J2,SIGNAL(valueChanged(int)),this,SLOT(sendJointPosition(int)));
     QObject::connect(ui->set_J3,SIGNAL(valueChanged(int)),this,SLOT(sendJointPosition(int)));
-    QObject::connect(ui->set_J4,SIGNAL(valueChanged(int)),this,SLOT(sendJointPosition(int)));
+    QObject::connect(ui->set_J4,SIGNAL(valueChanged(int)),this,SLOT(sendJointPosition(int)));*/
+    QObject::connect(ui->sendCommend,SIGNAL(pressed ()),this, SLOT(sendJointPosition()));
     QObject::connect(ui->ConnectCommand, SIGNAL(pressed ()),this, SLOT(connectSocket()));
 
     socket = new QTcpSocket();
@@ -50,7 +51,7 @@ void CommandWindow::readData()
 }
 
 
-void CommandWindow::sendJointPosition(int val)
+void CommandWindow::sendJointPosition()
 {
     int message[4];
     message[0] = ui->set_J1->value();
@@ -58,7 +59,7 @@ void CommandWindow::sendJointPosition(int val)
     message[2] = ui->set_J3->value();
     message[3] = ui->set_J4->value();
 
-    ControlMessage msg(1,4,message);
+    ControlMessage msg(7,4,message);
     sendControlMessage(&msg);
 }
 
