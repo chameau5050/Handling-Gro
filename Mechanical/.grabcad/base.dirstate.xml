@@ -1,0 +1,637 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GCSCMDirState xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <UpdateTime>2021-02-23T23:26:22.3735910+00:00</UpdateTime>
+  <Standins>
+    <GCSCMStandin>
+      <FileName>Electronique\OpenCR.SLDPRT</FileName>
+      <SHA1>FD0F883F1FDCD09E948A7551AF1D587FD8A811F1</SHA1>
+      <FileSize>258291</FileSize>
+      <ProEVersionedName />
+      <LastUpdated>0001-01-01T00:00:00.0000000+00:00</LastUpdated>
+    </GCSCMStandin>
+    <GCSCMStandin>
+      <FileName>Electronique\Rpi3Bplus.SLDPRT</FileName>
+      <SHA1>9BED92800D33B6A7A78571B18BD338A9EABC7DB2</SHA1>
+      <FileSize>2843852</FileSize>
+      <ProEVersionedName />
+      <LastUpdated>0001-01-01T00:00:00.0000000+00:00</LastUpdated>
+    </GCSCMStandin>
+    <GCSCMStandin>
+      <FileName>Electronique\SG90 plastic Horn.SLDPRT</FileName>
+      <SHA1>1A3E48AEEA25D838367DF679F1FD16E85D6C5464</SHA1>
+      <FileSize>101190</FileSize>
+      <ProEVersionedName />
+      <LastUpdated>0001-01-01T00:00:00.0000000+00:00</LastUpdated>
+    </GCSCMStandin>
+    <GCSCMStandin>
+      <FileName>Electronique\Tower Pro 9g Micro Servo SG90.SLDASM</FileName>
+      <SHA1>57BE0BC4E812A5495F27038605920619E43F5C07</SHA1>
+      <FileSize>126941</FileSize>
+      <ProEVersionedName />
+      <LastUpdated>0001-01-01T00:00:00.0000000+00:00</LastUpdated>
+    </GCSCMStandin>
+    <GCSCMStandin>
+      <FileName>Electronique\Tower Pro 9g Micro Servo SG90.SLDPRT</FileName>
+      <SHA1>F72F1E19DD62DD7C7F6F554F0D95EFA5F0CCB014</SHA1>
+      <FileSize>218508</FileSize>
+      <ProEVersionedName />
+      <LastUpdated>0001-01-01T00:00:00.0000000+00:00</LastUpdated>
+    </GCSCMStandin>
+    <GCSCMStandin>
+      <FileName>Electronique\x-430_idle.stp</FileName>
+      <SHA1>B868771A90DC3472012A930DD18B2FB502E0D86D</SHA1>
+      <FileSize>601998</FileSize>
+      <ProEVersionedName />
+      <LastUpdated>0001-01-01T00:00:00.0000000+00:00</LastUpdated>
+    </GCSCMStandin>
+    <GCSCMStandin>
+      <FileName>Electronique\XL430-W250.SLDPRT</FileName>
+      <SHA1>A9A460FCEC10F66AC4A7C0AA82F73A9AEA8FCF9A</SHA1>
+      <FileSize>814320</FileSize>
+      <ProEVersionedName />
+      <LastUpdated>0001-01-01T00:00:00.0000000+00:00</LastUpdated>
+    </GCSCMStandin>
+    <GCSCMStandin>
+      <FileName>Electronique\XM430-W350.SLDPRT</FileName>
+      <SHA1>F1D176CC42D1423CA76217A180BD421F0E06A80B</SHA1>
+      <FileSize>631830</FileSize>
+      <ProEVersionedName />
+      <LastUpdated>0001-01-01T00:00:00.0000000+00:00</LastUpdated>
+    </GCSCMStandin>
+    <GCSCMStandin>
+      <FileName>Main\545548 assembly.STEP</FileName>
+      <SHA1>A5486C844D4508DDB54A55B14FE39430CD25A8AC</SHA1>
+      <FileSize>2722605</FileSize>
+      <ProEVersionedName />
+      <LastUpdated>0001-01-01T00:00:00.0000000+00:00</LastUpdated>
+    </GCSCMStandin>
+    <GCSCMStandin>
+      <FileName>Main\545548_hub.SLDASM</FileName>
+      <SHA1>99E51E0D89F91C672DAADAB820CA58E76D726E8F</SHA1>
+      <FileSize>1520915</FileSize>
+      <ProEVersionedName />
+      <LastUpdated>0001-01-01T00:00:00.0000000+00:00</LastUpdated>
+    </GCSCMStandin>
+    <GCSCMStandin>
+      <FileName>Main\Ass_Pouce.SLDASM</FileName>
+      <SHA1>B763B23C7B029AB7A9B8CC2EB907217D35353495</SHA1>
+      <FileSize>109411</FileSize>
+      <ProEVersionedName />
+      <LastUpdated>0001-01-01T00:00:00.0000000+00:00</LastUpdated>
+    </GCSCMStandin>
+    <GCSCMStandin>
+      <FileName>Main\Coupler_Doigt.SLDPRT</FileName>
+      <SHA1>4F5ADE69212833C04841D79225924BD83DAF107E</SHA1>
+      <FileSize>230952</FileSize>
+      <ProEVersionedName />
+      <LastUpdated>0001-01-01T00:00:00.0000000+00:00</LastUpdated>
+    </GCSCMStandin>
+    <GCSCMStandin>
+      <FileName>Main\M2-12mm_91292A834_TYPE 18-8 SS SOCKET HEAD CAP SCREW.SLDPRT</FileName>
+      <SHA1>D69B79B19B834CC7A4647B3F09327F63E0CE912F</SHA1>
+      <FileSize>910324</FileSize>
+      <ProEVersionedName />
+      <LastUpdated>0001-01-01T00:00:00.0000000+00:00</LastUpdated>
+    </GCSCMStandin>
+    <GCSCMStandin>
+      <FileName>Main\M2-16mm_91292A002_TYPE 18-8 SS SOCKET HEAD CAP SCREW.SLDPRT</FileName>
+      <SHA1>DB8C36D6326F42E877F8950AAC409E8CB9B7A155</SHA1>
+      <FileSize>1013121</FileSize>
+      <ProEVersionedName />
+      <LastUpdated>0001-01-01T00:00:00.0000000+00:00</LastUpdated>
+    </GCSCMStandin>
+    <GCSCMStandin>
+      <FileName>Main\M2-4mm_94209A313_THREAD-FORMING SCREW FOR SOFT METAL.SLDPRT</FileName>
+      <SHA1>DEEEA0A40ED33EDA312E30D9A066B02F62CAF541</SHA1>
+      <FileSize>841566</FileSize>
+      <ProEVersionedName />
+      <LastUpdated>0001-01-01T00:00:00.0000000+00:00</LastUpdated>
+    </GCSCMStandin>
+    <GCSCMStandin>
+      <FileName>Main\M2-8mm_91292A832_TYPE 18-8 SS SOCKET HEAD CAP SCREW.SLDPRT</FileName>
+      <SHA1>668AB7E55D2D61120B6DE62CE50F70D6DA64D302</SHA1>
+      <FileSize>684487</FileSize>
+      <ProEVersionedName />
+      <LastUpdated>0001-01-01T00:00:00.0000000+00:00</LastUpdated>
+    </GCSCMStandin>
+    <GCSCMStandin>
+      <FileName>Main\M2_NUT_90710A020_TYPE 18-8 SS THIN HEX NUT - DIN 439B.SLDPRT</FileName>
+      <SHA1>B10AC8F92B8BCFBAC904C2632B2745EFC09E5D13</SHA1>
+      <FileSize>259918</FileSize>
+      <ProEVersionedName />
+      <LastUpdated>0001-01-01T00:00:00.0000000+00:00</LastUpdated>
+    </GCSCMStandin>
+    <GCSCMStandin>
+      <FileName>Main\M3-12mm_91292A114_TYPE 18-8 SS SOCKET HEAD CAP SCREW.SLDPRT</FileName>
+      <SHA1>B3410B37C335B30E133D14E482E43CBF5415348A</SHA1>
+      <FileSize>791960</FileSize>
+      <ProEVersionedName />
+      <LastUpdated>0001-01-01T00:00:00.0000000+00:00</LastUpdated>
+    </GCSCMStandin>
+    <GCSCMStandin>
+      <FileName>Main\Main.SLDASM</FileName>
+      <SHA1>DBEF8BB0ED30A87C1549B252D1FFC0B7C04F0A0D</SHA1>
+      <FileSize>4597617</FileSize>
+      <ProEVersionedName />
+      <LastUpdated>0001-01-01T00:00:00.0000000+00:00</LastUpdated>
+    </GCSCMStandin>
+    <GCSCMStandin>
+      <FileName>Main\MouvementPouce.SLDPRT</FileName>
+      <SHA1>D06D04EA480BB1C18F1A8B6656E5866D65DA0FDC</SHA1>
+      <FileSize>174163</FileSize>
+      <ProEVersionedName />
+      <LastUpdated>0001-01-01T00:00:00.0000000+00:00</LastUpdated>
+    </GCSCMStandin>
+    <GCSCMStandin>
+      <FileName>Main\Paume.SLDPRT</FileName>
+      <SHA1>E5A9444A99D6E3107424F2498878AAF10B91321C</SHA1>
+      <FileSize>378452</FileSize>
+      <ProEVersionedName />
+      <LastUpdated>0001-01-01T00:00:00.0000000+00:00</LastUpdated>
+    </GCSCMStandin>
+    <GCSCMStandin>
+      <FileName>Main\Pouce01.sldprt</FileName>
+      <SHA1>0A266E8FB760FC7F8C853F54E338A0A13A505959</SHA1>
+      <FileSize>94065</FileSize>
+      <ProEVersionedName />
+      <LastUpdated>0001-01-01T00:00:00.0000000+00:00</LastUpdated>
+    </GCSCMStandin>
+    <GCSCMStandin>
+      <FileName>Main\Pouce02.sldprt</FileName>
+      <SHA1>59780A450382674E874EA010AAE5A6C5145BF7F0</SHA1>
+      <FileSize>80809</FileSize>
+      <ProEVersionedName />
+      <LastUpdated>0001-01-01T00:00:00.0000000+00:00</LastUpdated>
+    </GCSCMStandin>
+    <GCSCMStandin>
+      <FileName>Main\Pouce03.sldprt</FileName>
+      <SHA1>D4F5D10C7017315372FCEB4DDEB862F4E3F3504A</SHA1>
+      <FileSize>89878</FileSize>
+      <ProEVersionedName />
+      <LastUpdated>0001-01-01T00:00:00.0000000+00:00</LastUpdated>
+    </GCSCMStandin>
+    <GCSCMStandin>
+      <FileName>Main\Pouce04.sldprt</FileName>
+      <SHA1>FC67B123E1F81419F50AD72B31EECAA4B3E26A08</SHA1>
+      <FileSize>66937</FileSize>
+      <ProEVersionedName />
+      <LastUpdated>0001-01-01T00:00:00.0000000+00:00</LastUpdated>
+    </GCSCMStandin>
+    <GCSCMStandin>
+      <FileName>Main\Pouce05.sldprt</FileName>
+      <SHA1>4D1AA652546DB0DEC7E1FA014B5127EB55660897</SHA1>
+      <FileSize>70273</FileSize>
+      <ProEVersionedName />
+      <LastUpdated>0001-01-01T00:00:00.0000000+00:00</LastUpdated>
+    </GCSCMStandin>
+    <GCSCMStandin>
+      <FileName>Main\Snap_Tige_Majeur.SLDPRT</FileName>
+      <SHA1>22DD42BFA68FCA13D599E887DCDB89BC68C012DA</SHA1>
+      <FileSize>261146</FileSize>
+      <ProEVersionedName />
+      <LastUpdated>0001-01-01T00:00:00.0000000+00:00</LastUpdated>
+    </GCSCMStandin>
+    <GCSCMStandin>
+      <FileName>Main\Tower Pro 9g Micro Servo SG90.SLDASM</FileName>
+      <SHA1>3B19B43F71224BBD9EF7C98CC51ECB9218E3DEE9</SHA1>
+      <FileSize>563897</FileSize>
+      <ProEVersionedName />
+      <LastUpdated>0001-01-01T00:00:00.0000000+00:00</LastUpdated>
+    </GCSCMStandin>
+    <GCSCMStandin>
+      <FileName>Main\Tower Pro 9g Micro Servo SG90.SLDPRT</FileName>
+      <SHA1>962BFE0CD04E7F052335BE7497A90062447F4387</SHA1>
+      <FileSize>221127</FileSize>
+      <ProEVersionedName />
+      <LastUpdated>0001-01-01T00:00:00.0000000+00:00</LastUpdated>
+    </GCSCMStandin>
+    <GCSCMStandin>
+      <FileName>Quincaillerie\40x40x10 DC Fan.SLDPRT</FileName>
+      <SHA1>DEFD7640DDA45989433255ECE073F28D0EF38738</SHA1>
+      <FileSize>786773</FileSize>
+      <ProEVersionedName />
+      <LastUpdated>0001-01-01T00:00:00.0000000+00:00</LastUpdated>
+    </GCSCMStandin>
+    <GCSCMStandin>
+      <FileName>Quincaillerie\535198.SLDPRT</FileName>
+      <SHA1>770BEC4E297000E32A84DBA6D7CD723DD0C2FBE9</SHA1>
+      <FileSize>252923</FileSize>
+      <ProEVersionedName />
+      <LastUpdated>0001-01-01T00:00:00.0000000+00:00</LastUpdated>
+    </GCSCMStandin>
+    <GCSCMStandin>
+      <FileName>Quincaillerie\545548 assembly.STEP</FileName>
+      <SHA1>A5486C844D4508DDB54A55B14FE39430CD25A8AC</SHA1>
+      <FileSize>2722605</FileSize>
+      <ProEVersionedName />
+      <LastUpdated>0001-01-01T00:00:00.0000000+00:00</LastUpdated>
+    </GCSCMStandin>
+    <GCSCMStandin>
+      <FileName>Quincaillerie\545548_hub.SLDASM</FileName>
+      <SHA1>4E502589E81105163DDE739C719234678D1F9B13</SHA1>
+      <FileSize>1475144</FileSize>
+      <ProEVersionedName />
+      <LastUpdated>0001-01-01T00:00:00.0000000+00:00</LastUpdated>
+    </GCSCMStandin>
+    <GCSCMStandin>
+      <FileName>Quincaillerie\6432K12.SLDPRT</FileName>
+      <SHA1>9727EF644A57D3D5CF6A84DC4F4E5E3372331F26</SHA1>
+      <FileSize>76342</FileSize>
+      <ProEVersionedName />
+      <LastUpdated>0001-01-01T00:00:00.0000000+00:00</LastUpdated>
+    </GCSCMStandin>
+    <GCSCMStandin>
+      <FileName>Quincaillerie\bearing.sldprt</FileName>
+      <SHA1>0A96D85CCBD7406BB8CF59B5003068656F67CE29</SHA1>
+      <FileSize>1144435</FileSize>
+      <ProEVersionedName />
+      <LastUpdated>0001-01-01T00:00:00.0000000+00:00</LastUpdated>
+    </GCSCMStandin>
+    <GCSCMStandin>
+      <FileName>Quincaillerie\M2-12mm_91292A834_TYPE 18-8 SS SOCKET HEAD CAP SCREW.SLDPRT</FileName>
+      <SHA1>8408D1AE58E82D56764AFB376547500311C27FCD</SHA1>
+      <FileSize>909048</FileSize>
+      <ProEVersionedName />
+      <LastUpdated>0001-01-01T00:00:00.0000000+00:00</LastUpdated>
+    </GCSCMStandin>
+    <GCSCMStandin>
+      <FileName>Quincaillerie\M2-16mm_91292A002_TYPE 18-8 SS SOCKET HEAD CAP SCREW.SLDPRT</FileName>
+      <SHA1>F5543334C0E72D042EE2D4F81EDDED38C25AE64C</SHA1>
+      <FileSize>1012712</FileSize>
+      <ProEVersionedName />
+      <LastUpdated>0001-01-01T00:00:00.0000000+00:00</LastUpdated>
+    </GCSCMStandin>
+    <GCSCMStandin>
+      <FileName>Quincaillerie\M2-4mm_94209A313_THREAD-FORMING SCREW FOR SOFT METAL.SLDPRT</FileName>
+      <SHA1>F5F6C16D342DD4ADA85DA8ED0501F03C0105DA1A</SHA1>
+      <FileSize>840938</FileSize>
+      <ProEVersionedName />
+      <LastUpdated>0001-01-01T00:00:00.0000000+00:00</LastUpdated>
+    </GCSCMStandin>
+    <GCSCMStandin>
+      <FileName>Quincaillerie\M2-8mm_91292A832_TYPE 18-8 SS SOCKET HEAD CAP SCREW.SLDPRT</FileName>
+      <SHA1>F90760CAF9F27294C6ABDCF9F90D3E763C4D377B</SHA1>
+      <FileSize>683172</FileSize>
+      <ProEVersionedName />
+      <LastUpdated>0001-01-01T00:00:00.0000000+00:00</LastUpdated>
+    </GCSCMStandin>
+    <GCSCMStandin>
+      <FileName>Quincaillerie\M2-NUT_90710A020_TYPE 18-8 SS THIN HEX NUT - DIN 439B.SLDPRT</FileName>
+      <SHA1>E2A4981BF9D01C90F8D34ADC338D47A977740F83</SHA1>
+      <FileSize>258864</FileSize>
+      <ProEVersionedName />
+      <LastUpdated>0001-01-01T00:00:00.0000000+00:00</LastUpdated>
+    </GCSCMStandin>
+    <GCSCMStandin>
+      <FileName>Quincaillerie\M3-12mm_91292A114_TYPE 18-8 SS SOCKET HEAD CAP SCREW.SLDPRT</FileName>
+      <SHA1>E9437DBDFE583BA03761891E6687A33D8198DF4B</SHA1>
+      <FileSize>790561</FileSize>
+      <ProEVersionedName />
+      <LastUpdated>0001-01-01T00:00:00.0000000+00:00</LastUpdated>
+    </GCSCMStandin>
+    <GCSCMStandin>
+      <FileName>Quincaillerie\M3-16mm_91292A115_TYPE 18-8 SS SOCKET HEAD CAP SCREW.SLDPRT</FileName>
+      <SHA1>978EE0B9B134F1A6760DB95566FD89595727BC75</SHA1>
+      <FileSize>916609</FileSize>
+      <ProEVersionedName />
+      <LastUpdated>0001-01-01T00:00:00.0000000+00:00</LastUpdated>
+    </GCSCMStandin>
+    <GCSCMStandin>
+      <FileName>Quincaillerie\M3-20mm_91292A123_TYPE 18-8 SS SOCKET HEAD CAP SCREW.SLDPRT</FileName>
+      <SHA1>B2F7C542B1D4D6F3ABA939622BC5BF669685F1F4</SHA1>
+      <FileSize>1070842</FileSize>
+      <ProEVersionedName />
+      <LastUpdated>0001-01-01T00:00:00.0000000+00:00</LastUpdated>
+    </GCSCMStandin>
+    <GCSCMStandin>
+      <FileName>Quincaillerie\M3-8mm_91292A112_TYPE 18-8 SS SOCKET HEAD CAP SCREW.SLDPRT</FileName>
+      <SHA1>F748B659D368E81B252900E7154C41276C6761CE</SHA1>
+      <FileSize>626497</FileSize>
+      <ProEVersionedName />
+      <LastUpdated>0001-01-01T00:00:00.0000000+00:00</LastUpdated>
+    </GCSCMStandin>
+    <GCSCMStandin>
+      <FileName>Quincaillerie\M3-NUT_90710A030_TYPE 18-8 SS THIN HEX NUT - DIN 439B.SLDPRT</FileName>
+      <SHA1>2C0CED3D756224B2200187FBE340772B5C132C60</SHA1>
+      <FileSize>285792</FileSize>
+      <ProEVersionedName />
+      <LastUpdated>0001-01-01T00:00:00.0000000+00:00</LastUpdated>
+    </GCSCMStandin>
+    <GCSCMStandin>
+      <FileName>Quincaillerie\M4-16mm_91292A118_TYPE 18-8 SS SOCKET HEAD CAP SCREW.SLDPRT</FileName>
+      <SHA1>E9966D57ED42F46356F56DDD6E560D9FB043CE5C</SHA1>
+      <FileSize>766391</FileSize>
+      <ProEVersionedName />
+      <LastUpdated>0001-01-01T00:00:00.0000000+00:00</LastUpdated>
+    </GCSCMStandin>
+    <GCSCMStandin>
+      <FileName>Quincaillerie\M4-8mm_91292A108_TYPE 18-8 SS SOCKET HEAD CAP SCREW.SLDPRT</FileName>
+      <SHA1>AC85CA3AD47876A2131E7EEE35D0938C9B14DBF0</SHA1>
+      <FileSize>524110</FileSize>
+      <ProEVersionedName />
+      <LastUpdated>0001-01-01T00:00:00.0000000+00:00</LastUpdated>
+    </GCSCMStandin>
+    <GCSCMStandin>
+      <FileName>Quincaillerie\M4-NUT_90710A035_TYPE 18-8 SS THIN HEX NUT - DIN 439B.SLDPRT</FileName>
+      <SHA1>9CC7B11EE5CCD14399D743FB816BC8AA86E07B10</SHA1>
+      <FileSize>271449</FileSize>
+      <ProEVersionedName />
+      <LastUpdated>0001-01-01T00:00:00.0000000+00:00</LastUpdated>
+    </GCSCMStandin>
+    <GCSCMStandin>
+      <FileName>Quincaillerie\shaft.SLDPRT</FileName>
+      <SHA1>56838252755AAEC7B2DBA9FEC8727685C23262B9</SHA1>
+      <FileSize>106515</FileSize>
+      <ProEVersionedName />
+      <LastUpdated>0001-01-01T00:00:00.0000000+00:00</LastUpdated>
+    </GCSCMStandin>
+    <GCSCMStandin>
+      <FileName>Segment_1\Coupler_Joint2.SLDPRT</FileName>
+      <SHA1>F6AAD85DDBB939414675E8819DF68E8A9845D50D</SHA1>
+      <FileSize>212448</FileSize>
+      <ProEVersionedName />
+      <LastUpdated>0001-01-01T00:00:00.0000000+00:00</LastUpdated>
+    </GCSCMStandin>
+    <GCSCMStandin>
+      <FileName>Segment_1\Coupler_MoteurV2.SLDPRT</FileName>
+      <SHA1>5357EF3EEF524FA45E899E4A389575F690E16B25</SHA1>
+      <FileSize>127438</FileSize>
+      <ProEVersionedName />
+      <LastUpdated>0001-01-01T00:00:00.0000000+00:00</LastUpdated>
+    </GCSCMStandin>
+    <GCSCMStandin>
+      <FileName>Segment_1\Segment_1.SLDASM</FileName>
+      <SHA1>50778F22DD924AB2528EEDC823FFCB1D9CD7B6C9</SHA1>
+      <FileSize>1510840</FileSize>
+      <ProEVersionedName />
+      <LastUpdated>0001-01-01T00:00:00.0000000+00:00</LastUpdated>
+    </GCSCMStandin>
+    <GCSCMStandin>
+      <FileName>Segment_1\Segment_Vertical.SLDPRT</FileName>
+      <SHA1>5BC48F10C91DB09C1F65CF6C90C3FA1F34A66151</SHA1>
+      <FileSize>999851</FileSize>
+      <ProEVersionedName />
+      <LastUpdated>0001-01-01T00:00:00.0000000+00:00</LastUpdated>
+    </GCSCMStandin>
+    <GCSCMStandin>
+      <FileName>Segment_2\Bras_Horizontal.SLDPRT</FileName>
+      <SHA1>0E5EFECD0C7250EE2739E641DCC19C721C2A2D93</SHA1>
+      <FileSize>637297</FileSize>
+      <ProEVersionedName />
+      <LastUpdated>0001-01-01T00:00:00.0000000+00:00</LastUpdated>
+    </GCSCMStandin>
+    <GCSCMStandin>
+      <FileName>Segment_2\Coupler_Joint3.SLDPRT</FileName>
+      <SHA1>C893079946B80F499A261F36FECA64FA95D652FC</SHA1>
+      <FileSize>139423</FileSize>
+      <ProEVersionedName />
+      <LastUpdated>0001-01-01T00:00:00.0000000+00:00</LastUpdated>
+    </GCSCMStandin>
+    <GCSCMStandin>
+      <FileName>Segment_2\Limit_Switch.SLDPRT</FileName>
+      <SHA1>8D5ABD39046742D9878563D53F64C269D2200047</SHA1>
+      <FileSize>179706</FileSize>
+      <ProEVersionedName />
+      <LastUpdated>0001-01-01T00:00:00.0000000+00:00</LastUpdated>
+    </GCSCMStandin>
+    <GCSCMStandin>
+      <FileName>Segment_2\Moyeu.sldprt</FileName>
+      <SHA1>E42A647C50A52FD602DCE0C79DB7FD49DE7743C8</SHA1>
+      <FileSize>217222</FileSize>
+      <ProEVersionedName />
+      <LastUpdated>0001-01-01T00:00:00.0000000+00:00</LastUpdated>
+    </GCSCMStandin>
+    <GCSCMStandin>
+      <FileName>Segment_2\Pivot.SLDPRT</FileName>
+      <SHA1>244F9CBE9BFF7C76460DBD1E34343A0E9BAF5C10</SHA1>
+      <FileSize>437871</FileSize>
+      <ProEVersionedName />
+      <LastUpdated>0001-01-01T00:00:00.0000000+00:00</LastUpdated>
+    </GCSCMStandin>
+    <GCSCMStandin>
+      <FileName>Segment_2\Segment_2.SLDASM</FileName>
+      <SHA1>3BFD03DD55642D71198779303D2B2439897E0B9D</SHA1>
+      <FileSize>3515283</FileSize>
+      <ProEVersionedName />
+      <LastUpdated>0001-01-01T00:00:00.0000000+00:00</LastUpdated>
+    </GCSCMStandin>
+    <GCSCMStandin>
+      <FileName>Socle\Base_Controler.SLDPRT</FileName>
+      <SHA1>8FD608A8221517F80A1F271E7B48738A2547093F</SHA1>
+      <FileSize>369084</FileSize>
+      <ProEVersionedName />
+      <LastUpdated>0001-01-01T00:00:00.0000000+00:00</LastUpdated>
+    </GCSCMStandin>
+    <GCSCMStandin>
+      <FileName>Socle\Base_Robot.SLDPRT</FileName>
+      <SHA1>50A44526B24C51BF82CB2FD03F62F27DADC85770</SHA1>
+      <FileSize>1918901</FileSize>
+      <ProEVersionedName />
+      <LastUpdated>0001-01-01T00:00:00.0000000+00:00</LastUpdated>
+    </GCSCMStandin>
+    <GCSCMStandin>
+      <FileName>Socle\Coupler_Joint1.SLDPRT</FileName>
+      <SHA1>99C198766590E41C207B23F04A9E922369461E37</SHA1>
+      <FileSize>137382</FileSize>
+      <ProEVersionedName />
+      <LastUpdated>0001-01-01T00:00:00.0000000+00:00</LastUpdated>
+    </GCSCMStandin>
+    <GCSCMStandin>
+      <FileName>Socle\Coupler_MoteurV2.SLDPRT</FileName>
+      <SHA1>D99DAB46854E32717B1FDFADC86DC3ADED8E51A0</SHA1>
+      <FileSize>144659</FileSize>
+      <ProEVersionedName />
+      <LastUpdated>0001-01-01T00:00:00.0000000+00:00</LastUpdated>
+    </GCSCMStandin>
+    <GCSCMStandin>
+      <FileName>Socle\Cover_Controler.SLDPRT</FileName>
+      <SHA1>28EDB03EE3B9C443165EC3D3BB82B8208AA54B4F</SHA1>
+      <FileSize>215570</FileSize>
+      <ProEVersionedName />
+      <LastUpdated>0001-01-01T00:00:00.0000000+00:00</LastUpdated>
+    </GCSCMStandin>
+    <GCSCMStandin>
+      <FileName>Socle\Socle.SLDASM</FileName>
+      <SHA1>4A78190EDDCEE4196D7CFF745B4BBCCEE4D2A515</SHA1>
+      <FileSize>6919517</FileSize>
+      <ProEVersionedName />
+      <LastUpdated>0001-01-01T00:00:00.0000000+00:00</LastUpdated>
+    </GCSCMStandin>
+    <GCSCMStandin>
+      <FileName>Socle\Support_Bearing_V4.SLDPRT</FileName>
+      <SHA1>685B954BFF90712DD6492FD0B268D7BFB0CA196B</SHA1>
+      <FileSize>513663</FileSize>
+      <ProEVersionedName />
+      <LastUpdated>0001-01-01T00:00:00.0000000+00:00</LastUpdated>
+    </GCSCMStandin>
+    <GCSCMStandin>
+      <FileName>BroBot.SLDASM</FileName>
+      <SHA1>174F2D620660AF2FE95D7687E17D5A687C94FC1E</SHA1>
+      <FileSize>11535933</FileSize>
+      <ProEVersionedName />
+      <LastUpdated>0001-01-01T00:00:00.0000000+00:00</LastUpdated>
+    </GCSCMStandin>
+    <GCSCMStandin>
+      <FileName>base_axe_lineaire\READ_ME.txt</FileName>
+      <SHA1>95338E05A69FBC6D64F2FC5A9D4A67A455000269</SHA1>
+      <FileSize>166</FileSize>
+      <ProEVersionedName />
+      <LastUpdated>0001-01-01T00:00:00.0000000+00:00</LastUpdated>
+    </GCSCMStandin>
+    <GCSCMStandin>
+      <FileName>Joint_2_et_3\READ_ME.txt</FileName>
+      <SHA1>6917F041C3BE836090F7A851C1FFF760EE8A8943</SHA1>
+      <FileSize>194</FileSize>
+      <ProEVersionedName />
+      <LastUpdated>0001-01-01T00:00:00.0000000+00:00</LastUpdated>
+    </GCSCMStandin>
+    <GCSCMStandin>
+      <FileName>tendeur_de_courroie\READ_ME.txt</FileName>
+      <SHA1>8261F0A2227C592671BC4D6A69068D7EAF35CDF6</SHA1>
+      <FileSize>52</FileSize>
+      <ProEVersionedName />
+      <LastUpdated>0001-01-01T00:00:00.0000000+00:00</LastUpdated>
+    </GCSCMStandin>
+    <GCSCMStandin>
+      <FileName>base_axe_lineaire\Base_Robot_modif.SLDPRT</FileName>
+      <SHA1>C0A35A40EAA3486AF38C7C83F855C97FA6285065</SHA1>
+      <FileSize>2064376</FileSize>
+      <ProEVersionedName />
+      <LastUpdated>0001-01-01T00:00:00.0000000+00:00</LastUpdated>
+    </GCSCMStandin>
+    <GCSCMStandin>
+      <FileName>base_axe_lineaire\XL430-W250.SLDPRT</FileName>
+      <SHA1>352C506DD9BA0F4BD4B1F430D8310EA4599D16D7</SHA1>
+      <FileSize>834503</FileSize>
+      <ProEVersionedName />
+      <LastUpdated>0001-01-01T00:00:00.0000000+00:00</LastUpdated>
+    </GCSCMStandin>
+    <GCSCMStandin>
+      <FileName>base_axe_lineaire\bearing_lineaire.SLDPRT</FileName>
+      <SHA1>E2E1712B2EAA13E8A2D389130CE2294D0464D918</SHA1>
+      <FileSize>108415</FileSize>
+      <ProEVersionedName />
+      <LastUpdated>0001-01-01T00:00:00.0000000+00:00</LastUpdated>
+    </GCSCMStandin>
+    <GCSCMStandin>
+      <FileName>base_axe_lineaire\moteuretsupport.SLDASM</FileName>
+      <SHA1>41835E5CE38AFBF2A6FE0E7FE8E7E7B7CA3A08C2</SHA1>
+      <FileSize>413613</FileSize>
+      <ProEVersionedName />
+      <LastUpdated>0001-01-01T00:00:00.0000000+00:00</LastUpdated>
+    </GCSCMStandin>
+    <GCSCMStandin>
+      <FileName>base_axe_lineaire\rail_cylindre.SLDPRT</FileName>
+      <SHA1>0B77AB08D4349828CCE9D959811D2F46DBC13923</SHA1>
+      <FileSize>40144</FileSize>
+      <ProEVersionedName />
+      <LastUpdated>0001-01-01T00:00:00.0000000+00:00</LastUpdated>
+    </GCSCMStandin>
+    <GCSCMStandin>
+      <FileName>base_axe_lineaire\support moteur.SLDPRT</FileName>
+      <SHA1>3A46E1B6CFBAA9F88AFA4B803EB72FF0984D0A24</SHA1>
+      <FileSize>199212</FileSize>
+      <ProEVersionedName />
+      <LastUpdated>0001-01-01T00:00:00.0000000+00:00</LastUpdated>
+    </GCSCMStandin>
+    <GCSCMStandin>
+      <FileName>base_axe_lineaire\support_rail.SLDPRT</FileName>
+      <SHA1>C201D9D2B41565B6EBFE8C2F64E108ABC1F3F59E</SHA1>
+      <FileSize>98019</FileSize>
+      <ProEVersionedName />
+      <LastUpdated>0001-01-01T00:00:00.0000000+00:00</LastUpdated>
+    </GCSCMStandin>
+    <GCSCMStandin>
+      <FileName>base_axe_lineaire\Coupler_poulie.SLDPRT</FileName>
+      <SHA1>FB01EF862A237C82F6D6EBE6CB1B55078D8D2493</SHA1>
+      <FileSize>112096</FileSize>
+      <ProEVersionedName />
+      <LastUpdated>0001-01-01T00:00:00.0000000+00:00</LastUpdated>
+    </GCSCMStandin>
+    <GCSCMStandin>
+      <FileName>base_axe_lineaire\poulie.SLDPRT</FileName>
+      <SHA1>C03D351D931B99489A10D2911F894B7A0F7F83F4</SHA1>
+      <FileSize>89006</FileSize>
+      <ProEVersionedName />
+      <LastUpdated>0001-01-01T00:00:00.0000000+00:00</LastUpdated>
+    </GCSCMStandin>
+    <GCSCMStandin>
+      <FileName>tendeur_de_courroie\Tendeur ass.SLDASM</FileName>
+      <SHA1>969BDE33ACD65BCB0E50F7A131EEB362488BA4BA</SHA1>
+      <FileSize>77704</FileSize>
+      <ProEVersionedName />
+      <LastUpdated>0001-01-01T00:00:00.0000000+00:00</LastUpdated>
+    </GCSCMStandin>
+    <GCSCMStandin>
+      <FileName>tendeur_de_courroie\Tendeur p2.SLDPRT</FileName>
+      <SHA1>066193FD7D62A4A3E808E8BE66EA5D8F1EA2A766</SHA1>
+      <FileSize>90340</FileSize>
+      <ProEVersionedName />
+      <LastUpdated>0001-01-01T00:00:00.0000000+00:00</LastUpdated>
+    </GCSCMStandin>
+    <GCSCMStandin>
+      <FileName>tendeur_de_courroie\Tendeur.SLDPRT</FileName>
+      <SHA1>D89E41DB2B0FAE75876B8CCB016C5BE9D619E749</SHA1>
+      <FileSize>109543</FileSize>
+      <ProEVersionedName />
+      <LastUpdated>0001-01-01T00:00:00.0000000+00:00</LastUpdated>
+    </GCSCMStandin>
+    <GCSCMStandin>
+      <FileName>Segment_2\console.log</FileName>
+      <SHA1>5ACB4FED871BD2B9E1340823028AE2BF426A96B3</SHA1>
+      <FileSize>27423</FileSize>
+      <ProEVersionedName />
+      <LastUpdated>0001-01-01T00:00:00.0000000+00:00</LastUpdated>
+    </GCSCMStandin>
+    <GCSCMStandin>
+      <FileName>base_axe_lineaire\base_axe_lineaire.SLDASM</FileName>
+      <SHA1>EA534EE8BE7CB41A2C86E914983034A32FAB494E</SHA1>
+      <FileSize>1134746</FileSize>
+      <ProEVersionedName />
+      <LastUpdated>0001-01-01T00:00:00.0000000+00:00</LastUpdated>
+    </GCSCMStandin>
+    <GCSCMStandin>
+      <FileName>base_axe_lineaire\plaque.SLDPRT</FileName>
+      <SHA1>E67EE9393535B1294FDE4FC711349177DD474B85</SHA1>
+      <FileSize>270364</FileSize>
+      <ProEVersionedName />
+      <LastUpdated>0001-01-01T00:00:00.0000000+00:00</LastUpdated>
+    </GCSCMStandin>
+    <GCSCMStandin>
+      <FileName>base_axe_lineaire\support_axe_poulie.SLDPRT</FileName>
+      <SHA1>7401581870466BBA1CF68301A2BEB166A4BB7694</SHA1>
+      <FileSize>74207</FileSize>
+      <ProEVersionedName />
+      <LastUpdated>0001-01-01T00:00:00.0000000+00:00</LastUpdated>
+    </GCSCMStandin>
+    <GCSCMStandin>
+      <FileName>console.log</FileName>
+      <SHA1>EC9206165F23D6D20061F68D6A1FF86C6BB696A0</SHA1>
+      <FileSize>36564</FileSize>
+      <ProEVersionedName />
+      <LastUpdated>0001-01-01T00:00:00.0000000+00:00</LastUpdated>
+    </GCSCMStandin>
+    <GCSCMStandin>
+      <FileName>tendeur_de_courroie\Tendeur p2.STL</FileName>
+      <SHA1>C276C60234B1207FED82CDD057FCCFB44A9C700C</SHA1>
+      <FileSize>25584</FileSize>
+      <ProEVersionedName />
+      <LastUpdated>0001-01-01T00:00:00.0000000+00:00</LastUpdated>
+    </GCSCMStandin>
+    <GCSCMStandin>
+      <FileName>tendeur_de_courroie\Tendeur.STL</FileName>
+      <SHA1>ED78B186E1E7CC3A88392B8B06C08D68B00C4718</SHA1>
+      <FileSize>55484</FileSize>
+      <ProEVersionedName />
+      <LastUpdated>0001-01-01T00:00:00.0000000+00:00</LastUpdated>
+    </GCSCMStandin>
+    <GCSCMStandin>
+      <FileName>tendeur_de_courroie\console.log</FileName>
+      <SHA1>84354B53AFAA2F85220D5AAD4082E000829462E9</SHA1>
+      <FileSize>70635</FileSize>
+      <ProEVersionedName />
+      <LastUpdated>0001-01-01T00:00:00.0000000+00:00</LastUpdated>
+    </GCSCMStandin>
+  </Standins>
+  <Version>1</Version>
+</GCSCMDirState>
