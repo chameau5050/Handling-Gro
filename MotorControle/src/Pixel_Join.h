@@ -1,5 +1,5 @@
 /*********************************************************
-Fichier     : Pixel_join.cpp
+Fichier     : Pixel_join.h
 Auteur      : Jérémy Giguère
 Date        : 27 janvier 2021
 Description : fichier qui represente les attribut pour la classe abstraite joint
@@ -27,26 +27,4 @@ class Pixel_Join : public Join
 #endif
 
 
-
-
-
-//les variables que je vais avoir besoin:
-/*
-
--position
--limite
--homePosition
--LimiteSwitchPin
-
-*/
-
-//les fonctions que je vais devoir faire:
-/*
-
-+goTo(position) =0 (virtuelle pure)
-+goToHome()
-+resetPosition()
-+getPosition()
-
-*/
 

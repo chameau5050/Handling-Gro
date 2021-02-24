@@ -37,23 +37,5 @@ class Join
 };
 #endif
 
-//les variables que je vais avoir besoin:
-/*
 
--position
--limite
--homePosition
--LimiteSwitchPin
-
-*/
-
-//les fonctions que je vais devoir faire:
-/*
-
-+goTo(position) =0 (virtuelle pure)
-+goToHome()
-+resetPosition()
-+getPosition()
-
-*/
 
