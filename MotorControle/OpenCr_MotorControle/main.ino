@@ -72,7 +72,7 @@ class motor
     uint8_t index = 4; //pas mettre de chiffre mais bien le nom de la fonction??
     //uint8_t index = 101;
     //uint8_t index = EXTENDED_POSITION_CONTROL_MODE; a essayer
-    delay(10000);
+    delay(1000);
     result = dxl_wb.init(DEVICE_NAME, baud);
     result = dxl_wb.ping((int8_t)id, &model_number, &log);
 
@@ -80,23 +80,16 @@ class motor
 //Essaie #1
     //result = dxl_wb.setMultiTurnControlMode((int8_t)id,  &log);
     //result = dxl_wb.setOperatingMode((int8_t)id, index, &log);
-    if(!result)
-      Serial.println("caca");
+
 //Essaie #2
    //result1 = dxl_wb.setExtendedPositionControlMode((int8_t)id,  &log);
-    if(!result1)
-      Serial.println("pipi");
-    else
-      Serial.println(result1);
     result = dxl_wb.currentBasedPositionMode((int8_t)id, 100, &log);
     result3 = dxl_wb.ledOn((uint8_t) id, &log);
-    if(!result1)
-      Serial.println("fuck you lumiere");
-   
-
-    if(!result)
-      Serial.println("fuck you le goal");
-    delay(5000);
+    if(result3==1)
+      Serial.println("Lumière active, moteur prêt");
+    else
+      Serial.println("Lumière active, moteur pas pret");
+    delay(2000);
     dxl_wb.ledOff((int8_t)id, &log);
     delay(1000);
     dxl_wb.ledOn((int8_t)id, &log);
@@ -113,7 +106,19 @@ class motor
     dxl_wb.goalPosition((int8_t)id, (int32_t)pos, &log);
   };
 
+
+  int GetPosition()
+  {
+    int32_t data;
+    int reussite;
+    dxl_wb.getPresentPositionData((int8_t)id,(int32_t*) data, &log);
+    Serial.println(data);
+    return data;
+  }
+
+  
  };
+ 
 
 motor* A;
 motor* B;
@@ -133,6 +138,13 @@ void setup() {
 {​​"type":7,"PLS":1,"data":[19389]}​​
 {​​"type":7,"PLS":2,"data":[19389,5000]}​​
 {​​"type":11,"PLS":3,"data":[0,0,0]}​​
+
+{​​"type":17,"PLS":3,"data":[0,0,0]}​​
+
+
+{​​"type":3,"PLS":3,"data":[50,500,1500]}​​
+
+{​​"type":5,"PLS":3,"data":[0,1,0]}​​
 */
 
 
@@ -185,7 +197,7 @@ void loop() {
   
   
   ControlMessage* msg = IO.readMessage(0);
-  delay(2000);
+  //delay(2000);
   if(msg != 0)
   {
     String caca = "2";
@@ -229,24 +241,76 @@ void loop() {
     }
 
 
-
-
+    //*code pour set les position home du robot
     else if (msg->getType()== 3)
     {
-      A->gotoa(msg->getPayload()[0]);
+      HomeA = msg->getPayload()[0];
       
       if (msg->getPayLoadSize()>=2)
       {
-        B->gotoa(msg->getPayload()[1]);
+        HomeB = msg->getPayload()[1];
         
         if (msg->getPayLoadSize()>=3)
         {
-          C->gotoa(msg->getPayload()[2]);
+         HomeC = msg->getPayload()[2];
+        }
+        
+      }
+    } 
+
+
+      if (msg->getPayLoadSize()>=2)
+      {
+        if (msg->getPayload()[1] == 1)
+        {
+          delete B;
+          B = new motor(2);
+        }
+        else
+        {
+          msg->getPayload()[1] = -1;
+        }
+
+        
+        if (msg->getPayLoadSize()>=3)
+        {
+           if (msg->getPayload()[2] == 1)
+           {
+            delete C;
+             C = new motor(3);
+           }
+           else
+           {
+            msg->getPayload()[2] = -1;
+           }
+        }
+        
+      }
+    } 
+    
+    //*code pour envoyer le robot a sa position home
+    else if (msg->getType()== 9)
+    {
+      
+      A->gotoa(HomeA);
+      msg->getPayload()[0] = HomeA;
+      
+      if (msg->getPayLoadSize()>=2)
+      {
+        B->gotoa(HomeB);
+        msg->getPayload()[1] = HomeB;
+        
+        if (msg->getPayLoadSize()>=3)
+        {
+          C->gotoa(HomeC);
+          msg->getPayload()[2] = HomeC;
         }
         
       }
     } 
     //TEST POUR RENVOYER LINFORMATION
+
+    //renvoyer les limites definie sur les moteurs
     else if (msg->getType()== 11)
     {
       msg->getPayload()[0] = LimiteMaxA;
@@ -258,11 +322,42 @@ void loop() {
         if (msg->getPayLoadSize()>=3)
         {
           msg->getPayload()[2] = LimiteMaxC;
-        }
-        
+        }  
       }
-      //Serial.print('caca mou');
-      delay(5000);      
+    }
+    
+    //renvoyer les position home definie sur les moteurs
+    else if (msg->getType()== 13)
+    {
+      msg->getPayload()[0] = HomeA;
+      
+      if (msg->getPayLoadSize()>=2)
+      {
+        msg->getPayload()[1] = HomeB;
+        
+        if (msg->getPayLoadSize()>=3)
+        {
+          msg->getPayload()[2] = HomeC;
+        }  
+      }
+    }
+
+
+    
+    //renvoyer la position actuelle du robot
+    else if (msg->getType()== 17)
+    {
+      msg->getPayload()[0] = A->GetPosition();
+     
+      if (msg->getPayLoadSize()>=2)
+      {
+        msg->getPayload()[1] = B->GetPosition();
+        
+        if (msg->getPayLoadSize()>=3)
+        {
+          msg->getPayload()[2] = C->GetPosition();
+        }
+      }  
     }
 
 
