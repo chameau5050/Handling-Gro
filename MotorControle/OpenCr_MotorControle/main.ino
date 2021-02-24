@@ -36,11 +36,13 @@ bool isAvailableID(uint8_t id);
 void split(String data, char separator, String* temp);
 void printInst();
 
-/*
+
 //DÉFINITIONS DES VARIABLES GLOBALE POUR MON CODE
 int LimiteMaxA = 81921;
 int LimiteMaxB = 8193;
 int LimiteMaxC = 8193;
+/*
+ * ON A PAS BESOIN DE LIMITE MINIMUM
 int LimiteMinA = -100;
 int LimiteMinB = -5;
 int LimiteMinC = -5;
@@ -125,7 +127,7 @@ void setup() {
 {​​"type":7,"PLS":1,"data":[19389]}​​
 {​​"type":7,"PLS":1,"data":[19389]}​​
 {​​"type":7,"PLS":2,"data":[19389,5000]}​​
-{​​"type":7,"PLS":2,"data":[0,0]}​​
+{​​"type":11,"PLS":3,"data":[0,0,0]}​​
 */
 
 
@@ -138,13 +140,13 @@ DEFINITION DES TYPES QUE JE RECOIS
 ->J'UTILISE JUSTE LES NOMBRES IMPAIRES ET JE RENVOIT QUAND JAI FINI LE NOMBRE PAIR
 1:SETLIMITES->SET LA LIMITES POUR CHAQUE MOTEUR
 2:RETOUR DE LA COMMANDE 1 RECU
-3:GOTOHOME->ENVOIE LE ROBOT A SA POSITION DE REFERENCE
+3:SetHomePosition-> set la position home du robot: à faire ce soir
 4:RETOUR DE LA COMMANDE 3 RECU
 5:RESETpOSITION->RESET LA POSITION DANS LES ENCODEUR POUR LES REMETTRES A ZÉROS
 6:RETOUR DE LA COMMANDE 5 RECU
 7:SETPOSITION->FAIT DEPLACER LES MOTEURS À LEUR BONNES PLACES
 8:RETOUR DE LA COMMANDE 7 RECU
-9:??-> RIEN A DATE: PT GESTION DES ERREURS?
+9:GOTOHOME->ENVOIE LE ROBOT A SA POSITION DE REFERENCE
 10:RETOUR DE LA COMMANDE 10 RECU
 
 %%%%COMMANTE POUR RECEVOIR DE LINFORMATION%%%%
@@ -183,6 +185,7 @@ void loop() {
   {
     String caca = "2";
     Serial.println(msg->getType());
+    //code pour le set position
     if (msg->getType()== 7)
     {
       A->gotoa(msg->getPayload()[0]);
@@ -200,8 +203,30 @@ void loop() {
       //Serial.print('caca mou');
       delay(5000);      
     }
-    
+
+    //Set limite = 1
     else if (msg->getType()== 1)
+    {
+      LimiteMaxA = msg->getPayload()[0];
+      
+      if (msg->getPayLoadSize()>=2)
+      {
+        LimiteMaxB = msg->getPayload()[1];
+        
+        if (msg->getPayLoadSize()>=3)
+        {
+          LimiteMaxC = msg->getPayload()[2];
+        }
+        
+      }
+      //Serial.print('caca mou');
+      delay(5000);      
+    }
+
+
+
+
+    else if (msg->getType()== 3)
     {
       A->gotoa(msg->getPayload()[0]);
       
@@ -215,21 +240,19 @@ void loop() {
         }
         
       }
-      //Serial.print('caca mou');
-      delay(5000);      
-    }
-
-    else if (msg->getType()== 3)
+    } 
+    //TEST POUR RENVOYER LINFORMATION
+    else if (msg->getType()== 11)
     {
-      A->gotoa(msg->getPayload()[0]);
+      msg->getPayload()[0] = LimiteMaxA;
       
       if (msg->getPayLoadSize()>=2)
       {
-        B->gotoa(msg->getPayload()[1]);
+        msg->getPayload()[1] = LimiteMaxB;
         
         if (msg->getPayLoadSize()>=3)
         {
-          C->gotoa(msg->getPayload()[2]);
+          msg->getPayload()[2] = LimiteMaxC;
         }
         
       }
