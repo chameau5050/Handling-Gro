@@ -48,6 +48,12 @@ int LimiteMinB = -5;
 int LimiteMinC = -5;
 */
 
+int HomeA = 0;
+int HomeB = 0;
+int HomeC = 0;
+
+
+
 class motor
 {
   public:
@@ -101,14 +107,13 @@ class motor
   //DynamixelWorkbench dxl_wb;
   int id;
   const char *log;
+  
   void gotoa(int32_t pos)
   {
-    
     dxl_wb.goalPosition((int8_t)id, (int32_t)pos, &log);
-
   };
 
-};
+ };
 
 motor* A;
 motor* B;
