@@ -45,10 +45,6 @@ ControlMessage* MessageIO::parceMessage(StaticJsonDocument<MaxJsonSize> msg)
 {
     if(msg.containsKey("error"))
         return NULL;
-    Serial.println(msg["type"].as<int>());
-    String output;
-    serializeJson(msg, output);
-    Serial.println(output);
     int msgType = msg["type"].as<int>();
     int msgPayloadSize = msg["PLS"].as<int>();
     if(msgPayloadSize > 0)

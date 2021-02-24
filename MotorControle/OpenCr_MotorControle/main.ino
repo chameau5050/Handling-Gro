@@ -41,6 +41,7 @@ void printInst();
 int LimiteMaxA = 81921;
 int LimiteMaxB = 8193;
 int LimiteMaxC = 8193;
+int LimiteMaxD = 8193;
 /*
  * ON A PAS BESOIN DE LIMITE MINIMUM
 int LimiteMinA = -100;
@@ -51,7 +52,7 @@ int LimiteMinC = -5;
 int HomeA = 0;
 int HomeB = 0;
 int HomeC = 0;
-
+int HomeD = 0;
 
 
 class motor
@@ -70,9 +71,7 @@ class motor
     int baud = 57600;
     this->id = id;
     uint8_t index = 4; //pas mettre de chiffre mais bien le nom de la fonction??
-    //uint8_t index = 101;
-    //uint8_t index = EXTENDED_POSITION_CONTROL_MODE; a essayer
-    delay(1000);
+
     result = dxl_wb.init(DEVICE_NAME, baud);
     result = dxl_wb.ping((int8_t)id, &model_number, &log);
 
@@ -88,11 +87,7 @@ class motor
     if(result3==1)
       Serial.println("Lumière active, moteur prêt");
     else
-      Serial.println("Lumière active, moteur pas pret");
-    delay(2000);
-    dxl_wb.ledOff((int8_t)id, &log);
-    delay(1000);
-    dxl_wb.ledOn((int8_t)id, &log);
+      Serial.println("Lumière NON-active, moteur pas pret");
 
   };
   
@@ -111,7 +106,7 @@ class motor
   {
     int32_t data;
     int reussite;
-    dxl_wb.getPresentPositionData((int8_t)id,(int32_t*) data, &log);
+    dxl_wb.getPresentPositionData((int8_t)id, &data, &log);
     Serial.println(data);
     return data;
   }
@@ -123,6 +118,7 @@ class motor
 motor* A;
 motor* B;
 motor* C;
+motor* D;
 
 void setup() {
  
@@ -194,30 +190,54 @@ void loop() {
   {
     C = new motor(3);
   }
-  
+
+  if (D == 0)
+  {
+    D = new motor(4);
+  }
+
   
   ControlMessage* msg = IO.readMessage(0);
   //delay(2000);
   if(msg != 0)
   {
-    String caca = "2";
-    Serial.println(msg->getType());
+    //Serial.println(msg->getType());
     //code pour le set position
     if (msg->getType()== 7)
     {
+      if (msg->getPayload()[0] >= LimiteMaxA)
+      {
+        msg->getPayload()[0] = LimiteMaxA;
+      }
       A->gotoa(msg->getPayload()[0]);
       
       if (msg->getPayLoadSize()>=2)
       {
+        if (msg->getPayload()[1] >= LimiteMaxB)
+        {
+          msg->getPayload()[1] = LimiteMaxB;
+        }
         B->gotoa(msg->getPayload()[1]);
         
         if (msg->getPayLoadSize()>=3)
         {
+          if (msg->getPayload()[2] >= LimiteMaxC)
+          {
+            msg->getPayload()[2] = LimiteMaxC;
+          }
           C->gotoa(msg->getPayload()[2]);
+
+          if (msg->getPayLoadSize()>=4)
+          {
+            if (msg->getPayload()[3] >= LimiteMaxD)
+            {
+              msg->getPayload()[3] = LimiteMaxD;
+            }
+            D->gotoa(msg->getPayload()[3]);
+          }
         }
         
       }
-      //Serial.print('caca mou');
       delay(5000);      
     }
 
@@ -233,11 +253,14 @@ void loop() {
         if (msg->getPayLoadSize()>=3)
         {
           LimiteMaxC = msg->getPayload()[2];
+
+          if (msg->getPayLoadSize()>=4)
+        {
+          LimiteMaxD = msg->getPayload()[3];
+        }
         }
         
-      }
-      //Serial.print('caca mou');
-      delay(5000);      
+      }   
     }
 
 
@@ -253,12 +276,32 @@ void loop() {
         if (msg->getPayLoadSize()>=3)
         {
          HomeC = msg->getPayload()[2];
+         
+         if (msg->getPayLoadSize()>=4)
+         {
+            HomeD = msg->getPayload()[3];
+         }
+         
         }
         
       }
     } 
 
+    //*code pour zeroter le robot
+    else if (msg->getType()== 5)
+    {
+      if (msg->getPayload()[0] == 1)
+      {
+        delete A;
+         A = new motor(1);
+      }
+      else
+      {
+        msg->getPayload()[0] = 0;
+      }
 
+      
+     
       if (msg->getPayLoadSize()>=2)
       {
         if (msg->getPayload()[1] == 1)
@@ -268,7 +311,7 @@ void loop() {
         }
         else
         {
-          msg->getPayload()[1] = -1;
+          msg->getPayload()[1] = 0;
         }
 
         
@@ -281,8 +324,21 @@ void loop() {
            }
            else
            {
-            msg->getPayload()[2] = -1;
+            msg->getPayload()[2] = 0;
            }
+
+           if (msg->getPayLoadSize()>=4)
+            {
+               if (msg->getPayload()[3] == 1)
+               {
+                delete D;
+                 D = new motor(4);
+               }
+               else
+               {
+                msg->getPayload()[3] = 0;
+               }
+            }
         }
         
       }
@@ -304,6 +360,12 @@ void loop() {
         {
           C->gotoa(HomeC);
           msg->getPayload()[2] = HomeC;
+          
+          if (msg->getPayLoadSize()>=4)
+          {
+          D->gotoa(HomeD);
+          msg->getPayload()[3] = HomeD;
+          }
         }
         
       }
@@ -322,6 +384,11 @@ void loop() {
         if (msg->getPayLoadSize()>=3)
         {
           msg->getPayload()[2] = LimiteMaxC;
+          
+          if (msg->getPayLoadSize()>=4)
+          {
+            msg->getPayload()[3] = LimiteMaxD;
+          } 
         }  
       }
     }
@@ -338,6 +405,11 @@ void loop() {
         if (msg->getPayLoadSize()>=3)
         {
           msg->getPayload()[2] = HomeC;
+          
+          if (msg->getPayLoadSize()>=4)
+        {
+          msg->getPayload()[3] = HomeD;
+        } 
         }  
       }
     }
@@ -356,6 +428,11 @@ void loop() {
         if (msg->getPayLoadSize()>=3)
         {
           msg->getPayload()[2] = C->GetPosition();
+          
+          if (msg->getPayLoadSize()>=4)
+          {
+            msg->getPayload()[3] = D->GetPosition();
+          }
         }
       }  
     }
