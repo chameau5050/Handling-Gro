@@ -42,6 +42,8 @@ int LimiteMaxA = 81921;
 int LimiteMaxB = 8193;
 int LimiteMaxC = 8193;
 int LimiteMaxD = 8193;
+
+int LimiteMax[4] = {81921,8193,8193,8193};
 /*
  * ON A PAS BESOIN DE LIMITE MINIMUM
 int LimiteMinA = -100;
@@ -53,8 +55,11 @@ int HomeA = 0;
 int HomeB = 0;
 int HomeC = 0;
 int HomeD = 0;
+int Home[4]= {0,0,0,0}; 
 
 
+
+ 
 class motor
 {
   public:
@@ -111,7 +116,6 @@ class motor
     return data;
   }
 
-  
  };
  
 
@@ -119,6 +123,8 @@ motor* A;
 motor* B;
 motor* C;
 motor* D;
+
+motor** Reference[4] = {&A,&B,&C,&D};
 
 void setup() {
  
@@ -419,6 +425,13 @@ void loop() {
     //renvoyer la position actuelle du robot
     else if (msg->getType()== 17)
     {
+      for (int i = 0;i < msg->getPayLoadSize()>=2;i++)
+      {
+        msg->getPayload()[i] = (*Reference[i])->GetPosition();
+        
+      }
+
+      /*
       msg->getPayload()[0] = A->GetPosition();
      
       if (msg->getPayLoadSize()>=2)
@@ -434,7 +447,8 @@ void loop() {
             msg->getPayload()[3] = D->GetPosition();
           }
         }
-      }  
+      } 
+      */ 
     }
 
 
