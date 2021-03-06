@@ -26,7 +26,7 @@ public:
     void sendControlMessage(ControlMessage* msg);
     bool messageReceved(char* rawDataFrame,unsigned int lenght);
 public slots:
-    void sendJointPosition();
+    void sendJointParameters();
     void connectSocket();
     void readData();
 private:
