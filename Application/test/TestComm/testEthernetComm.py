@@ -30,20 +30,20 @@ class testEthernetComm(unittest.TestCase):
 
         self.assertEqual(frame, frameReceved)
 
-    def test_SendAndReadJSON(self):
+    def test_SendAndReadJSon(self):
         CommClient, CommServer = self.createServerAndClient()
 
         Json = self.createTestJson()
-        CommClient.sendJSON(Json)
+        CommClient.sendJSon(Json)
 
-        recevedJSON = CommServer.readJSON()
+        recevedJSON = CommServer.readJSon()
 
         self.assertEqual(Json, recevedJSON)
 
     def test_isdataAvailable(self):
         CommClient, CommServer = self.createServerAndClient()
         Json = self.createTestJson()
-        CommClient.sendJSON(Json)
+        CommClient.sendJSon(Json)
 
         self.assertEqual(True, CommServer.isMessageAvailable())
 
