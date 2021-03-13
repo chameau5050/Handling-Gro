@@ -53,7 +53,7 @@ class EthernetComm:
             except BlockingIOError:
                 return None
 
-    def sendJSON(self, JSON):
+    def sendJSon(self, JSON):
         frame = self.JSONtoFrame(JSON)
         self.sendFrame(frame)
 
