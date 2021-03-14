@@ -27,12 +27,9 @@ void Pixel_Join::goTo(double WantedPosition)
 
     if (WantedPosition <= limite)
     {
-        
+
         position = WantedPosition;
         //mettre le code ici pour le controle des moteur
-        //dxl_wb.goalPosition((int8_t)id, (int32_t) WantedPosition, &log);
-        //delay(60000);
-
     }   
     else
     {

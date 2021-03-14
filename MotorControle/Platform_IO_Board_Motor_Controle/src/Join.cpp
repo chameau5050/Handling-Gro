@@ -1,5 +1,5 @@
 /*********************************************************
-Fichier     : join.cpp
+Fichier     : Join.cpp
 Auteur      : Jérémy Giguère
 Date        : 27 janvier 2021
 Description : fichier qui represente les attribut pour la classe abstraite joint

@@ -17,8 +17,6 @@ void Test_Join::test()
     RUN_TEST(test_initialisation_setLimite);
     RUN_TEST(test_initialisation_goTo);
     //RUN_TEST(test_initialisation_goTo_avec_le_moteur);
-    //RUN_TEST(test_initialisation);    
-    //RUN_TEST(test_two);
 }
 
 void Test_Join::test_initialisation_getPosition()
