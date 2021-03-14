@@ -1,9 +1,10 @@
 import unittest
 import math
 from pathSolver.vectorBase import *
+from test.TestPositionSolver.vectorTester import *
 
 
-class testVectorBase(unittest.TestCase):
+class testVectorBase(vectorTester):
 
     def test_rotateX(self):
         base = VectorBase(0, 1, 0)
@@ -29,7 +30,3 @@ class testVectorBase(unittest.TestCase):
         self.assertVectorEqual([-1.0, 0.0, 0], base.getYaxis())
         self.assertVectorEqual([0.0, 0.0, 1.0], base.getZaxis())
 
-    def assertVectorEqual(self, expectedVector, currentVector):
-        self.assertAlmostEqual(expectedVector[0], currentVector[0], delta=0.001)
-        self.assertAlmostEqual(expectedVector[1], currentVector[1], delta=0.001)
-        self.assertAlmostEqual(expectedVector[2], currentVector[2], delta=0.001)

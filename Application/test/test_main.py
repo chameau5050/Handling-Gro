@@ -7,6 +7,7 @@ from test.TestComm.testFrame import *
 from test.TestComm.testAccumulator import *
 from test.TestComm.testEthernetComm import *
 from test.TestPositionSolver.TestVectorBase import *
+from test.TestPositionSolver.TestRevoluteJoin import *
 
 if __name__ == '__main__':
     unittest.main()

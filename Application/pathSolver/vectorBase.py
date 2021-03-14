@@ -1,6 +1,29 @@
 import numpy as np
 import math
+from enum import Enum
 from pathSolver.vectorBase import *
+
+
+
+class RotationAxis(Enum):
+    X = 0
+    Y = 1
+    Z = 2
+
+def getRotationMatrixX(theta):
+    return np.array([[1, 0, 0]
+                            , [0, math.cos(theta), -math.sin(theta)]
+                            , [0, math.sin(theta), math.cos(theta)]])
+
+def getRotationMatrixY(theta):
+    return np.array([[math.cos(theta), 0, math.sin(theta)]
+                            , [0, 1, 0]
+                            , [-math.sin(theta), 0, math.cos(theta)]])
+
+def getRotationMatrixZ(theta):
+    return np.array([[math.cos(theta), -math.sin(theta), 0]
+                                , [math.sin(theta), math.cos(theta), 0]
+                                , [0, 0, 1]])
 
 
 class VectorBase:
@@ -15,19 +38,19 @@ class VectorBase:
         self.thetaz = thetaz
 
     def rotateX(self, theta):
-        RotMatrix = self.getRotationMatrixX(theta)
+        RotMatrix = getRotationMatrixX(theta)
         self.zAxis = RotMatrix.dot(self.zAxis)
         self.yAxis = RotMatrix.dot(self.yAxis)
 
 
     def rotateY(self, theta):
-        RotMatrix = self.getRotationMatrixY(theta)
+        RotMatrix = getRotationMatrixY(theta)
         self.xAxis = RotMatrix.dot(self.xAxis)
         self.zAxis = RotMatrix.dot(self.zAxis)
 
 
     def rotateZ(self, theta):
-        RotMatrix = self.getRotationMatrixZ(theta)
+        RotMatrix = getRotationMatrixZ(theta)
         self.xAxis = RotMatrix.dot(self.xAxis)
         self.yAxis = RotMatrix.dot(self.yAxis)
 
@@ -40,21 +63,6 @@ class VectorBase:
     def getZaxis(self):
         return self.zAxis
 
-
     def getListPosition(self):
         return self.postion.tolist()
 
-    def getRotationMatrixX(self, theta):
-        return np.array([[1, 0, 0]
-                            , [0, math.cos(theta), -math.sin(theta)]
-                            , [0, math.sin(theta), math.cos(theta)]])
-
-    def getRotationMatrixY(self,theta):
-        return np.array([[math.cos(theta), 0, math.sin(theta)]
-                            , [0, 1, 0]
-                            , [-math.sin(theta), 0, math.cos(theta)]])
-
-    def getRotationMatrixZ(self, theta):
-        return np.array([[math.cos(theta), -math.sin(theta), 0]
-                                , [math.sin(theta), math.cos(theta), 0]
-                                , [0, 0, 1]])
