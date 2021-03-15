@@ -5,9 +5,9 @@ from pathSolver.vectorBase import *
 class RevoluteJoin:
 
     def __init__(self,rotationAxis, nextJoinRelativePosition, axisLimit = [0,2*math.pi]):
-        if rotationAxis == RotationAxis.X:
+        if rotationAxis == VectorSpaceAxis.X:
             self.rotationMatrix = getRotationMatrixX
-        elif rotationAxis == RotationAxis.Y:
+        elif rotationAxis == VectorSpaceAxis.Y:
             self.rotationMatrix = getRotationMatrixY
         else:
             self.rotationMatrix = getRotationMatrixZ
@@ -35,7 +35,7 @@ class RevoluteJoin:
     def getMaxlimit(self):
         return self.axisMax
 
-    def getNextJoinRelativePosition(self):
+    def getNextJoinRelativePosition(self, joinState):
         return self.nexJoinRelativePosition
 
     def getRotationMatrix(self, theta):

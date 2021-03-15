@@ -5,7 +5,7 @@ from pathSolver.vectorBase import *
 
 
 
-class RotationAxis(Enum):
+class VectorSpaceAxis(Enum):
     X = 0
     Y = 1
     Z = 2
@@ -24,6 +24,15 @@ def getRotationMatrixZ(theta):
     return np.array([[math.cos(theta), -math.sin(theta), 0]
                                 , [math.sin(theta), math.cos(theta), 0]
                                 , [0, 0, 1]])
+
+def translateXvector(vector,translationValue):
+    return np.array([vector[0]+translationValue, vector[1], vector[2]]).reshape(3,1)
+
+def translateYvector(vector,translationValue):
+    return np.array([vector[0], vector[1]+translationValue, vector[2]]).reshape(3,1)
+
+def translateZvector(vector,translationValue):
+    return np.array([vector[0], vector[1], vector[2]+translationValue]).reshape(3,1)
 
 
 class VectorBase:
