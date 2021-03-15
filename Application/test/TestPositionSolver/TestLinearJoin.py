@@ -1,25 +1,25 @@
 import unittest
 from pathSolver.LinearJoin import *
-from test.TestPositionSolver.vectorTester import *
+from test.TestPositionSolver.VectorTester import *
 
-class TestLinearJoin(vectorTester):
+class TestLinearJoin(VectorTester):
     def test_rotationMatrixInit(self):
         join = LinearJoin(VectorSpaceAxis.X, np.array([0, 0, 1]))
         self.assertMatrixEqual(np.eye(3),join.rotationMatrix)
 
     def test_initRevoluteX(self):
         join = LinearJoin(VectorSpaceAxis.X, np.array([0, 0, 1]))
-        self.assertEqual(join.translationMatrix, translateXvector)
+        self.assertEqual(join.translationMatrix, translateX)
 
     def test_initRevoluteY(self):
         join = LinearJoin(VectorSpaceAxis.Y, np.array([0, 0, 1]))
 
-        self.assertEqual(join.translationMatrix, translateYvector)
+        self.assertEqual(join.translationMatrix, translateY)
 
     def test_initRevoluteZ(self):
         join = LinearJoin(VectorSpaceAxis.Z, np.array([0, 0, 1]))
 
-        self.assertEqual(join.translationMatrix, translateZvector)
+        self.assertEqual(join.translationMatrix, translateZ)
 
     def test_getRotationMatrix(self):
         join = LinearJoin(VectorSpaceAxis.X, np.array([0, 0, 1]))
@@ -44,8 +44,8 @@ class TestLinearJoin(vectorTester):
 
     def initJoin(self, argMax, argMin, expectedMax, expectedMin):
         join = LinearJoin(VectorSpaceAxis.X, np.array([0, 0, 1]), [argMin, argMax])
-        self.assertEqual(expectedMin, join.getMinlimit())
-        self.assertEqual(expectedMax, join.getMaxlimit())
+        self.assertEqual(expectedMin, join.getMinLimit())
+        self.assertEqual(expectedMax, join.getMaxLimit())
 
     def test_isLimitJoinLimitWorking(self):
         join = LinearJoin(VectorSpaceAxis.X, np.array([0, 0, 1]), [5, 1])

@@ -2,7 +2,8 @@ import unittest
 import math
 import numpy as np
 
-class vectorTester(unittest.TestCase):
+
+class VectorTester(unittest.TestCase):
 
     def assertVectorEqual(self, expectedVector, currentVector, delta=0.001):
         self.assertAlmostEqual(expectedVector[0], currentVector[0], delta=delta)
@@ -10,7 +11,6 @@ class vectorTester(unittest.TestCase):
         self.assertAlmostEqual(expectedVector[2], currentVector[2], delta=delta)
 
     def assertMatrixEqual(self, expectedMatrix, currentMatrix, decimal = 3):
-        #self.assertTrue(np.array_equal(expectedMatrix, currentMatrix))
         np.testing.assert_array_almost_equal(expectedMatrix,currentMatrix, decimal=decimal)
 
     def assertPoseVectorEqual(self,expectedVector, currentVector, delta=0.001):

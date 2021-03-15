@@ -1,10 +1,10 @@
 import unittest
 import math
 from pathSolver.RevoluteJoin import *
-from test.TestPositionSolver.vectorTester import *
+from test.TestPositionSolver.VectorTester import *
 
 
-class TestRevoluteJoin(vectorTester):
+class TestRevoluteJoin(VectorTester):
 
     def test_initRevoluteX(self):
         join = RevoluteJoin(VectorSpaceAxis.X, np.array([0, 0, 1]))
@@ -37,8 +37,8 @@ class TestRevoluteJoin(vectorTester):
 
     def initJoin(self, argMax, argMin, expectedMax, expectedMin):
         join = RevoluteJoin(VectorSpaceAxis.X, np.array([0, 0, 1]), [argMin, argMax])
-        self.assertEqual(expectedMin, join.getMinlimit())
-        self.assertEqual(expectedMax, join.getMaxlimit())
+        self.assertEqual(expectedMin, join.getMinLimit())
+        self.assertEqual(expectedMax, join.getMaxLimit())
 
     def test_isLimitJoinLimitWorking(self):
         join = RevoluteJoin(VectorSpaceAxis.X, np.array([0, 0, 1]), [5, 1])

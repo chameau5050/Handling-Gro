@@ -29,12 +29,6 @@ class RevoluteJoin:
         else:
             self.axisMax = axisLimit[1]
 
-    def getMinlimit(self):
-        return self.axisMin
-
-    def getMaxlimit(self):
-        return self.axisMax
-
     def getNextJoinRelativePosition(self, joinState):
         return self.nexJoinRelativePosition
 
@@ -46,3 +40,8 @@ class RevoluteJoin:
         else:
             return self.rotationMatrix(theta)
 
+    def getMinLimit(self):
+        return self.axisMin
+
+    def getMaxLimit(self):
+        return self.axisMax

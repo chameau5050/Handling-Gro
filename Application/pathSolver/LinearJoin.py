@@ -4,11 +4,11 @@ from pathSolver.vectorBase import *
 class LinearJoin:
     def __init__(self,translationAxis, nextJoinRelativePosition, axisLimit = [0,10]):
         if translationAxis == VectorSpaceAxis.X:
-            self.translationMatrix = translateXvector
+            self.translationMatrix = translateX
         elif translationAxis == VectorSpaceAxis.Y:
-            self.translationMatrix = translateYvector
+            self.translationMatrix = translateY
         else:
-            self.translationMatrix = translateZvector
+            self.translationMatrix = translateZ
 
         self.rotationMatrix = np.eye(3)
         self.nexJoinRelativePosition = nextJoinRelativePosition.reshape((3, 1))
@@ -34,8 +34,8 @@ class LinearJoin:
         else:
             return self.translationMatrix(self.nexJoinRelativePosition, joinState)
 
-    def getMinlimit(self):
+    def getMinLimit(self):
         return self.axisMin
 
-    def getMaxlimit(self):
+    def getMaxLimit(self):
         return self.axisMax

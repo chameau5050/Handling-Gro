@@ -1,10 +1,10 @@
 import unittest
 import math
 from pathSolver.vectorBase import *
-from test.TestPositionSolver.vectorTester import *
+from test.TestPositionSolver.VectorTester import *
 
 
-class testVectorBase(vectorTester):
+class testVectorBase(VectorTester):
 
     def test_rotateX(self):
         base = VectorBase(0, 1, 0)
