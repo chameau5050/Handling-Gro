@@ -3,19 +3,6 @@
 #include <Arduino.h>
 #include <ArduinoJson.h>
 #include <String.h>
-
-#include "SerialComm.h"
-#include "ControlMessage.h"
-#include "MessageIO.h"
-
-
-//#define BAUD 9600 
-//#define BAUD 115200 
-#define BAUD 57600 
-
-MessageIO IO;
-SerialComm SC(&Serial);
-
 #include <DynamixelWorkbench.h>
 
 #if defined(__OPENCM904__)
@@ -27,6 +14,27 @@ SerialComm SC(&Serial);
 #define STRING_BUF_NUM 64
 String cmd[STRING_BUF_NUM];
 
+#include "SerialComm.h"
+#include "ControlMessage.h"
+#include "MessageIO.h"
+
+#define BAUD 57600 
+
+MessageIO IO;
+SerialComm SC(&Serial);
+
+// Definition des defines pour la communication
+// Definition of define for communication
+#define SETLIMITESINDEX 1
+#define SETHOMEPOSITIONINDEX 3
+#define SETREFERENCEPOSITIONINDEX 5
+#define GOTOPOSITIONINDEX 7
+#define GOTOHOMEINDEX 9
+#define RETURNLIMITESINDEX 11
+#define RETURNHOMEPOSITIONINDEX 13
+#define RETURNREFERENCEPOSITIONINDEX 15
+#define RETURNACTUALPOSITIONINDEX 17
+
 DynamixelWorkbench dxl_wb;
 uint8_t get_id[16];
 uint8_t scan_cnt = 0;
@@ -37,29 +45,18 @@ void split(String data, char separator, String* temp);
 void printInst();
 
 
-//DÉFINITIONS DES VARIABLES GLOBALE POUR MON CODE
-int LimiteMaxA = 81921;
-int LimiteMaxB = 8193;
-int LimiteMaxC = 8193;
-int LimiteMaxD = 8193;
+// Definition des defines pour les parametres des moteurs
+// Definition of defines for engine parameters
+#define NbDeMoteur 4
+int defineID[NbDeMoteur]= {1,2,3,4};
 
-int LimiteMax[4] = {81921,8193,8193,8193};
-/*
- * ON A PAS BESOIN DE LIMITE MINIMUM
-int LimiteMinA = -100;
-int LimiteMinB = -5;
-int LimiteMinC = -5;
-*/
-
-int HomeA = 0;
-int HomeB = 0;
-int HomeC = 0;
-int HomeD = 0;
-int Home[4]= {0,0,0,0}; 
+int LimiteMax[NbDeMoteur] = {81921,8193,8193,8193};
+int LimiteMin[NbDeMoteur] = {0,0,0,0};
+int Home[NbDeMoteur]= {0,0,0,0}; 
 
 
-
- 
+// Definition de la classe moteur pour les moteurs dynamixel
+// Definition of the motor class for dynamixel motors
 class motor
 {
   public:
@@ -75,29 +72,37 @@ class motor
     const char *log;
     int baud = 57600;
     this->id = id;
-    uint8_t index = 4; //pas mettre de chiffre mais bien le nom de la fonction??
-
     result = dxl_wb.init(DEVICE_NAME, baud);
     result = dxl_wb.ping((int8_t)id, &model_number, &log);
-
-    //result = dxl_wb.jointMode(id, 0, 0, &log);
+    
+//Code pour le réglage des moteurs dans differents mode
 //Essaie #1
-    //result = dxl_wb.setMultiTurnControlMode((int8_t)id,  &log);
-    //result = dxl_wb.setOperatingMode((int8_t)id, index, &log);
-
+    //result = dxl_wb.jointMode(id, 0, 0, &log);
 //Essaie #2
+    //result = dxl_wb.setMultiTurnControlMode((int8_t)id,  &log);
+//Essaie #3
    //result1 = dxl_wb.setExtendedPositionControlMode((int8_t)id,  &log);
+//Essaie #4   
     result = dxl_wb.currentBasedPositionMode((int8_t)id, 100, &log);
     result3 = dxl_wb.ledOn((uint8_t) id, &log);
     if(result3==1)
-      Serial.println("Lumière active, moteur prêt");
+    {
+      Serial.println("");
+      Serial.print("Lumière active, moteur ");
+      Serial.print(id);
+      Serial.print(" prêt");
+      Serial.println("");
+    }
     else
-      Serial.println("Lumière NON-active, moteur pas pret");
-
+    {
+      Serial.println("");
+      Serial.print("Lumière NON-active, moteur ");
+      Serial.print(id);
+      Serial.print(" pas prêt");
+      Serial.println("");
+    }
   };
   
-  
-  //DynamixelWorkbench dxl_wb;
   int id;
   const char *log;
   
@@ -106,50 +111,197 @@ class motor
     dxl_wb.goalPosition((int8_t)id, (int32_t)pos, &log);
   };
 
-
-  int GetPosition()
+// Cette fonction la a un probleme.
+  void setHomingOffset(int32_t pos)
   {
-    int32_t data;
-    int reussite;
-    dxl_wb.getPresentPositionData((int8_t)id, &data, &log);
-    Serial.println(data);
-    return data;
+    bool resultss = false;
+    resultss =  dxl_wb.itemWrite(id, "Homing_Offset", pos, &log);
+    if (resultss == false)
+    {
+      Serial.println(log);
+      Serial.println("Failed to set Homing_Offset");
+    }
+    else
+    {
+      Serial.print("Succeed to set Homing_Offset");
+    }
+  }
+  
+  int32_t GetPosition1()
+  {
+    bool results;
+    int32_t get_data = 0;
+    results = dxl_wb.itemRead(id, "Present_Position", &get_data, &log);
+    if (results == false)
+    {
+      Serial.println(log);
+      Serial.println("Failed to get present position");
+    }
+    else
+    {
+      Serial.print("Succeed to get present position(value : ");
+      Serial.print(get_data);
+      Serial.println(")");
+    }
+    return get_data;
   }
 
+  int32_t GetReferencePosition1()
+  {
+    bool results;
+    int32_t get_data = 0;
+    results = dxl_wb.itemRead(id, "Homing_Offset", &get_data, &log);
+    if (results == false)
+    {
+      Serial.println(log);
+      Serial.println("Failed to get Homing_Offset position");
+    }
+    else
+    {
+      Serial.print("Succeed to get Homing_Offset position(value : ");
+      Serial.print(get_data);
+      Serial.println(")");
+    }
+    return get_data;
+  }
  };
- 
 
-motor* A;
-motor* B;
-motor* C;
-motor* D;
 
-motor** Reference[4] = {&A,&B,&C,&D};
+motor* Reference[4];
 
-void setup() {
- 
+void setup() 
+{
   Serial.begin(BAUD);
   IO.addDevice(&SC);
+  delay(10000);
+}
 
+void loop() 
+{
+  ControlMessage* msg = IO.readMessage(0);
+
+  for (int m=0;m<NbDeMoteur;m++)
+  {
+    if (Reference[m] == 0)
+    {
+      Reference[m] = new motor(defineID[m]);
+    }
+  }
+      
+  if(msg != 0)
+  {
+    for (int i=0;i<msg->getPayLoadSize();i++)
+    {
+//CODE POUR INITIALISER LES MOTEURS
+//CODE TO INITIALIZE THE MOTORS      
+      if (Reference[i] == 0)
+      {
+        Reference[i] = new motor(defineID[i]);
+        Serial.println("Motor");
+        Serial.println(i);
+        Serial.println("activer");
+      }
+
+//CODE POUR LES DIFFERENTES OPERATIONS A EFFECTUER
+//CODE FOR THE DIFFERENT OPERATIONS TO BE CARRIED OUT
+      
+      //Set position = 7 
+      if (msg->getType()== GOTOPOSITIONINDEX)
+      {
+        if (msg->getPayload()[i] >= LimiteMax[i])
+        {
+          msg->getPayload()[i] = LimiteMax[i];
+        }
+        Reference[i]->gotoa(msg->getPayload()[i]);
+      }
+
+      //Set limite = 1
+      else if (msg->getType()== SETLIMITESINDEX)
+      {
+        LimiteMax[i] = msg->getPayload()[i];
+      }
+  
+      //Set Home Position = 3
+      else if (msg->getType()== SETHOMEPOSITIONINDEX)
+      {
+        Home[i] = msg->getPayload()[i];
+      } 
+  
+      //Set reference position = 5 
+      else if (msg->getType()== SETREFERENCEPOSITIONINDEX)
+      {
+        if (msg->getPayload()[i] == 1)
+        {
+          delete Reference[i];
+          Reference[i] = new motor(defineID[i]);
+        }
+          Reference[i]->setHomingOffset(msg->getPayload()[i]);  // ne fonctionne pas encore a 100%     
+      }
+              
+      //Go to HOME = 9
+      else if (msg->getType()== GOTOHOMEINDEX)
+      {
+        Home[i] = msg->getPayload()[i];
+        Reference[i]->gotoa(Home[i]);
+      }
+//TEST POUR RENVOYER LINFORMATION
+//TEST TO RETURN INFORMATION
+
+      //return limites = 11
+      else if (msg->getType()== RETURNLIMITESINDEX)
+      {
+        msg->getPayload()[i] = LimiteMax[i];
+      }
+  
+      //return HOME position = 13
+      else if (msg->getType()== RETURNHOMEPOSITIONINDEX)
+      {
+        msg->getPayload()[i] = Home[i];
+      }
+
+      //return reference position = 15
+      else if (msg->getType()== RETURNREFERENCEPOSITIONINDEX)
+      {
+        Serial.println("Fonction non completer: Erreur");
+        msg->getPayload()[i] = (Reference[i])->GetReferencePosition1();
+      }
+
+      //return actual position = 17
+      else if (msg->getType()== RETURNACTUALPOSITIONINDEX)
+      {
+         msg->getPayload()[i] = (Reference[i])->GetPosition1();
+      }
+    }
+    delay(1000);
+    ControlMessage responce(msg->getType()+1, msg->getPayLoadSize(), msg->getPayload());
+    IO.sendMessage(0,responce);
+    delete msg;
+  }
+  else
+  {
+    //auto responce = ControlMessage(-1);
+    //IO.sendMessage(0,responce);
+  }
+  delay(1000);
   
 }
+#endif
 
 /*
  * COMMANDE DE TEST 
 {​​"type":7,"PLS":1,"data":[19389]}​​
 {​​"type":7,"PLS":1,"data":[19389]}​​
-{​​"type":7,"PLS":2,"data":[19389,5000]}​​
+{​​"type":7,"PLS":3,"data":[10389,5000,0]}​​
 {​​"type":11,"PLS":3,"data":[0,0,0]}​​
+{​​"type":17,"PLS":3,"data":[0,0,0]}​​
 
 {​​"type":17,"PLS":3,"data":[0,0,0]}​​
 
-
+{​​"type":17,"PLS":2,"data":[0,0]}​​
 {​​"type":3,"PLS":3,"data":[50,500,1500]}​​
 
 {​​"type":5,"PLS":3,"data":[0,1,0]}​​
 */
-
-
 
 /*
 
@@ -161,7 +313,7 @@ DEFINITION DES TYPES QUE JE RECOIS
 2:RETOUR DE LA COMMANDE 1 RECU
 3:SetHomePosition-> set la position home du robot: à faire ce soir
 4:RETOUR DE LA COMMANDE 3 RECU
-5:RESETpOSITION->RESET LA POSITION DANS LES ENCODEUR POUR LES REMETTRES A ZÉROS
+5:RESETPOSITION->RESET LA POSITION DANS LES ENCODEUR POUR LES REMETTRES A ZÉROS
 6:RETOUR DE LA COMMANDE 5 RECU
 7:SETPOSITION->FAIT DEPLACER LES MOTEURS À LEUR BONNES PLACES
 8:RETOUR DE LA COMMANDE 7 RECU
@@ -178,296 +330,3 @@ DEFINITION DES TYPES QUE JE RECOIS
 17:RENVOIT LES POSITIONS ACTUELLES DU ROBOT
 18:RETOUR DE LA COMMANDE 15 RECU
 */
-
-
-
-void loop() {
-  if (A == 0)
-  {
-    A = new motor(1);
-  }
-  if (B == 0)
-  {
-    B = new motor(2);
-  }
-  
-  
-  if (C == 0)
-  {
-    C = new motor(3);
-  }
-
-  if (D == 0)
-  {
-    D = new motor(4);
-  }
-
-  
-  ControlMessage* msg = IO.readMessage(0);
-  //delay(2000);
-  if(msg != 0)
-  {
-    //Serial.println(msg->getType());
-    //code pour le set position
-    if (msg->getType()== 7)
-    {
-      if (msg->getPayload()[0] >= LimiteMaxA)
-      {
-        msg->getPayload()[0] = LimiteMaxA;
-      }
-      A->gotoa(msg->getPayload()[0]);
-      
-      if (msg->getPayLoadSize()>=2)
-      {
-        if (msg->getPayload()[1] >= LimiteMaxB)
-        {
-          msg->getPayload()[1] = LimiteMaxB;
-        }
-        B->gotoa(msg->getPayload()[1]);
-        
-        if (msg->getPayLoadSize()>=3)
-        {
-          if (msg->getPayload()[2] >= LimiteMaxC)
-          {
-            msg->getPayload()[2] = LimiteMaxC;
-          }
-          C->gotoa(msg->getPayload()[2]);
-
-          if (msg->getPayLoadSize()>=4)
-          {
-            if (msg->getPayload()[3] >= LimiteMaxD)
-            {
-              msg->getPayload()[3] = LimiteMaxD;
-            }
-            D->gotoa(msg->getPayload()[3]);
-          }
-        }
-        
-      }
-      delay(5000);      
-    }
-
-    //Set limite = 1
-    else if (msg->getType()== 1)
-    {
-      LimiteMaxA = msg->getPayload()[0];
-      
-      if (msg->getPayLoadSize()>=2)
-      {
-        LimiteMaxB = msg->getPayload()[1];
-        
-        if (msg->getPayLoadSize()>=3)
-        {
-          LimiteMaxC = msg->getPayload()[2];
-
-          if (msg->getPayLoadSize()>=4)
-        {
-          LimiteMaxD = msg->getPayload()[3];
-        }
-        }
-        
-      }   
-    }
-
-
-    //*code pour set les position home du robot
-    else if (msg->getType()== 3)
-    {
-      HomeA = msg->getPayload()[0];
-      
-      if (msg->getPayLoadSize()>=2)
-      {
-        HomeB = msg->getPayload()[1];
-        
-        if (msg->getPayLoadSize()>=3)
-        {
-         HomeC = msg->getPayload()[2];
-         
-         if (msg->getPayLoadSize()>=4)
-         {
-            HomeD = msg->getPayload()[3];
-         }
-         
-        }
-        
-      }
-    } 
-
-    //*code pour zeroter le robot
-    else if (msg->getType()== 5)
-    {
-      if (msg->getPayload()[0] == 1)
-      {
-        delete A;
-         A = new motor(1);
-      }
-      else
-      {
-        msg->getPayload()[0] = 0;
-      }
-
-      
-     
-      if (msg->getPayLoadSize()>=2)
-      {
-        if (msg->getPayload()[1] == 1)
-        {
-          delete B;
-          B = new motor(2);
-        }
-        else
-        {
-          msg->getPayload()[1] = 0;
-        }
-
-        
-        if (msg->getPayLoadSize()>=3)
-        {
-           if (msg->getPayload()[2] == 1)
-           {
-            delete C;
-             C = new motor(3);
-           }
-           else
-           {
-            msg->getPayload()[2] = 0;
-           }
-
-           if (msg->getPayLoadSize()>=4)
-            {
-               if (msg->getPayload()[3] == 1)
-               {
-                delete D;
-                 D = new motor(4);
-               }
-               else
-               {
-                msg->getPayload()[3] = 0;
-               }
-            }
-        }
-        
-      }
-    } 
-    
-    //*code pour envoyer le robot a sa position home
-    else if (msg->getType()== 9)
-    {
-      
-      A->gotoa(HomeA);
-      msg->getPayload()[0] = HomeA;
-      
-      if (msg->getPayLoadSize()>=2)
-      {
-        B->gotoa(HomeB);
-        msg->getPayload()[1] = HomeB;
-        
-        if (msg->getPayLoadSize()>=3)
-        {
-          C->gotoa(HomeC);
-          msg->getPayload()[2] = HomeC;
-          
-          if (msg->getPayLoadSize()>=4)
-          {
-          D->gotoa(HomeD);
-          msg->getPayload()[3] = HomeD;
-          }
-        }
-        
-      }
-    } 
-    //TEST POUR RENVOYER LINFORMATION
-
-    //renvoyer les limites definie sur les moteurs
-    else if (msg->getType()== 11)
-    {
-      msg->getPayload()[0] = LimiteMaxA;
-      
-      if (msg->getPayLoadSize()>=2)
-      {
-        msg->getPayload()[1] = LimiteMaxB;
-        
-        if (msg->getPayLoadSize()>=3)
-        {
-          msg->getPayload()[2] = LimiteMaxC;
-          
-          if (msg->getPayLoadSize()>=4)
-          {
-            msg->getPayload()[3] = LimiteMaxD;
-          } 
-        }  
-      }
-    }
-    
-    //renvoyer les position home definie sur les moteurs
-    else if (msg->getType()== 13)
-    {
-      msg->getPayload()[0] = HomeA;
-      
-      if (msg->getPayLoadSize()>=2)
-      {
-        msg->getPayload()[1] = HomeB;
-        
-        if (msg->getPayLoadSize()>=3)
-        {
-          msg->getPayload()[2] = HomeC;
-          
-          if (msg->getPayLoadSize()>=4)
-        {
-          msg->getPayload()[3] = HomeD;
-        } 
-        }  
-      }
-    }
-
-
-    
-    //renvoyer la position actuelle du robot
-    else if (msg->getType()== 17)
-    {
-      for (int i = 0;i < msg->getPayLoadSize()>=2;i++)
-      {
-        msg->getPayload()[i] = (*Reference[i])->GetPosition();
-        
-      }
-
-      /*
-      msg->getPayload()[0] = A->GetPosition();
-     
-      if (msg->getPayLoadSize()>=2)
-      {
-        msg->getPayload()[1] = B->GetPosition();
-        
-        if (msg->getPayLoadSize()>=3)
-        {
-          msg->getPayload()[2] = C->GetPosition();
-          
-          if (msg->getPayLoadSize()>=4)
-          {
-            msg->getPayload()[3] = D->GetPosition();
-          }
-        }
-      } 
-      */ 
-    }
-
-
-
-    
-    ControlMessage responce(msg->getType()+1, msg->getPayLoadSize(), msg->getPayload());
-    IO.sendMessage(0,responce);
-    delete msg;
-    
-  }
-  else
-  {
-    //auto responce = ControlMessage(-1);
-    //IO.sendMessage(0,responce);
-  }
-  delay(1000);
-  
-  // put your main code here, to run repeatedly:
-  
-}
-
-#endif
