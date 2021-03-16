@@ -9,6 +9,7 @@ Description : Fichier qui represente les tests pour les fichiers Join
 #include "Test_Join.h"
 #include "Pixel_Join.h"
 #include "Test_Join.h"
+#include "TestJoinDevice.h"
 
 void Test_Join::test()
 {
@@ -24,8 +25,9 @@ void Test_Join::test()
 void Test_Join::test_initialisation_getPosition()
 {
     //test si le getPosition fonctionne
-    Pixel_Join Pixel_le_film(69,281,42,0,0);
-    TEST_ASSERT_EQUAL(69,Pixel_le_film.getPosition());
+    TestJoinDevice testjoin(69,281,42,0,0);
+    //Pixel_Join Pixel_le_film(69,281,42,0,0);
+    TEST_ASSERT_EQUAL(69,testjoin.getPosition());
 }
 
 void Test_Join::test_initialisation_getLimite()
