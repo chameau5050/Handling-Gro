@@ -10,13 +10,15 @@ Description : Fichier qui represente les tests pour les fichier Join
 
 #include "abstractTest.h"
 
-class Test_Join : public abstractTest //c'est de l'héritage de ?
+class Test_Join : public abstractTest 
 {
     public:
         void test();
         static void test_initialisation_getPosition();
         static void test_initialisation_getLimite();
         static void test_initialisation_setLimite();
+        static void test_initialisation_getHome();
+        static void test_initialisation_setHome();
         static void test_initialisation_goTo();
         static void test_initialisation_goTo_avec_le_moteur();
 

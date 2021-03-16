@@ -19,15 +19,17 @@ class Join
         Join(int position, int limite, int homePosition, int LimiteSwitchPinDroit, int LimiteSwitchPinGauche);
         ~Join();//pas vraiment nécessaire
 
-        virtual void goTo(double position) = 0; // =0; //(virtuelle pure)
+        virtual void goTo(double position) = 0; 
         void goToHome();
         void resetPosition();
         int getPosition();
         int getLimite();
         void setLimite(int newLimite);
+        void setHome(int newHomePosition);
+        int getHome();
 
     protected:
-        int position; // c'est mon compteur
+        int position; 
         int limite;
         int homePosition;
         int LimiteSwitchPinDroit;

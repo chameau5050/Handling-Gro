@@ -16,6 +16,8 @@ void Test_Join::test()
     RUN_TEST(test_initialisation_getLimite);
     RUN_TEST(test_initialisation_setLimite);
     RUN_TEST(test_initialisation_goTo);
+    RUN_TEST(test_initialisation_getHome);
+    RUN_TEST(test_initialisation_setHome);
     //RUN_TEST(test_initialisation_goTo_avec_le_moteur);
 }
 
@@ -39,6 +41,21 @@ void Test_Join::test_initialisation_setLimite()
     Pixel_Join Pixel_le_film(69,281,42,0,0);
     Pixel_le_film.setLimite(181);
     TEST_ASSERT_EQUAL(181,Pixel_le_film.getLimite());
+}
+
+void Test_Join::test_initialisation_getHome()
+{
+    //test si le getLimite et le getPosition fonctionne
+    Pixel_Join Pixel_le_film(69,281,42,0,0);
+    TEST_ASSERT_EQUAL(42,Pixel_le_film.getHome());
+}
+
+void Test_Join::test_initialisation_setHome()
+{
+    //test si le setLimite fonctionne
+    Pixel_Join Pixel_le_film(69,281,42,0,0);
+    Pixel_le_film.setHome(3);
+    TEST_ASSERT_EQUAL(3,Pixel_le_film.getHome());
 }
 
 void Test_Join::test_initialisation_goTo()

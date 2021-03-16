@@ -54,3 +54,12 @@ void Join::setLimite(int newLimite)
     limite = newLimite;
 }
 
+void Join::setHome(int newHomePosition)
+{
+    homePosition = newHomePosition;
+}
+
+int Join::getHome()
+{
+    return homePosition;
+}
