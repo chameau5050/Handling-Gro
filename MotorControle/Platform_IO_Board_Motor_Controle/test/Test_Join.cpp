@@ -2,7 +2,7 @@
 Fichier     : test_Join.cpp
 Auteur      : Jérémy Giguère
 Date        : 04 Février 2021
-Description : Fichier qui represente les tests pour les fichier Join
+Description : Fichier qui represente les tests pour les fichiers Join
 **********************************************************/
 
 #include <unity.h> //library de base pour faire du unite testing
@@ -23,14 +23,14 @@ void Test_Join::test()
 
 void Test_Join::test_initialisation_getPosition()
 {
-    //test si le getLimite et le getPosition fonctionne
+    //test si le getPosition fonctionne
     Pixel_Join Pixel_le_film(69,281,42,0,0);
     TEST_ASSERT_EQUAL(69,Pixel_le_film.getPosition());
 }
 
 void Test_Join::test_initialisation_getLimite()
 {
-    //test si le getLimite et le getPosition fonctionne
+    //test si le getLimite fonctionne
     Pixel_Join Pixel_le_film(69,281,42,0,0);
     TEST_ASSERT_EQUAL(281,Pixel_le_film.getLimite());
 }
@@ -45,14 +45,14 @@ void Test_Join::test_initialisation_setLimite()
 
 void Test_Join::test_initialisation_getHome()
 {
-    //test si le getLimite et le getPosition fonctionne
+    //test si le getHome fonctionne
     Pixel_Join Pixel_le_film(69,281,42,0,0);
     TEST_ASSERT_EQUAL(42,Pixel_le_film.getHome());
 }
 
 void Test_Join::test_initialisation_setHome()
 {
-    //test si le setLimite fonctionne
+    //test si le setHome fonctionne
     Pixel_Join Pixel_le_film(69,281,42,0,0);
     Pixel_le_film.setHome(3);
     TEST_ASSERT_EQUAL(3,Pixel_le_film.getHome());
