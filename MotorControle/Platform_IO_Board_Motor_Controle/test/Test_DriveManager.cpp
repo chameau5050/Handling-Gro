@@ -55,6 +55,7 @@ void Test_DriveManager::test_setHome()
     array_home.add(7);
     driveManager.setHome(array_home);
     TEST_ASSERT_EQUAL(7,pixel_le_film.getHome());
+    
 }
 
 void Test_DriveManager::test_calibrateAllJoin()

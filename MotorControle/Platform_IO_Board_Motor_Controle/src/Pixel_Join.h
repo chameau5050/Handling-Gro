@@ -20,7 +20,7 @@ class Pixel_Join : public Join
     public:
         Pixel_Join(int position, int limite, int homePosition, int LimiteSwitchPinDroit, int LimiteSwitchPinGauche, uint8_t id = 1);
         //~Pixel_Join();    //pas vraiment nécessaire
-        void goTo(double position); 
+        void goTo(int position); 
 
 
 };

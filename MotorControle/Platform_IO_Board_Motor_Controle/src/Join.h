@@ -17,9 +17,9 @@ class Join
 {
     public:
         Join(int position, int limite, int homePosition, int LimiteSwitchPinDroit, int LimiteSwitchPinGauche);
-        ~Join();//pas vraiment nécessaire
+        ~Join();
 
-        virtual void goTo(double position) = 0; 
+        virtual void goTo(int Wantedposition) = 0; 
         void goToHome();
         void resetPosition();
         int getPosition();

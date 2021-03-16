@@ -7,7 +7,7 @@ Description : fichier qui represente les attribut pour la classe abstraite joint
 
 #include "Pixel_Join.h"
 
-Pixel_Join::Pixel_Join(int position, int limite, int homePosition, int LimiteSwitchPinDroit, int LimiteSwitchPinGauche, uint8_t id) : Join(position, limite, homePosition, LimiteSwitchPinDroit, LimiteSwitchPinGauche) //liste d<initialisation
+Pixel_Join::Pixel_Join(int position, int limite, int homePosition, int LimiteSwitchPinDroit, int LimiteSwitchPinGauche, uint8_t id) : Join(position, limite, homePosition, LimiteSwitchPinDroit, LimiteSwitchPinGauche) 
 {
     
 
@@ -20,7 +20,7 @@ Pixel_Join::~Pixel_Join()
 }
 */
 
-void Pixel_Join::goTo(double WantedPosition)
+void Pixel_Join::goTo(int WantedPosition)
 {
 
    // double oldPosition = position; //est ce que je peux saver l<ancienne position?

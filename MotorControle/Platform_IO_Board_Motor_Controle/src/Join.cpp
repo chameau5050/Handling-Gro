@@ -13,20 +13,13 @@ Join::Join(int position, int limite, int homePosition, int LimiteSwitchPinDroit,
     this->limite = limite;
     this->homePosition = homePosition;
     this->LimiteSwitchPinDroit = LimiteSwitchPinDroit;
-    this->LimiteSwitchPinGauche = LimiteSwitchPinGauche;
-
-    //le this sert à spécifier que c<ets l<objet actuelle = pointeur sur l'objet
-    
+    this->LimiteSwitchPinGauche = LimiteSwitchPinGauche;    
 }
 
 Join::~Join()
 {
 
 }
-
-
-//virtual void goTo(double position);  // =0; //(virtuelle pure)
-
 
 void Join::goToHome()
 {
@@ -35,7 +28,7 @@ void Join::goToHome()
 
 void Join::resetPosition()
 {
-    //goTo() jusqua temps que tu frappe le bumper
+    //goTo() : attendre l'ajout des bumper
     position = 0;
 }
 
