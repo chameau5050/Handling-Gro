@@ -59,4 +59,6 @@ void Test_DriveManager::test_setHome()
 void Test_DriveManager::test_calibrateAllJoin()
 {
     TEST_ASSERT_EQUAL(1,1);
+    //fonction pour calibrer les moteurs et definir leur parametres
+    // a faire
 }
