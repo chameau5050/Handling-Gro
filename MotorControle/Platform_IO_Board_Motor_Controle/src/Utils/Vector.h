@@ -1,7 +1,8 @@
+
 #ifndef VECTEUR_H
 #define VECTEUR_H
 
-#define NULL 0
+//#define NULL 0
 
 template <class T>
 class Vector{
@@ -13,26 +14,26 @@ class Vector{
 		this->tableau = new T[capacite];
 	}
 	
-	Vector(const Vector<T>& copy)
+	Vector(Vector<T>& copy)
 	{
 		this->capacite = copy.getCapacite();
 		this->tableau = new T[capacite];
-		for(int i = 0; i<copy.size();i++)
+		for(int x= 0; x < copy.size(); x++)
 		{
-			 this->tableau[i]=copy.get(i);
+			 this->tableau[x] = copy.get(x);
 			
 		}
-		this->taille=copy.size();
+		this->taille = copy.size();
 	}
 	
 	T get(int index){
 		if(index >=0 && index < taille)
 			return tableau[index];
-		return NULL;
+		return __null;
 	}
 
 	bool add(T item){
-		if(item == NULL)
+		if(item == __null)
 			return false;
 
 		if(taille+1>capacite){
@@ -59,7 +60,7 @@ class Vector{
 			return temp;
 		}
 		else
-			return NULL;
+			return __null;
 	}
 
 	bool clear(){

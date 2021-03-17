@@ -22,39 +22,37 @@ void Test_DriveManager::test()
 
 void Test_DriveManager::test_goToHome()
 {
-    TestJoinDevice testjoin(69,281,3,0,0);
-    Vector <Join*> joins;
-    joins.add(&testjoin);
-    DriveManager driveManager(joins);
+    DriveManager driveManager;
+    TestJoinDevice* testjoin = new TestJoinDevice(69,281,3,0,0);
+    driveManager.addJoin(testjoin);
 
     driveManager.goToHome();
-    TEST_ASSERT_EQUAL(3,testjoin.getPosition());
+    TEST_ASSERT_EQUAL(3,testjoin->getPosition());
 }
 
-// void Test_DriveManager::test_goToPosition()
-// {
-//     TestJoinDevice testjoin(6000,281000,3,0,0);
-//     Vector <Join*> joins;
-//     joins.add(&testjoin);
-//     DriveManager driveManager(joins);
+ void Test_DriveManager::test_goToPosition()
+{    
+    DriveManager driveManager; 
+    TestJoinDevice* testjoin = new TestJoinDevice(6000,281000,3,0,0);
+    driveManager.addJoin(testjoin);
     
-//     Vector <int> array_position;
-//     array_position.add(2048);
-//     driveManager.goToPosition(array_position);
-//     TEST_ASSERT_EQUAL(2048,testjoin.getPosition());
-// }
+     Vector <int> array_position;
+     array_position.add(2048);
+     driveManager.goToPosition(array_position);
+
+     TEST_ASSERT_EQUAL(2048,testjoin->getPosition());
+}
 
 void Test_DriveManager::test_setHome()
 {
-    TestJoinDevice testjoinss(3000,254111,50,0,0);
-    Vector <Join*> joins;
-    joins.add(&testjoinss);
-    DriveManager driveManager(joins);
+    DriveManager driveManager;
+    TestJoinDevice* testjoin = new TestJoinDevice(3000,254111,50,0,0);
+    driveManager.addJoin(testjoin);
 
     Vector <int> array_home;
     array_home.add(7);
     driveManager.setHomePosition(array_home);
-    TEST_ASSERT_EQUAL(7,testjoinss.getHome());
+    TEST_ASSERT_EQUAL(7,testjoin->getHome());
     
 }
 

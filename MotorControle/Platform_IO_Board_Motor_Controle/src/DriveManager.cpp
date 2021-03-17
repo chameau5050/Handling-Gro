@@ -10,21 +10,28 @@ Description : fichier qui represente les attribut pour la classe DriveManager
 #include <string.h>
 #include <Arduino.h>
 
-DriveManager::DriveManager(const Vector<Join*>& Joins)
+DriveManager::DriveManager()
 {
-    this->Joins = Joins;
-    
+
 }
 
 DriveManager::~DriveManager()
 {
 
 }
+void DriveManager::addJoin(Join* newJoin)
+{
+    Joins.add(newJoin);
+}
 
+ void  DriveManager::deleteJointAt(int index)
+ {
+     Joins.remove(index);
+ }
 
 void DriveManager::goToHome()
 {
-    for (int i=0;i < Joins.size();i++)
+    for (int i=0;i < Joins.size(); i++)
     {
         Joins.get(i)->goToHome();
     }

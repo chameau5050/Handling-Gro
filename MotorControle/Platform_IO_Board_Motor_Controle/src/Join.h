@@ -13,6 +13,7 @@ Description : fichier qui represente les attribut pour la classe abstraite joint
 #include <stdlib.h>
 #include <string.h>
 
+
 class Join
 {
     public:
