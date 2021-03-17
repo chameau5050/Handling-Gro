@@ -1,4 +1,4 @@
-<div id="Handling GRO">
+<div id="Handling GRO!">
     <h1>Handling GRO</h1>
     <h3>Projet S4 Université de Sherbrooke</h3>
     <h3>UdeS-GRO | 65<sup>th</sup> Promotion | 2021</h3>
