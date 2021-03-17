@@ -68,7 +68,7 @@
           </font>
          </property>
          <property name="text">
-          <string>Joint 3</string>
+          <string>Joint 3 / Z cartesian</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -83,7 +83,7 @@
           </font>
          </property>
          <property name="text">
-          <string>Joint 2</string>
+          <string>Joint 2 / Y cartesian</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -100,7 +100,7 @@
           </font>
          </property>
          <property name="text">
-          <string>Joints</string>
+          <string>Parameters</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -115,27 +115,7 @@
           </font>
          </property>
          <property name="text">
-          <string>Joint 1</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="QLabel" name="label_7">
-         <property name="font">
-          <font>
-           <pointsize>12</pointsize>
-           <weight>75</weight>
-           <bold>true</bold>
-          </font>
-         </property>
-         <property name="text">
-          <string>Position</string>
-         </property>
-         <property name="textFormat">
-          <enum>Qt::AutoText</enum>
+          <string>Joint 1 / X cartesian</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -158,7 +138,7 @@
         </widget>
        </item>
        <item row="1" column="1">
-        <widget class="QSpinBox" name="set_J1">
+        <widget class="QDoubleSpinBox" name="set_J1">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Minimum" vsizetype="MinimumExpanding">
            <horstretch>0</horstretch>
@@ -169,14 +149,11 @@
           <font>
            <pointsize>12</pointsize>
           </font>
-         </property>
-         <property name="maximum">
-          <number>120000</number>
          </property>
         </widget>
        </item>
        <item row="2" column="1">
-        <widget class="QSpinBox" name="set_J2">
+        <widget class="QDoubleSpinBox" name="set_J2">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Minimum" vsizetype="MinimumExpanding">
            <horstretch>0</horstretch>
@@ -188,13 +165,10 @@
            <pointsize>12</pointsize>
           </font>
          </property>
-         <property name="maximum">
-          <number>3500</number>
-         </property>
         </widget>
        </item>
        <item row="3" column="1">
-        <widget class="QSpinBox" name="set_J3">
+        <widget class="QDoubleSpinBox" name="set_J3">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Preferred" vsizetype="MinimumExpanding">
            <horstretch>0</horstretch>
@@ -206,13 +180,10 @@
            <pointsize>12</pointsize>
           </font>
          </property>
-         <property name="maximum">
-          <number>3500</number>
-         </property>
         </widget>
        </item>
        <item row="4" column="1">
-        <widget class="QSpinBox" name="set_J4">
+        <widget class="QDoubleSpinBox" name="set_J4">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Minimum" vsizetype="MinimumExpanding">
            <horstretch>0</horstretch>
@@ -230,13 +201,10 @@
            <pointsize>12</pointsize>
           </font>
          </property>
-         <property name="maximum">
-          <number>3500</number>
-         </property>
         </widget>
        </item>
        <item row="1" column="2">
-        <widget class="QSpinBox" name="set_V1">
+        <widget class="QDoubleSpinBox" name="set_C1">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Minimum" vsizetype="MinimumExpanding">
            <horstretch>0</horstretch>
@@ -247,14 +215,11 @@
           <font>
            <pointsize>12</pointsize>
           </font>
-         </property>
-         <property name="maximum">
-          <number>120000</number>
          </property>
         </widget>
        </item>
        <item row="2" column="2">
-        <widget class="QSpinBox" name="set_V2">
+        <widget class="QDoubleSpinBox" name="set_C2">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Minimum" vsizetype="MinimumExpanding">
            <horstretch>0</horstretch>
@@ -265,14 +230,11 @@
           <font>
            <pointsize>12</pointsize>
           </font>
-         </property>
-         <property name="maximum">
-          <number>120000</number>
          </property>
         </widget>
        </item>
        <item row="3" column="2">
-        <widget class="QSpinBox" name="set_V3">
+        <widget class="QDoubleSpinBox" name="set_C3">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Minimum" vsizetype="MinimumExpanding">
            <horstretch>0</horstretch>
@@ -284,31 +246,10 @@
            <pointsize>12</pointsize>
           </font>
          </property>
-         <property name="maximum">
-          <number>120000</number>
-         </property>
         </widget>
        </item>
-       <item row="4" column="2">
-        <widget class="QSpinBox" name="set_V4">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Minimum" vsizetype="MinimumExpanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="font">
-          <font>
-           <pointsize>12</pointsize>
-          </font>
-         </property>
-         <property name="maximum">
-          <number>120000</number>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="2">
-        <widget class="QLabel" name="label_8">
+       <item row="0" column="1" alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+        <widget class="QRadioButton" name="jointMode">
          <property name="font">
           <font>
            <pointsize>12</pointsize>
@@ -316,11 +257,31 @@
            <bold>true</bold>
           </font>
          </property>
-         <property name="text">
-          <string>Speed (WIP)</string>
+         <property name="layoutDirection">
+          <enum>Qt::LeftToRight</enum>
          </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
+         <property name="text">
+          <string>JOINT</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="2" alignment="Qt::AlignHCenter">
+        <widget class="QRadioButton" name="cartMode">
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="layoutDirection">
+          <enum>Qt::LeftToRight</enum>
+         </property>
+         <property name="text">
+          <string>CARTESIAN</string>
          </property>
         </widget>
        </item>
@@ -436,56 +397,36 @@
        </item>
       </layout>
      </widget>
-     <widget class="QPushButton" name="pushButton">
+     <widget class="QPushButton" name="setHome">
       <property name="geometry">
        <rect>
-        <x>670</x>
-        <y>30</y>
+        <x>30</x>
+        <y>410</y>
         <width>121</width>
         <height>61</height>
        </rect>
       </property>
+      <property name="toolTip">
+       <string>Press to save position as Home</string>
+      </property>
       <property name="text">
-       <string>Set Home (WIP)</string>
+       <string>SET HOME</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_2">
+     <widget class="QPushButton" name="goToHome">
       <property name="geometry">
        <rect>
-        <x>670</x>
-        <y>100</y>
+        <x>30</x>
+        <y>480</y>
         <width>121</width>
         <height>61</height>
        </rect>
       </property>
-      <property name="text">
-       <string>Go to Home (WIP)</string>
-      </property>
-     </widget>
-     <widget class="QRadioButton" name="radioButton">
-      <property name="geometry">
-       <rect>
-        <x>680</x>
-        <y>190</y>
-        <width>82</width>
-        <height>17</height>
-       </rect>
+      <property name="toolTip">
+       <string>Press to input saved home position</string>
       </property>
       <property name="text">
-       <string>Joint (WIP)</string>
-      </property>
-     </widget>
-     <widget class="QRadioButton" name="radioButton_2">
-      <property name="geometry">
-       <rect>
-        <x>680</x>
-        <y>210</y>
-        <width>101</width>
-        <height>20</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Cartesian (WIP)</string>
+       <string>GO TO HOME</string>
       </property>
      </widget>
     </widget>
@@ -493,6 +434,84 @@
      <attribute name="title">
       <string>Load/Save</string>
      </attribute>
+     <widget class="QPlainTextEdit" name="dispFile">
+      <property name="geometry">
+       <rect>
+        <x>410</x>
+        <y>30</y>
+        <width>341</width>
+        <height>311</height>
+       </rect>
+      </property>
+      <property name="plainText">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="progFileName">
+      <property name="geometry">
+       <rect>
+        <x>50</x>
+        <y>160</y>
+        <width>113</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="saveFileB">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>200</y>
+        <width>75</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>SAVE</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="loadFileB">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>240</y>
+        <width>75</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>LOAD</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_7">
+      <property name="geometry">
+       <rect>
+        <x>80</x>
+        <y>130</y>
+        <width>47</width>
+        <height>13</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>File name</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="runFileB">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>300</y>
+        <width>75</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>RUN</string>
+      </property>
+     </widget>
     </widget>
    </widget>
   </widget>

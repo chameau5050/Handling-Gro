@@ -27,11 +27,15 @@ public:
     bool messageReceved(char* rawDataFrame,unsigned int lenght);
 public slots:
     void sendJointParameters();
+    void saveHome();
+    void goHome();
     void connectSocket();
     void readData();
 private:
     Ui::CommandWindow *ui;
     QTcpSocket* socket;
     Accumulator* acc;
+    float home_joint[4];
+    float home_cart[3];
 };
 #endif // COMMANDWINDOW_H

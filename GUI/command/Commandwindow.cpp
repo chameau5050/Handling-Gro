@@ -13,8 +13,11 @@ CommandWindow::CommandWindow(QWidget *parent)
     QObject::connect(ui->set_J2,SIGNAL(valueChanged(int)),this,SLOT(sendJointPosition(int)));
     QObject::connect(ui->set_J3,SIGNAL(valueChanged(int)),this,SLOT(sendJointPosition(int)));
     QObject::connect(ui->set_J4,SIGNAL(valueChanged(int)),this,SLOT(sendJointPosition(int)));*/
-    QObject::connect(ui->sendCommend,SIGNAL(pressed ()),this, SLOT(sendJointParameters()));
-    QObject::connect(ui->ConnectCommand, SIGNAL(pressed ()),this, SLOT(connectSocket()));
+    QObject::connect(ui->sendCommend,SIGNAL(pressed()),this, SLOT(sendJointParameters()));
+    QObject::connect(ui->ConnectCommand, SIGNAL(pressed()),this, SLOT(connectSocket()));
+    QObject::connect(ui->setHome, SIGNAL(pressed()),this, SLOT(saveHome()));
+    QObject::connect(ui->goToHome, SIGNAL(pressed()),this, SLOT(goHome()));
+
 
     socket = new QTcpSocket();
     acc = new Accumulator(this);
@@ -53,18 +56,59 @@ void CommandWindow::readData()
 
 void CommandWindow::sendJointParameters()
 {
-    int message[8];
-    message[0] = ui->set_J1->value();
-    message[1] = ui->set_J2->value();
-    message[2] = ui->set_J3->value();
-    message[3] = ui->set_J4->value();
-    message[4] = ui->set_V1->value();
-    message[5] = ui->set_V2->value();
-    message[6] = ui->set_V3->value();
-    message[7] = ui->set_V4->value();
+    if (ui->jointMode->isChecked())
+    {
+        int message[4];
+        message[0] = ui->set_J1->value();
+        message[1] = ui->set_J2->value();
+        message[2] = ui->set_J3->value();
+        message[3] = ui->set_J4->value();
 
-    ControlMessage msg(7,8,message);
-    sendControlMessage(&msg);
+        ControlMessage msg(7,8,message);
+        sendControlMessage(&msg);
+    }
+    else if (ui->cartMode->isChecked()) {
+        int message[3];
+        message[0] = ui->set_C1->value();
+        message[1] = ui->set_C2->value();
+        message[2] = ui->set_C3->value();
+        ControlMessage msg(7,3,message);
+        sendControlMessage(&msg);
+    }
+}
+
+void CommandWindow::saveHome()
+{
+    if (ui->jointMode->isChecked())
+    {
+        home_joint[0] = ui->set_J1->value();
+        home_joint[1] = ui->set_J2->value();
+        home_joint[2] = ui->set_J3->value();
+        home_joint[3] = ui->set_J4->value();
+    }
+    else if (ui->cartMode->isChecked())
+    {
+        home_cart[0] = ui->set_C1->value();
+        home_cart[1] = ui->set_C2->value();
+        home_cart[2] = ui->set_C3->value();
+    }
+}
+
+void CommandWindow::goHome()
+{
+    if (ui->jointMode->isChecked())
+    {
+        ui->set_J1->setValue(home_joint[0]);
+        ui->set_J2->setValue(home_joint[1]);
+        ui->set_J3->setValue(home_joint[2]);
+        ui->set_J4->setValue(home_joint[3]);
+    }
+    else if (ui->cartMode->isChecked())
+    {
+        ui->set_C1->setValue(home_cart[0]);
+        ui->set_C2->setValue(home_cart[1]);
+        ui->set_C3->setValue(home_cart[2]);
+    }
 }
 
 void CommandWindow::sendControlMessage(ControlMessage* msg)
