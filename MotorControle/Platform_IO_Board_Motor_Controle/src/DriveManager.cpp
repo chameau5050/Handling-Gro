@@ -53,11 +53,7 @@ void DriveManager::setHomePosition(Vector <int> newhomeposition)
 {
     for (int i=0;i < Joins.size();i++)
     {
-        int valeur = newhomeposition.get(i);
-        //Joins.get(i)->setHome(newhomeposition.get(i));
-        Joins.get(i)->setHome(valeur);
-
-        
+        Joins.get(i)->setHome(newhomeposition.get(i));       
     }
 }
 
