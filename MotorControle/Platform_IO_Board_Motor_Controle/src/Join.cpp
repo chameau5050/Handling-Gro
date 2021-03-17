@@ -1,10 +1,3 @@
-/*********************************************************
-Fichier     : Join.cpp
-Auteur      : Jérémy Giguère
-Date        : 27 janvier 2021
-Description : fichier qui represente les attribut pour la classe abstraite joint
-**********************************************************/
-
 #include "Join.h"
 
 Join::Join(int position, int limite, int homePosition, int LimiteSwitchPinDroit, int LimiteSwitchPinGauche)
@@ -28,7 +21,7 @@ void Join::goToHome()
 
 void Join::resetPosition()
 {
-    //goTo() : attendre l'ajout des bumper
+    //goTo() : wait the bumper add  //attendre l'ajout des bumper
     position = 0;
 }
 
