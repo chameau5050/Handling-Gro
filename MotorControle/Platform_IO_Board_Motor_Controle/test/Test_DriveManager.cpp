@@ -9,52 +9,52 @@ Description : Fichier qui represente les tests pour
 #include "Test_DriveManager.h"
 #include "DriveManager.h"
 #include "Utils/Vector.h"
-#include "Pixel_Join.h"
+//#include "Pixel_Join.h"
+#include "TestJoinDevice.h"
 
 void Test_DriveManager::test()
 {
     RUN_TEST(test_goToHome);
-    RUN_TEST(test_goToPosition);
+    // RUN_TEST(test_goToPosition);
     RUN_TEST(test_setHome);
     RUN_TEST(test_calibrateAllJoin);
 }
 
 void Test_DriveManager::test_goToHome()
 {
-    Pixel_Join pixel_le_film(69,281,3,0,0);
+    TestJoinDevice testjoin(69,281,3,0,0);
     Vector <Join*> joins;
-    joins.add(&pixel_le_film);
-    DriveManager driveManager(&joins);
+    joins.add(&testjoin);
+    DriveManager driveManager(joins);
 
     driveManager.goToHome();
-    //pixel_le_film.goToHome();
-    TEST_ASSERT_EQUAL(3,pixel_le_film.getPosition());
+    TEST_ASSERT_EQUAL(3,testjoin.getPosition());
 }
 
-void Test_DriveManager::test_goToPosition()
-{
-    Pixel_Join pixel_le_film(6000,281000,3,0,0);
-    Vector <Join*> joins;
-    joins.add(&pixel_le_film);
-    DriveManager driveManager(&joins);
+// void Test_DriveManager::test_goToPosition()
+// {
+//     TestJoinDevice testjoin(6000,281000,3,0,0);
+//     Vector <Join*> joins;
+//     joins.add(&testjoin);
+//     DriveManager driveManager(joins);
     
-    Vector <int> array_position;
-    array_position.add(2048);
-    driveManager.goToPosition(array_position);
-    TEST_ASSERT_EQUAL(2048,pixel_le_film.getPosition());
-}
+//     Vector <int> array_position;
+//     array_position.add(2048);
+//     driveManager.goToPosition(array_position);
+//     TEST_ASSERT_EQUAL(2048,testjoin.getPosition());
+// }
 
 void Test_DriveManager::test_setHome()
 {
-    Pixel_Join pixel_le_film(3000,254111,50,0,0);
+    TestJoinDevice testjoinss(3000,254111,50,0,0);
     Vector <Join*> joins;
-    joins.add(&pixel_le_film);
-    DriveManager driveManager(&joins);
+    joins.add(&testjoinss);
+    DriveManager driveManager(joins);
 
     Vector <int> array_home;
     array_home.add(7);
-    driveManager.setHome(array_home);
-    TEST_ASSERT_EQUAL(7,pixel_le_film.getHome());
+    driveManager.setHomePosition(array_home);
+    TEST_ASSERT_EQUAL(7,testjoinss.getHome());
     
 }
 

@@ -13,13 +13,13 @@ Description : fichier qui represente les attributs pour la classe DriveManager
 class DriveManager
 {
     public:
-        DriveManager(Vector <Join*> *Joins);
+        DriveManager(const Vector<Join*>& Joins);
         ~DriveManager();
         void goToHome();
         void goToPosition(Vector <int> position);
-        int setHome(Vector <int> position);
-        int calibrateAllJoin();
+        void setHomePosition(Vector <int> position);
+        void calibrateAllJoin();
     private:
-        Vector <Join*> *Joins;
+        Vector <Join*> Joins;
 };
 #endif

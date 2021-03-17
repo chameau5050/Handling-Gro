@@ -5,10 +5,15 @@ Date        : 5 mars 2021
 Description : fichier qui represente les attribut pour la classe DriveManager
 **********************************************************/
 #include "DriveManager.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <Arduino.h>
 
-DriveManager::DriveManager(Vector <Join*> *Joins)
+DriveManager::DriveManager(const Vector<Join*>& Joins)
 {
     this->Joins = Joins;
+    
 }
 
 DriveManager::~DriveManager()
@@ -19,34 +24,37 @@ DriveManager::~DriveManager()
 
 void DriveManager::goToHome()
 {
-    for (int i=0;i < Joins->size();i++)
+    for (int i=0;i < Joins.size();i++)
     {
-        Joins->get(i)->goToHome();
+        Joins.get(i)->goToHome();
     }
 }
 
 
 
-void  DriveManager::goToPosition(Vector <int> position)
+void DriveManager::goToPosition(Vector <int> position)
 {
-    for (int i=0;i < Joins->size();i++)
+    for (int i=0;i < Joins.size();i++)
     {
-        Joins->get(i)->goTo(position.get(i));
+        Joins.get(i)->goTo(position.get(i));
     }
 }
 
 
 
-int  DriveManager::setHome(Vector <int> position)
+void DriveManager::setHomePosition(Vector <int> newhomeposition)
 {
-    for (int i=0;i < Joins->size();i++)
+    for (int i=0;i < Joins.size();i++)
     {
-        Joins->get(i)->setHome(position.get(i));
-    }
+        int valeur = newhomeposition.get(i);
+        //Joins.get(i)->setHome(newhomeposition.get(i));
+        Joins.get(i)->setHome(valeur);
 
+        
+    }
 }
 
-int DriveManager::calibrateAllJoin()
+void DriveManager::calibrateAllJoin()
 {
     //on est loin detre pret a faire cela 
 

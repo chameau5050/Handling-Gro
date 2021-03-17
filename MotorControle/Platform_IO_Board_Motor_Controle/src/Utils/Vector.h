@@ -6,10 +6,23 @@
 template <class T>
 class Vector{
 	public:
+
 	Vector(){
 		this->capacite = 5;
 		this->taille = 0;
 		this->tableau = new T[capacite];
+	}
+	
+	Vector(const Vector<T>& copy)
+	{
+		this->capacite = copy.getCapacite();
+		this->tableau = new T[capacite];
+		for(int i = 0; i<copy.size();i++)
+		{
+			 this->tableau[i]=copy.get(i);
+			
+		}
+		this->taille=copy.size();
 	}
 	
 	T get(int index){
@@ -77,9 +90,9 @@ class Vector{
 
 	
 	private:
-	int capacite;
-	int taille;
-	T* tableau;
+		int capacite;
+		int taille;
+		T* tableau;
 };
 
 
