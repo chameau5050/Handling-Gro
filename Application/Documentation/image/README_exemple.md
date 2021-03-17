@@ -8,18 +8,19 @@
 
 <div id="badges">
     
-
+[![build status](https://img.shields.io/travis/SPUdeS/SPUdes/main?logo=Travis&style=flat-square)](https://www.travis-ci.com/github/SPUdeS/SPUdeS)
 [![License: GPL-3.0](https://img.shields.io/badge/License-GPLv3-blue.svg?style=flat-square)](https://github.com/SPUdeS/SPUdeS/blob/main/LICENSE) 
 
 </div>
 
 [//]: # (------------------------------------------------)
 
-**This is an academic project by robotics engineering undergraduates at Université de Sherbrooke.**
-**Handling GRO is a five degrees of freedom fanuc robot. This is an academic project by robotics engineering undergraduates at l'Université de Sherbrooke.**
+**Decrire notre projet en quelques
+ligne. This is an academic project by robotics engineering undergraduates at l'Université de Sherbrooke.**
+**SPUdeS is a six degrees of freedom Stewart Platform. This is an academic project by robotics engineering undergraduates at l'Université de Sherbrooke.**
 
 <div id="platform" align="center">
-    <img src="./Application/Documentation/image/HandlingGRO.png" alt="Robot Assembly" width="703"/>
+    <img src="./Documentation/img/Assembly.png" alt="Platform Assembly" width="703"/>
 </div>
 
 ## Table of Contents
@@ -80,21 +81,6 @@ This section specifies the external resources used in the project.
 - Model: HS-422
 - Quantity: 6
 -->
-#### <a id="dynamixel"></a>Dynamixel_motors
-- Brand: [Dynamixel](https://www.robotis.us/dynamixel-xm430-w350-r/)
-- Model: XM430-W350
-- Quantity: 4
-
-#### <a id="SteperMotor"></a>SteperMotors
-- Brand: [Elegoo](https://www.elegoo.com/products/elegoo-uln2003-5v-stepper-motor-uln2003-driver-board)
-- Model: 28BYJ-48 
-- Quantity: 1
-
-#### <a id="DriveBoard"></a>DriveBoard
-- Brand: [Elegoo](https://www.elegoo.com/products/elegoo-uln2003-5v-stepper-motor-uln2003-driver-board)
-- Model: ULN2003 
-- Quantity: 1
-<!--
 #### <a id="Servo"></a>Servomotors
 - Brand: [Adafruit](https://www.amazon.ca/Adafruit-2201-Sub-micro-Servo-SG51R/dp/B0137LG0KW)
 - Model: SG51R
@@ -104,17 +90,11 @@ This section specifies the external resources used in the project.
 - Brand: [CUI Inc.](https://www.digikey.com/en/products/detail/cui-inc/SWI10-5-N-P5/6618696)
 - Model: SWI10-5-N
 - Quantity: 1
--->
-#### <a id="Rods"></a> Linear Rods
-- Brand: [yqltd](https://www.amazon.ca/CNBTR-Horizontal-Bearing-Bushing-Optical/dp/B01KLE9QEU)
-- ASIN: CNBTR4040 road
-- Quantity: 2
 
-#### <a id="linear_bearing"></a> Linear bearing
-- Brand: [yqltd](https://www.amazon.ca/CNBTR-Horizontal-Bearing-Bushing-Optical/dp/B01KLE9QEU)
-- ASIN: CNBTR4040 bearing
-- Quantity: 4
-
+#### <a id="Rods"></a> Servo Rods
+- Brand: [Amaus](https://www.amazon.ca/-/fr/tirage-r%C3%A9glables-voiture-Tourning-accessoires/dp/B082WCQ4ZR/ref=pd_sbs_5?language=en_CA&pd_rd_i=B082WDXRKH&pd_rd_r=41f4cc38-4f04-4061-ae31-0daa716f90dd&pd_rd_w=uNdGH&pd_rd_wg=BPvl7&pf_rd_p=ba284f11-925a-4926-8142-0043fa482b41&pf_rd_r=2Z5RF9PZ91H1NW58AZP6&th=1)
+- ASIN: B082WCQ4ZR
+- Quantity: 6
 
 ## <a id="License"></a>License
 This project is licenced under a  [![GPL-3.0](https://img.shields.io/badge/License-GPLv3-blue.svg?style=flat-square)](https://github.com/SPUdeS/SPUdeS/blob/main/LICENSE) license.
