@@ -1,25 +1,39 @@
+
 #ifndef VECTEUR_H
 #define VECTEUR_H
 
-#define NULL 0
+//#define NULL 0
 
 template <class T>
 class Vector{
 	public:
+
 	Vector(){
 		this->capacite = 5;
 		this->taille = 0;
 		this->tableau = new T[capacite];
 	}
 	
+	Vector(Vector<T>& copy)
+	{
+		this->capacite = copy.getCapacite();
+		this->tableau = new T[capacite];
+		for(int x= 0; x < copy.size(); x++)
+		{
+			 this->tableau[x] = copy.get(x);
+			
+		}
+		this->taille = copy.size();
+	}
+	
 	T get(int index){
 		if(index >=0 && index < taille)
 			return tableau[index];
-		return NULL;
+		return __null;
 	}
 
 	bool add(T item){
-		if(item == NULL)
+		if(item == __null)
 			return false;
 
 		if(taille+1>capacite){
@@ -46,7 +60,7 @@ class Vector{
 			return temp;
 		}
 		else
-			return NULL;
+			return __null;
 	}
 
 	bool clear(){
@@ -77,9 +91,9 @@ class Vector{
 
 	
 	private:
-	int capacite;
-	int taille;
-	T* tableau;
+		int capacite;
+		int taille;
+		T* tableau;
 };
 
 
