@@ -25,15 +25,15 @@ SerialComm SC(&Serial);
 
 // Definition des defines pour la communication
 // Definition of define for communication
-#define SETLIMITESINDEX 1
-#define SETHOMEPOSITIONINDEX 3
-#define SETREFERENCEPOSITIONINDEX 5
-#define GOTOPOSITIONINDEX 7
-#define GOTOHOMEINDEX 9
-#define RETURNLIMITESINDEX 11
-#define RETURNHOMEPOSITIONINDEX 13
-#define RETURNREFERENCEPOSITIONINDEX 15
-#define RETURNACTUALPOSITIONINDEX 17
+#define SET_LIMITES_INDEX 1
+#define SET_HOME_POSITION_INDEX 3
+#define SET_REFERENCE_POSITION_INDEX 5
+#define GO_TO_POSITION_INDEX 7
+#define GO_TO_HOME_INDEX 9
+#define RETURN_LIMITES_INDEX 11
+#define RETURN_HOME_POSITION_INDEX 13
+#define RETURN_REFERENCE_POSITION_INDEX 15
+#define RETURN_ACTUAL_POSITION_INDEX 17
 
 DynamixelWorkbench dxl_wb;
 uint8_t get_id[16];
@@ -47,12 +47,12 @@ void printInst();
 
 // Definition des defines pour les parametres des moteurs
 // Definition of defines for engine parameters
-#define NbDeMoteur 4
-int defineID[NbDeMoteur]= {1,2,3,4};
+#define NbrMotor 4
+int defineID[NbrMotor]= {1,2,3,4};
 
-int LimiteMax[NbDeMoteur] = {81921,8193,8193,8193};
-int LimiteMin[NbDeMoteur] = {0,0,0,0};
-int Home[NbDeMoteur]= {0,0,0,0}; 
+int LimiteMax[NbrMotor] = {81921,8193,8193,8193};
+int LimiteMin[NbrMotor] = {0,0,0,0};
+int Home[NbrMotor]= {0,0,0,0}; 
 
 
 // Definition de la classe moteur pour les moteurs dynamixel
@@ -75,7 +75,8 @@ class motor
     result = dxl_wb.init(DEVICE_NAME, baud);
     result = dxl_wb.ping((int8_t)id, &model_number, &log);
     
-//Code pour le réglage des moteurs dans differents mode
+//Code for setting motors in different modes   
+//Code pour le réglage des moteurs dans differents modes
 //Essaie #1
     //result = dxl_wb.jointMode(id, 0, 0, &log);
 //Essaie #2
@@ -88,17 +89,17 @@ class motor
     if(result3==1)
     {
       Serial.println("");
-      Serial.print("Lumière active, moteur ");
+      Serial.print("Light On, motor ");
       Serial.print(id);
-      Serial.print(" prêt");
+      Serial.print(" ready");
       Serial.println("");
     }
     else
     {
       Serial.println("");
-      Serial.print("Lumière NON-active, moteur ");
+      Serial.print("Light Off, motor ");
       Serial.print(id);
-      Serial.print(" pas prêt");
+      Serial.print(" not ready");
       Serial.println("");
     }
   };
@@ -111,9 +112,9 @@ class motor
     dxl_wb.goalPosition((int8_t)id, (int32_t)pos, &log);
   };
 
-// Cette fonction la a un probleme.
   void setHomingOffset(int32_t pos)
   {
+    Serial.println("Fonction not working at 100%: Error");
     bool resultss = false;
     resultss =  dxl_wb.itemWrite(id, "Homing_Offset", pos, &log);
     if (resultss == false)
@@ -173,14 +174,14 @@ void setup()
 {
   Serial.begin(BAUD);
   IO.addDevice(&SC);
-  delay(10000);
+  delay(10);
 }
 
 void loop() 
 {
   ControlMessage* msg = IO.readMessage(0);
 
-  for (int m=0;m<NbDeMoteur;m++)
+  for (int m=0;m<NbrMotor;m++)
   {
     if (Reference[m] == 0)
     {
@@ -202,11 +203,11 @@ void loop()
         Serial.println("activer");
       }
 
-//CODE POUR LES DIFFERENTES OPERATIONS A EFFECTUER
-//CODE FOR THE DIFFERENT OPERATIONS TO BE CARRIED OUT
+//CODE POUR LES DIFFERENTES OPERATIONS A EFFECTUER PAR LE MOTEURS
+//CODE FOR THE DIFFERENT OPERATIONS TO BE CARRIED OUT BY THE ENGINES
       
       //Set position = 7 
-      if (msg->getType()== GOTOPOSITIONINDEX)
+      if (msg->getType()== GO_TO_POSITION_INDEX)
       {
         if (msg->getPayload()[i] >= LimiteMax[i])
         {
@@ -216,58 +217,59 @@ void loop()
       }
 
       //Set limite = 1
-      else if (msg->getType()== SETLIMITESINDEX)
+      else if (msg->getType()== SET_LIMITES_INDEX)
       {
         LimiteMax[i] = msg->getPayload()[i];
       }
   
       //Set Home Position = 3
-      else if (msg->getType()== SETHOMEPOSITIONINDEX)
+      else if (msg->getType()== SET_HOME_POSITION_INDEX)
       {
         Home[i] = msg->getPayload()[i];
       } 
   
       //Set reference position = 5 
-      else if (msg->getType()== SETREFERENCEPOSITIONINDEX)
+      else if (msg->getType()== SET_REFERENCE_POSITION_INDEX)
       {
         if (msg->getPayload()[i] == 1)
         {
           delete Reference[i];
           Reference[i] = new motor(defineID[i]);
         }
-          Reference[i]->setHomingOffset(msg->getPayload()[i]);  // ne fonctionne pas encore a 100%     
+          Reference[i]->setHomingOffset(msg->getPayload()[i]); 
+          Serial.println("Fonction not working at 100%: Error");     
       }
               
       //Go to HOME = 9
-      else if (msg->getType()== GOTOHOMEINDEX)
+      else if (msg->getType()== GO_TO_HOME_INDEX)
       {
         Home[i] = msg->getPayload()[i];
         Reference[i]->gotoa(Home[i]);
       }
-//TEST POUR RENVOYER LINFORMATION
-//TEST TO RETURN INFORMATION
+//CODE POUR RENVOYER LINFORMATION
+//CODE TO RETURN INFORMATION
 
       //return limites = 11
-      else if (msg->getType()== RETURNLIMITESINDEX)
+      else if (msg->getType()== RETURN_LIMITES_INDEX)
       {
         msg->getPayload()[i] = LimiteMax[i];
       }
   
       //return HOME position = 13
-      else if (msg->getType()== RETURNHOMEPOSITIONINDEX)
+      else if (msg->getType()== RETURN_HOME_POSITION_INDEX)
       {
         msg->getPayload()[i] = Home[i];
       }
 
       //return reference position = 15
-      else if (msg->getType()== RETURNREFERENCEPOSITIONINDEX)
+      else if (msg->getType()== RETURN_REFERENCE_POSITION_INDEX)
       {
-        Serial.println("Fonction non completer: Erreur");
+        Serial.println("Fonction not complete: Error");
         msg->getPayload()[i] = (Reference[i])->GetReferencePosition1();
       }
 
       //return actual position = 17
-      else if (msg->getType()== RETURNACTUALPOSITIONINDEX)
+      else if (msg->getType()== RETURN_ACTUAL_POSITION_INDEX)
       {
          msg->getPayload()[i] = (Reference[i])->GetPosition1();
       }
@@ -282,7 +284,7 @@ void loop()
     //auto responce = ControlMessage(-1);
     //IO.sendMessage(0,responce);
   }
-  delay(1000);
+  delay(100);
   
 }
 #endif
@@ -301,32 +303,4 @@ void loop()
 {​​"type":3,"PLS":3,"data":[50,500,1500]}​​
 
 {​​"type":5,"PLS":3,"data":[0,1,0]}​​
-*/
-
-/*
-
-DEFINITION DES TYPES QUE JE RECOIS
-
-%%%%COMMANTE POUR ENVOYER DE LINFORMATION%%%%
-->J'UTILISE JUSTE LES NOMBRES IMPAIRES ET JE RENVOIT QUAND JAI FINI LE NOMBRE PAIR
-1:SETLIMITES->SET LA LIMITES POUR CHAQUE MOTEUR
-2:RETOUR DE LA COMMANDE 1 RECU
-3:SetHomePosition-> set la position home du robot: à faire ce soir
-4:RETOUR DE LA COMMANDE 3 RECU
-5:RESETPOSITION->RESET LA POSITION DANS LES ENCODEUR POUR LES REMETTRES A ZÉROS
-6:RETOUR DE LA COMMANDE 5 RECU
-7:SETPOSITION->FAIT DEPLACER LES MOTEURS À LEUR BONNES PLACES
-8:RETOUR DE LA COMMANDE 7 RECU
-9:GOTOHOME->ENVOIE LE ROBOT A SA POSITION DE REFERENCE
-10:RETOUR DE LA COMMANDE 10 RECU
-
-%%%%COMMANTE POUR RECEVOIR DE LINFORMATION%%%%
-11:RENVOIT LA LIMITES DES JOINT DU ROBOT
-12:RETOUR DE LA COMMANDE 11 RECU
-13:RENVOIT LES POSITIONS DU HOME DU ROBOT
-14:RETOUR DE LA COMMANDE 13 RECU
-15:RENVOIT LES POSITIONS DE REFERENCE DU ROBOT, DONC SI LA COMMANDE 5 A FONCTIONNER = (0,...,0)
-16:RETOUR DE LA COMMANDE 15 RECU
-17:RENVOIT LES POSITIONS ACTUELLES DU ROBOT
-18:RETOUR DE LA COMMANDE 15 RECU
 */
