@@ -1,9 +1,3 @@
-/*********************************************************
-Fichier     : DriveManager.cpp
-Auteur      : Jérémy Giguère
-Date        : 5 mars 2021
-Description : fichier qui represente les attribut pour la classe DriveManager
-**********************************************************/
 #include "DriveManager.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -15,19 +9,24 @@ DriveManager::DriveManager()
 
 }
 
+
 DriveManager::~DriveManager()
 {
 
 }
+
+
 void DriveManager::addJoin(Join* newJoin)
 {
     Joins.add(newJoin);
 }
 
- void  DriveManager::deleteJointAt(int index)
+
+void  DriveManager::deleteJointAt(int index)
  {
      Joins.remove(index);
  }
+
 
 void DriveManager::goToHome()
 {
@@ -38,7 +37,6 @@ void DriveManager::goToHome()
 }
 
 
-
 void DriveManager::goToPosition(Vector <int> position)
 {
     for (int i=0;i < Joins.size();i++)
@@ -46,7 +44,6 @@ void DriveManager::goToPosition(Vector <int> position)
         Joins.get(i)->goTo(position.get(i));
     }
 }
-
 
 
 void DriveManager::setHomePosition(Vector <int> newhomeposition)
@@ -59,6 +56,8 @@ void DriveManager::setHomePosition(Vector <int> newhomeposition)
 
 void DriveManager::calibrateAllJoin()
 {
-    //on est loin detre pret a faire cela 
-
+    //To be done:
+    //function to calibrate the motors and define their parameters
+    //A faire:
+    //fonction pour calibrer les moteurs et definir leurs parametres
 }

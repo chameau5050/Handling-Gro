@@ -1,11 +1,4 @@
-/*********************************************************
-Fichier     : test_Join.cpp
-Auteur      : Jérémy Giguère
-Date        : 04 Février 2021
-Description : Fichier qui represente les tests pour les fichiers Join
-**********************************************************/
-
-#include <unity.h> //library de base pour faire du unite testing
+#include <unity.h> 
 #include "Test_Join.h"
 #include "Pixel_Join.h"
 #include "Test_Join.h"
@@ -24,14 +17,15 @@ void Test_Join::test()
 
 void Test_Join::test_initialisation_getPosition()
 {
+    //test if getPosition works
     //test si le getPosition fonctionne
     TestJoinDevice testjoin(69,281,42,0,0);
-    //Pixel_Join Pixel_le_film(69,281,42,0,0);
     TEST_ASSERT_EQUAL(69,testjoin.getPosition());
 }
 
 void Test_Join::test_initialisation_getLimite()
 {
+    //test if the getLimite works
     //test si le getLimite fonctionne
     Pixel_Join Pixel_le_film(69,281,42,0,0);
     TEST_ASSERT_EQUAL(281,Pixel_le_film.getLimite());
@@ -39,6 +33,7 @@ void Test_Join::test_initialisation_getLimite()
 
 void Test_Join::test_initialisation_setLimite()
 {
+    //test if the setLimite works
     //test si le setLimite fonctionne
     Pixel_Join Pixel_le_film(69,281,42,0,0);
     Pixel_le_film.setLimite(181);
@@ -47,6 +42,7 @@ void Test_Join::test_initialisation_setLimite()
 
 void Test_Join::test_initialisation_getHome()
 {
+    //test if the getHome works
     //test si le getHome fonctionne
     Pixel_Join Pixel_le_film(69,281,42,0,0);
     TEST_ASSERT_EQUAL(42,Pixel_le_film.getHome());
@@ -54,6 +50,7 @@ void Test_Join::test_initialisation_getHome()
 
 void Test_Join::test_initialisation_setHome()
 {
+    //test if the setHome works
     //test si le setHome fonctionne
     Pixel_Join Pixel_le_film(69,281,42,0,0);
     Pixel_le_film.setHome(3);
@@ -62,12 +59,14 @@ void Test_Join::test_initialisation_setHome()
 
 void Test_Join::test_initialisation_goTo()
 {
-    //test goTo
+    //test if the goTo works
+    //test si le goTo fonctionne
     Pixel_Join Pixel_le_film(69,281,42,0,0);
     Pixel_le_film.goTo(107);
     TEST_ASSERT_EQUAL(107,Pixel_le_film.getPosition());
 
-    //si si j'envoie une valeur suppérieur à la limite défini 281
+    //test if the goTo works with a value greater than the limit
+    //test si le goTo fonctionne avec une valeur suppérieur à la limite
     Pixel_le_film.goTo(1000);
     TEST_ASSERT_EQUAL(-1,Pixel_le_film.getPosition());
 }
@@ -91,7 +90,8 @@ void Test_Join::test_initialisation_goTo_avec_le_moteur()
     Pixel_le_film1.goTo(0);
     TEST_ASSERT_EQUAL(0,Pixel_le_film1.getPosition());
 
-    //si si j'envoie une valeur suppérieur à la limite défini 281
+    //test if the goTo works with a value greater than the limit
+    //test si le goTo fonctionne avec une valeur suppérieur à la limite
     Pixel_le_film1.goTo(2048900);
     TEST_ASSERT_EQUAL(-1,Pixel_le_film1.getPosition());
 }

@@ -1,9 +1,3 @@
-/*********************************************************
-Fichier     : DriveManager.h
-Auteur      : Jérémy Giguère
-Date        : 5 mars 2021
-Description : fichier qui represente les attributs pour la classe DriveManager
-**********************************************************/
 #include "Join.h"
 #include "Utils/Vector.h"
 

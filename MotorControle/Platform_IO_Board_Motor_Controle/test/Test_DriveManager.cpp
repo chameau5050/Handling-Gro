@@ -1,21 +1,13 @@
-/*********************************************************
-Fichier     : test_DriveManager.cpp
-Auteur      : Jérémy Giguère
-Date        : 5 mars 2021
-Description : Fichier qui represente les tests pour 
-              le fichier DriveManager
-**********************************************************/
-#include <unity.h> //library de base pour faire du unite testing
+#include <unity.h> 
 #include "Test_DriveManager.h"
 #include "DriveManager.h"
 #include "Utils/Vector.h"
-//#include "Pixel_Join.h"
 #include "TestJoinDevice.h"
 
 void Test_DriveManager::test()
 {
     RUN_TEST(test_goToHome);
-    // RUN_TEST(test_goToPosition);
+    RUN_TEST(test_goToPosition);
     RUN_TEST(test_setHome);
     RUN_TEST(test_calibrateAllJoin);
 }
@@ -59,6 +51,9 @@ void Test_DriveManager::test_setHome()
 void Test_DriveManager::test_calibrateAllJoin()
 {
     TEST_ASSERT_EQUAL(1,1);
-    //fonction pour calibrer les moteurs et definir leur parametres
-    // a faire
+    //To be done:
+    //function to calibrate the motors and define their parameters
+    //A faire:
+    //fonction pour calibrer les moteurs et definir leurs parametres
+
 }

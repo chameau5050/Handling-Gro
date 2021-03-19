@@ -1,10 +1,3 @@
-/*********************************************************
-Fichier     : test_Join.h
-Auteur      : Jérémy Giguère
-Date        : 04 Février 2021
-Description : Fichier qui represente les tests pour les fichier Join
-**********************************************************/
-
 #ifndef TEST_JOIN_H
 #define TEST_JOIN_H
 
@@ -21,6 +14,5 @@ class Test_Join : public abstractTest
         static void test_initialisation_setHome();
         static void test_initialisation_goTo();
         static void test_initialisation_goTo_avec_le_moteur();
-
 };
 #endif
