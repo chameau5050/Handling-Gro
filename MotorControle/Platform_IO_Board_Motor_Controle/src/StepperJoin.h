@@ -14,7 +14,7 @@ Description : fichier qui represente les attribut pour la classe abstraite joint
 class StepperJoin : public Join
 {
     public:
-        StepperJoin(int position, int limite, int homePosition, int LimiteSwitchPinDroit, int LimiteSwitchPinGauche, uint8_t id = 1);
+        StepperJoin(int position, int limite, int homePosition, int LimiteSwitchPinDroit, int LimiteSwitchPinGauche, int MOTOR_IN1_PIN = 8, int MOTOR_IN2_PIN = 9, int MOTOR_IN3_PIN = 10, int MOTOR_IN4_PIN = 11);
         ~StepperJoin();
         void goTo(int position); 
 
