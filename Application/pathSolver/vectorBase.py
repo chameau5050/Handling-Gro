@@ -39,15 +39,26 @@ def translateZ(vector, translationValue):
 
 def findXRotation(rotMatrix):
         z = np.array([0, 0, 1])
+        y = np.array([0,1,0])
         zTransform = rotMatrix.dot(z)
-        # remove Z dimention
+        yTransform = rotMatrix.dot(y)
+        # remove X dimention
         zTransform[0] = 0
+        yTransform[0] = 0
 
-        angle = math.acos(
-            z.dot(zTransform) / (math.sqrt(z.dot(z.transpose())) * math.sqrt(zTransform.dot(zTransform.transpose()))))
+        #angle = math.acos(
+        #    z.dot(zTransform) / (math.sqrt(z.dot(z.transpose())) * math.sqrt(zTransform.dot(zTransform.transpose()))))
+        Norm = math.sqrt(np.dot(zTransform, zTransform))
 
-        if zTransform[1] < 0:
+
+
+        angle = math.acos(zTransform[2]/Norm)
+
+        if zTransform[1] > 0 and zTransform[2] > 0:
             angle = 2 * math.pi - angle
+            #angle += math.pi
+
+
         return angle
 
 def findYRotation(rotMatrix):

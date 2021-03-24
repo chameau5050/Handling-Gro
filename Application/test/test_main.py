@@ -10,6 +10,7 @@ from test.TestPositionSolver.TestVectorBase import *
 from test.TestPositionSolver.TestRevoluteJoin import *
 from test.TestPositionSolver.TestJoinSystem import *
 from test.TestPositionSolver.TestLinearJoin import *
+from test.TestPositionSolver.TestPositonSolver import *
 
 if __name__ == '__main__':
     unittest.main()
