@@ -11,21 +11,27 @@ class TestDriveManagerPython(unittest.TestCase):
         msg = MessageIO()
         msg.addDevice(testCommDevice())
         driveManager = DriveManager(controller,msg)
-        self.assertEqual(driveManager.getJointIndex(),controller)
+        self.assertEqual(driveManager.getJointIndex(), controller)
 
     def test_moveAxis(self):
         ctrlmsg = ControlMessage(1, [40, 23, 11, 52])
-        controller = [1, 1, 2, 2]
-        msg = MessageIO()
-        msg.addDevice(testCommDevice(True))
-        msg.addDevice(testCommDevice(True))
-        driveManager = DriveManager(controller, msg)
+        controller = [0, 0, 2, 1]
+        msgManager = MessageIO()
+        msgManager.addDevice(testCommDevice(True))
+        msgManager.addDevice(testCommDevice(True))
+        msgManager.addDevice(testCommDevice(True))
+        driveManager = DriveManager(controller, msgManager)
         driveManager.moveAxis(ctrlmsg)
-        sentboi = driveManager.paperBoy
-        test_msg_1 = sentboi.readMessage(0)
-        test_msg_2 = sentboi.readMessage(1)
+
+        test_msg_1 = msgManager.readMessage(0)
+        test_msg_2 = msgManager.readMessage(1)
+        test_msg_3 = msgManager.readMessage(2)
+
         test_ctrl_1 = [40, 23]
-        test_ctrl_2 = [11, 52]
+        test_ctrl_2 = [52]
+        test_ctrl_3 = [11]
+
         self.assertEqual(test_ctrl_1, test_msg_1.getPayload())
         self.assertEqual(test_ctrl_2, test_msg_2.getPayload())
+        self.assertEqual(test_ctrl_3, test_msg_3.getPayload())
 

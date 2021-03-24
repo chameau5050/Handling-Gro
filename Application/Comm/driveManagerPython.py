@@ -6,7 +6,7 @@ class DriveManager:
     def __init__(self, controller, msgIO):
         # Indexes of joints controlled by controllers
         self.jointIndex = controller
-        self.paperBoy = msgIO
+        self.msgManager = msgIO
 
     def getJointIndex(self):
         return self.jointIndex
@@ -21,9 +21,9 @@ class DriveManager:
                 controllerDict[self.jointIndex[x]] = [readPayload[x]]
             else:
                 controllerDict[self.jointIndex[x]].append(readPayload[x])
-        for y in range(0, len(controllerDict)):
-            newMessage = ControlMessage(msgType, controllerDict[y+1])
-            self.paperBoy.sendMessage(y, newMessage)
+        for controllerId in controllerDict:
+            newMessage = ControlMessage(msgType, controllerDict[controllerId])
+            self.msgManager.sendMessage(controllerId, newMessage)
 
 
 
