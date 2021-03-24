@@ -20,7 +20,7 @@ void loop()
     Test_Join test_join;
     Test_DriveManager test_drivemanager;
 
-    //launch de test
+    //launch all test
     test_comm.test();
     test_join.test();
     test_drivemanager.test();
