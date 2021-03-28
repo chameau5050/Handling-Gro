@@ -2,7 +2,6 @@
 #include <ArduinoJson.h>
 
 #include "StepperJoin.h"
-#include "TinyStepper_28BYJ_48-master/src/TinyStepper_28BYJ_48.h"
 
 
 StepperJoin::StepperJoin(int position, int limite, int homePosition, int LimiteSwitchPinDroit, int LimiteSwitchPinGauche, int MOTOR_IN1_PIN, int MOTOR_IN2_PIN, int MOTOR_IN3_PIN, int MOTOR_IN4_PIN) : Join(position, limite, homePosition, LimiteSwitchPinDroit, LimiteSwitchPinGauche) 

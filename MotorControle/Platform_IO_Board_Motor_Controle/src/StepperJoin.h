@@ -2,7 +2,8 @@
 #define STEPPERJOIN_H
 
 #include "Join.h"
-#include "TinyStepper_28BYJ_48-master/src/TinyStepper_28BYJ_48.h"
+
+#include <TinyStepper_28BYJ_48.h>
 
 class StepperJoin : public Join
 {

@@ -10,6 +10,7 @@
 #include "DriveManager.h"
 #include "StepperJoin.h"
 
+
 //#define BAUD 9600 
 #define BAUD 115200 
 
@@ -42,7 +43,7 @@ void loop() {
   {
       // TEST #1
     delay(5000);
-    Serial.println("debut de l essaie du test #1");
+    Serial.println("Start test #1");
 
     DriveManager driveManager; 
     //StepperJoin stepperjoin(0,2810,3,0,0);
@@ -52,13 +53,13 @@ void loop() {
     //TestJoinDevice* testjoin = new TestJoinDevice(6000,281000,3,0,0);
     //driveManager.addJoin(testjoin);
     
-    Serial.println("Initialisation devrait etre completer, lumiere allumer");  
+    Serial.println("Initialisation complete, light ON");  
     delay(5000);
 
     Vector <int> array_position;
     array_position.add(2048);
     driveManager.goToPosition(array_position);
-    Serial.println("Fin de l essaie");
+    Serial.println("Test end");
 
     delay(5000);
   }
@@ -68,15 +69,15 @@ void loop() {
   {
     //TEST #2:
     delay(5000);
-    Serial.println("debut de l essaie");
+    Serial.println("Start test #2");
 
     StepperJoin stepperjoin(0,28800,42,0,0);
     delay(7000);
-    Serial.println("Initialisation devrait etre completer, lumiere allumer");  
+    Serial.println("Initialisation complete, light ON");  
     delay(5000);
 
-    stepperjoin.goTo(1000);// a vérifier car je pense qu'il fait juste 1000 tour??
-    Serial.println("Fin de l essaie");
+    stepperjoin.goTo(1000);
+  Serial.println("Test end");
 
     delay(5000);
 
