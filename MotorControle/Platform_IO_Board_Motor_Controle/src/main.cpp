@@ -8,7 +8,8 @@
 #include "Comm/MessageIO.h"
 #include "StateManager.h"
 #include "DriveManager.h"
-#include "Pixel_Join.h"
+#include "StepperJoin.h"
+
 
 //#define BAUD 9600 
 #define BAUD 115200 
@@ -56,7 +57,6 @@ void loop() {
     //auto responce = ControlMessage(-1);
     //IO.sendMessage(0,responce);
   }
-  delay(1000);
   
   // put your main code here, to run repeatedly:
 }
