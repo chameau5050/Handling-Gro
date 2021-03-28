@@ -19,20 +19,13 @@ StepperJoin::~StepperJoin()
 
 void StepperJoin::goTo(int WantedPosition)
 {
-    Serial.println("Le code est entree dans la fonction GoTo");
     int facteur_distance = 1;
 
     if (WantedPosition <= limite)
     {
         int nb_rotation =  facteur_distance * WantedPosition;
         stepmotor.moveToPositionInSteps(nb_rotation);// or stepmotor.moveToPositionInSteps(2048*nb_rotation);
-        delay(1000);
-        bool done = stepmotor.motionComplete();
-        while (done == false)
-        {
-            delay(100);
-            done = stepmotor.motionComplete();
-        }
+
         position = WantedPosition;
     }   
     else
