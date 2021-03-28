@@ -36,6 +36,8 @@ SerialComm SC(&Serial);
 #define RETURN_REFERENCE_POSITION_INDEX 15
 #define RETURN_ACTUAL_POSITION_INDEX 17
 
+// Definition des parametres important pour le fonctionnement des moteurs Dynamixel
+// Definition of parameters important for the operation of Dynamixel motors
 DynamixelWorkbench dxl_wb;
 uint8_t get_id[16];
 uint8_t scan_cnt = 0;
@@ -54,7 +56,7 @@ void printInst();
 
 int defineID[NbrMotor]= {1,2,3,4,5};
 
-int LimiteMax[NbrMotor] = {81921,8193,8193,8193,50000};
+int LimiteMax[NbrMotor] = {819210,8193,8193,8193,50000};
 int LimiteMin[NbrMotor] = {0,0,0,0,0};
 int Home[NbrMotor]= {0,0,0,0,0}; 
 
@@ -114,7 +116,6 @@ class motorstepper
     return -1;
   }
  };
-
 
 
 // Definition de la classe moteur pour les moteurs dynamixel
@@ -262,27 +263,6 @@ void loop()
     }
   }
 
-
-//    for (int m=0;m<NbrMotor;m++)
-//  {
-//    if (Reference[m] == 0)
-//    {
-//      if (m < NbrMotorDynamixel)
-//      {
-//        Reference[m] = new motor(defineID[m]);
-//        Serial.print("Je set un motor");
-//      }
-//    }
-//    else if(ReferenceStepper[m] == 0)
-//    {
-//      if (m >= NbrMotorDynamixel)
-//      {
-//        ReferenceStepper[m] = new motorstepper(defineID[m]);
-//        Serial.print("Je set un steppermotor");
-//      } 
-//    }
-//  }
-      
   if(msg != 0)
   {
     for (int i=0;i<msg->getPayLoadSize();i++)
@@ -303,41 +283,6 @@ void loop()
           Serial.println(i);
           Serial.println("activer");
       }
-
-//      if (Reference[i] == 0)
-//      {
-//        if (i < NbrMotorDynamixel)
-//        {
-//          Reference[i] = new motor(defineID[i]);
-//          Serial.println("Motor");
-//          Serial.println(i);
-//          Serial.println("activer");
-//        }
-//      }
-//      else if(ReferenceStepper[i] == 0)
-//      {
-//        if (i >= NbrMotorDynamixel)
-//        {
-//          ReferenceStepper[i] = new motorstepper(defineID[i]);
-//          Serial.println("StepperMotor");
-//          Serial.println(i);
-//          Serial.println("activer");
-//        } 
-//      }
-
-// APPLIQUER LA MEME METONDE POUR TOUTES LES FONCTIONS SI LE TEST DE DRIVE FONCTIONNE
-/*
-if (i < NbrMotorDynamixel)
-{
-  //exemple:Reference[i]->gotoa(msg->getPayload()[i]);
-  //FONCTION A ENVOYER AVEC LE REFERENCE
-}
-else if(i >= NbrMotorDynamixel)
-{
-  //exemple:ReferenceStepper[i]->gotoa(msg->getPayload()[i]);
-   //FONCTION A ENVOYER AVEC LE REFERENCEStepper
-}
-*/    
 
 //CODE POUR LES DIFFERENTES OPERATIONS A EFFECTUER PAR LE MOTEURS
 //CODE FOR THE DIFFERENT OPERATIONS TO BE CARRIED OUT BY THE ENGINES
