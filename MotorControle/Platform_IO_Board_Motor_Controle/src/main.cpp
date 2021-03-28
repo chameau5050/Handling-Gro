@@ -21,8 +21,6 @@ void setup() {
   IO.addDevice(&SC);
 }
 
-#define NUMERO_DU_TEST_A_EFFECTUER 1
-
 void loop() {
 
   ControlMessage* msg = IO.readMessage(0);
