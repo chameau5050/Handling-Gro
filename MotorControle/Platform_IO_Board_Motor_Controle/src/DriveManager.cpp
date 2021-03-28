@@ -61,3 +61,12 @@ void DriveManager::calibrateAllJoin()
     //A faire:
     //fonction pour calibrer les moteurs et definir leurs parametres
 }
+
+void DriveManager::goToPosition(int position[],int size)
+{
+    for (int i=0;i < size;i++)
+    {
+        Joins.get(i)->goTo(position[i]);
+    }
+
+}
