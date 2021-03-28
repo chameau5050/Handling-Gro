@@ -10,36 +10,30 @@ StepperJoin::StepperJoin(int position, int limite, int homePosition, int LimiteS
     stepmotor.connectToPins(MOTOR_IN1_PIN, MOTOR_IN2_PIN, MOTOR_IN3_PIN, MOTOR_IN4_PIN);
     stepmotor.setSpeedInStepsPerSecond(500);
     stepmotor.setAccelerationInStepsPerSecondPerSecond(1000);
-    Serial.println("constructeur creer");
-
 }
 
 StepperJoin::~StepperJoin()
 {
-    //stepmotor.disableMotor();
+    //stepmotor.disableMotor(); // check if it is necessary to put motor disable at the end?
 }
 
 
 void StepperJoin::goTo(int WantedPosition)
 {
     Serial.println("Le code est entree dans la fonction GoTo");
-    //determiner une rotation correspond a une déplacement de combien??
     int facteur_distance = 1;
 
     if (WantedPosition <= limite)
     {
         int nb_rotation =  facteur_distance * WantedPosition;
-        //stepmotor.moveToPositionInSteps(2048*nb_rotation);
-        Serial.println(nb_rotation);
-        stepmotor.moveToPositionInSteps(nb_rotation);
-        delay(15000);
+        stepmotor.moveToPositionInSteps(nb_rotation);// or stepmotor.moveToPositionInSteps(2048*nb_rotation);
+        delay(1000);
         bool done = stepmotor.motionComplete();
         while (done == false)
         {
             delay(100);
             done = stepmotor.motionComplete();
         }
-
         position = WantedPosition;
     }   
     else
