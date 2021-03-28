@@ -21,6 +21,8 @@ void setup() {
   IO.addDevice(&SC);
 }
 
+#define NUMERO_DU_TEST_A_EFFECTUER 1
+
 void loop() {
 
   // ControlMessage* msg = IO.readMessage(0);
@@ -36,42 +38,51 @@ void loop() {
   //   //IO.sendMessage(0,responce);
   // }
 
-  // TEST #1
-  delay(5000);
-  Serial.println("debut de l essaie du test #1");
+  if (NUMERO_DU_TEST_A_EFFECTUER == 1)
+  {
+      // TEST #1
+    delay(5000);
+    Serial.println("debut de l essaie du test #1");
 
-  DriveManager driveManager; 
-  //StepperJoin stepperjoin(0,2810,3,0,0);
-  StepperJoin* stepperjoin = new StepperJoin(0,28100,3,0,0);
+    DriveManager driveManager; 
+    //StepperJoin stepperjoin(0,2810,3,0,0);
+    StepperJoin* stepperjoin = new StepperJoin(0,28100,3,0,0);
 
-  driveManager.addJoin(stepperjoin);
-  //TestJoinDevice* testjoin = new TestJoinDevice(6000,281000,3,0,0);
-  //driveManager.addJoin(testjoin);
+    driveManager.addJoin(stepperjoin);
+    //TestJoinDevice* testjoin = new TestJoinDevice(6000,281000,3,0,0);
+    //driveManager.addJoin(testjoin);
+    
+    Serial.println("Initialisation devrait etre completer, lumiere allumer");  
+    delay(5000);
+
+    Vector <int> array_position;
+    array_position.add(2048);
+    driveManager.goToPosition(array_position);
+    Serial.println("Fin de l essaie");
+
+    delay(5000);
+  }
+
   
-  Serial.println("Initialisation devrait etre completer, lumiere allumer");  
-  delay(5000);
+  else if (NUMERO_DU_TEST_A_EFFECTUER == 2)
+  {
+    //TEST #2:
+    delay(5000);
+    Serial.println("debut de l essaie");
 
-  Vector <int> array_position;
-  array_position.add(2048);
-  driveManager.goToPosition(array_position);
-  Serial.println("Fin de l essaie");
+    StepperJoin stepperjoin(0,28800,42,0,0);
+    delay(7000);
+    Serial.println("Initialisation devrait etre completer, lumiere allumer");  
+    delay(5000);
 
-  delay(5000);
+    stepperjoin.goTo(1000);// a vérifier car je pense qu'il fait juste 1000 tour??
+    Serial.println("Fin de l essaie");
 
+    delay(5000);
 
-  // //TEST #2: FONCTIONELLE!!!
-  // delay(5000);
-  // Serial.println("debut de l essaie");
+  }
 
-  // StepperJoin stepperjoin(0,28800,42,0,0);
-  // delay(7000);
-  // Serial.println("Initialisation devrait etre completer, lumiere allumer");  
-  // delay(5000);
-
-  // stepperjoin.goTo(1000);// a vérifier car je pense qu'il fait juste 1000 tour??
-  // Serial.println("Fin de l essaie");
-
-  // delay(5000);
+ 
   
   // put your main code here, to run repeatedly:
 }
