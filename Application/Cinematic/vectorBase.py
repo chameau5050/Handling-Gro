@@ -37,57 +37,6 @@ def translateY(vector, translationValue):
 def translateZ(vector, translationValue):
     return np.array([vector[0], vector[1], vector[2]+translationValue]).reshape(3,1)
 
-def findXRotation(rotMatrix):
-        z = np.array([0, 0, 1])
-        y = np.array([0,1,0])
-        zTransform = rotMatrix.dot(z)
-        yTransform = rotMatrix.dot(y)
-        # remove X dimention
-        zTransform[0] = 0
-        yTransform[0] = 0
-
-        #angle = math.acos(
-        #    z.dot(zTransform) / (math.sqrt(z.dot(z.transpose())) * math.sqrt(zTransform.dot(zTransform.transpose()))))
-        Norm = math.sqrt(np.dot(zTransform, zTransform))
-
-
-
-        angle = math.acos(zTransform[2]/Norm)
-
-        if zTransform[1] > 0 and zTransform[2] > 0:
-            angle = 2 * math.pi - angle
-            #angle += math.pi
-
-
-        return angle
-
-def findYRotation(rotMatrix):
-        z = np.array([0, 0, 1])
-        zTransform = rotMatrix.dot(z)
-        # remove Z dimention
-        zTransform[1] = 0
-
-        angle = math.acos(
-            z.dot(zTransform) / (math.sqrt(z.dot(z.transpose())) * math.sqrt(zTransform.dot(zTransform.transpose()))))
-
-        if zTransform[0] < 0:
-            angle = 2 * math.pi - angle
-        return angle
-
-def findZRotation(rotMatrix):
-        x = np.array([1, 0, 0])
-        xTransform = rotMatrix.dot(x)
-        # remove Z dimention
-        xTransform[2] = 0
-
-        angle = math.acos(
-            x.dot(xTransform) / (math.sqrt(x.dot(x.transpose())) * math.sqrt(xTransform.dot(xTransform.transpose()))))
-
-        if xTransform[1] < 0:
-            angle = 2 * math.pi - angle
-        return angle
-
-
 class VectorBase:
 
     def __init__(self,x=0,y=0,z=0, thetax=0, thetay=0, thetaz=0):
