@@ -1,8 +1,8 @@
-from test.TestPositionSolver.VectorTester import *
-from pathSolver.JoinSystem import *
-from pathSolver.PositionSolver import *
-from pathSolver.RevoluteJoin import *
-from pathSolver.LinearJoin import *
+from test.TestCinematic.VectorTester import *
+from Cinematic.JoinSystem import *
+from Cinematic.PositionSolver import *
+from Cinematic.RevoluteJoin import *
+from Cinematic.LinearJoin import *
 
 
 class TestPositionSolver(VectorTester):

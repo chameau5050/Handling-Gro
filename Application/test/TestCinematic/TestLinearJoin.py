@@ -1,6 +1,6 @@
 import unittest
-from pathSolver.LinearJoin import *
-from test.TestPositionSolver.VectorTester import *
+from Cinematic.LinearJoin import *
+from test.TestCinematic.VectorTester import *
 
 class TestLinearJoin(VectorTester):
     def test_rotationMatrixInit(self):

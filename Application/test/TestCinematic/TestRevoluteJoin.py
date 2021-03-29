@@ -1,7 +1,7 @@
 import unittest
 import math
-from pathSolver.RevoluteJoin import *
-from test.TestPositionSolver.VectorTester import *
+from Cinematic.RevoluteJoin import *
+from test.TestCinematic.VectorTester import *
 
 
 class TestRevoluteJoin(VectorTester):

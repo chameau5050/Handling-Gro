@@ -1,7 +1,7 @@
 import numpy as np
 import math
 from enum import Enum
-from pathSolver.vectorBase import *
+from Cinematic.vectorBase import *
 
 
 
