@@ -33,7 +33,7 @@ class TestRevoluteJoin(VectorTester):
     def test_initLimitJoinLimit(self):
         self.initJoin(8, -1, 2*math.pi, 0)
         self.initJoin(5, 1, 5, 1)
-        self.initJoin(1,5, 5, 1)
+        self.initJoin(1, 5, 5, 1)
 
     def initJoin(self, argMax, argMin, expectedMax, expectedMin):
         join = RevoluteJoin(VectorSpaceAxis.X, np.array([0, 0, 1]), [argMin, argMax])

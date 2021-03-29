@@ -1,4 +1,4 @@
-import unittest
+
 import numpy as np
 from test.TestPositionSolver.VectorTester import *
 from pathSolver.JoinSystem import *
@@ -61,3 +61,32 @@ class TestJoinSystem(VectorTester):
         expectedMatrix = np.array([-1, -1, 11, -1, 0, 0, 0, -1, 0, 0, 0, 1]).reshape(12, 1)
         computeMatrix = JS.getLastJoinPositionAndOrientation([math.pi, math.pi, 10])
         self.assertPoseVectorEqual(expectedMatrix, computeMatrix, delta=0.001)
+
+    def test_positionGradient1DLin(self):
+        JS = JoinSystem([LinearJoin(VectorSpaceAxis.X, np.array([0, 1, 0]))])
+        self.assertMatrixEqual(np.array([1, 0, 0]).reshape(3, 1), JS.findPositionGradient([1], 0.00001))
+
+    def test_positionGradient2DLin(self):
+        JS = JoinSystem([LinearJoin(VectorSpaceAxis.X, np.array([0, 1, 0]))])
+        JS.addJoin(LinearJoin(VectorSpaceAxis.Y, np.array([0, 0, 1])))
+        expected = np.array([[1, 0], [0, 1], [0, 0]]).reshape(3, 2)
+
+        self.assertMatrixEqual(expected, JS.findPositionGradient([1, 1], 0.00001))
+
+    def test_positionGradient3DLin(self):
+        JS = JoinSystem([LinearJoin(VectorSpaceAxis.X, np.array([0, 1, 0]))])
+        JS.addJoin(LinearJoin(VectorSpaceAxis.Y, np.array([0, 0, 1])))
+        JS.addJoin(LinearJoin(VectorSpaceAxis.Z, np.array([0, 0, 1])))
+        expected = np.array([[1, 0, 0], [0, 1, 0], [0, 0, 1]]).reshape(3, 3)
+
+        self.assertMatrixEqual(expected, JS.findPositionGradient([1, 1, 1], 0.00001))
+
+    def test_positionGradient1DRevoluteJoin(self):
+        JS = JoinSystem([RevoluteJoin(VectorSpaceAxis.X, np.array([0, 0, 1]))])
+        self.assertMatrixEqual(np.array([0, 0, -1]).reshape(3, 1), JS.findPositionGradient([math.pi/2], 0.00001))
+
+    def test_positionGradient2DRevoluteAndLin(self):
+        JS = JoinSystem([LinearJoin(VectorSpaceAxis.Z, np.array([0, 0, 1]))])
+        JS.addJoin(RevoluteJoin(VectorSpaceAxis.X, np.array([0, 0, 1])))
+        expected = np.array([[0, 0], [0, 0], [1, -1]]).reshape(3, 2)
+        self.assertMatrixEqual(expected, JS.findPositionGradient([1, math.pi/2], 0.00001))
