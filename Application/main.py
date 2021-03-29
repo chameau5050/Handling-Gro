@@ -7,6 +7,10 @@ from pathSolver.PositionSolver import *
 from pathSolver.JoinSystem import *
 from pathSolver.LinearJoin import *
 from pathSolver.RevoluteJoin import *
+from Cinematic.PositionSolver import *
+from Cinematic.JoinSystem import *
+from Cinematic.LinearJoin import *
+from Cinematic.RevoluteJoin import *
 import  time
 
 class Robot:
@@ -18,20 +22,31 @@ class Robot:
         self.q = [1.,1.,1.]
 
     def findPosition(self, pos):
-        a = time.time()
-        #tim = timeit.timeit(self.solver.solvePositionWithJoinSystemBackProg,self.JS,pos,self.q)
-        pos = self.solver.solvePositionWithJoinSystemBackProg(self.JS, pos, [float(self.JS.allJoin[0].getMinLimit()),float(self.JS.allJoin[1].getMinLimit()),float(self.JS.allJoin[2].getMinLimit())])
-        pos2 =self.solver.solvePositionWithJoinSystemBackProg(self.JS, pos, [float(self.JS.allJoin[0].getMaxLimit()),float(self.JS.allJoin[1].getMaxLimit()), float(self.JS.allJoin[2].getMaxLimit())])
-        #pos = self.solver.solvePositionWithJoinSystem(self.JS,pos,self.q)
-        b = time.time()
-        print("time")
-        print(b-a)
-        return pos , pos2
-        #return self.solver.solvePositionWithJoinSystem(self.JS, pos, self.q)
+        pos = self.solver.solvePosition(self.JS, pos, self.q)
+        return pos
 
-    def getPosition(self,q):
+    def moveInCartesianTo(self, newPosition):
+        newJoinPosition = self.findPosition(newPosition)
+        if newJoinPosition != None:
+            self.moveInJoinTo(newJoinPosition)
+
+    def moveXWorld(self, dis):
+        newPosition = self.JS.getLastJoinPosition(self.q) + np.array([dis,0,0]).reshape(3,1)
+        self.moveInCartesianTo(newPosition)
+
+    def moveYWorld(self, dis):
+        newPosition = self.JS.getLastJoinPosition(self.q) + np.array([0, dis, 0]).reshape(3, 1)
+        self.moveInCartesianTo(newPosition)
+
+    def moveZWorld(self, dis):
+        newPosition = self.JS.getLastJoinPosition(self.q) + np.array([0, 0, dis]).reshape(3, 1)
+        self.moveInCartesianTo(newPosition)
+
+    def moveInJoinTo(self):
+        return
+
+    def getPosition(self, q):
         return self.JS.getLastJoinPosition(q)
-
 
 class app:
     def __init__(self):
