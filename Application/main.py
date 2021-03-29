@@ -3,15 +3,10 @@ from Comm.EthernetComm import *
 from Comm.MessageIO import *
 from Comm.SerialComm import *
 
-from pathSolver.PositionSolver import *
-from pathSolver.JoinSystem import *
-from pathSolver.LinearJoin import *
-from pathSolver.RevoluteJoin import *
 from Cinematic.PositionSolver import *
 from Cinematic.JoinSystem import *
 from Cinematic.LinearJoin import *
 from Cinematic.RevoluteJoin import *
-import  time
 
 class Robot:
     def __init__(self):
