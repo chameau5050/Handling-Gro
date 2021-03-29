@@ -3,7 +3,7 @@
 #include "testComm/testComm.h"
 #include "Test_Join.h"
 #include "Test_DriveManager.h"
-
+#include "Test_StateManager.h"
 
 void setup() {
     // NOTE!!! Wait for >2 secs
@@ -19,11 +19,14 @@ void loop()
     TestComm test_comm;
     Test_Join test_join;
     Test_DriveManager test_drivemanager;
+    Test_StateManager test_StateManager;
 
     //launch all test
     test_comm.test();
     test_join.test();
     test_drivemanager.test();
+    test_StateManager.test();
+
 
     UNITY_END(); // stop unit testing
     

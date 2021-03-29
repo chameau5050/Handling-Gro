@@ -25,7 +25,7 @@ StateManager* statemanager;
 DriveManager* drivemanager;
 
 
-#define NUMERO_DU_TEST_A_EFFECTUER 1
+#define NUMERO_DU_TEST_A_EFFECTUER 0
 // voici le liogne a modifier pour vous les gars pour vos tests
 // 0 = le mode normal de la programation des moteurs
 // 1 = un test unitaire sur le stepper motor qui marche

@@ -49,8 +49,7 @@ void StateManager::goTo(int payload[], int payloadsize)
 
 void StateManager::callGoToHome()
 {
-    
-
+    drivemanager->goToHome();
 }
 
 void StateManager::callibrateDrive(int nbrmotorAInitialiser)
