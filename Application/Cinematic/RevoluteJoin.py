@@ -4,7 +4,7 @@ from Cinematic.vectorBase import *
 
 class RevoluteJoin:
 
-    def __init__(self,rotationAxis, nextJoinRelativePosition, axisLimit = [0,2*math.pi]):
+    def __init__(self,rotationAxis, nextJoinRelativePosition, axisLimit = [0,2*math.pi], hardwareIntervalStep=2000):
         if rotationAxis == VectorSpaceAxis.X:
             self.rotationMatrix = getRotationMatrixX
         elif rotationAxis == VectorSpaceAxis.Y:
@@ -19,15 +19,13 @@ class RevoluteJoin:
             axisLimit[0] = axisLimit[1]
             axisLimit[1] = temp
 
-        if axisLimit[0] < 0:
-            self.axisMin = 0
-        else:
-            self.axisMin = axisLimit[0]
 
-        if axisLimit[1] > 2*math.pi:
-            self.axisMax = 2*math.pi
-        else:
-            self.axisMax = axisLimit[1]
+        self.axisMin = axisLimit[0]
+
+        self.axisMax = axisLimit[1]
+
+        self.hardwareIntervalStep = hardwareIntervalStep
+
 
     def getNextJoinRelativePosition(self, joinState):
         return self.nexJoinRelativePosition
@@ -39,6 +37,10 @@ class RevoluteJoin:
             return self.rotationMatrix(self.axisMin)
         else:
             return self.rotationMatrix(theta)
+
+    def convertToHardWarePosition(self, q):
+        return math.floor((q-self.axisMin)/((self.axisMax-self.axisMin)/self.hardwareIntervalStep))
+
 
     def getMinLimit(self):
         return self.axisMin

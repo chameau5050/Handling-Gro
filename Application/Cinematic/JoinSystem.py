@@ -58,3 +58,10 @@ class JoinSystem:
             else:
                 gradient = np.concatenate((gradient, delq), axis=None)
         return gradient.reshape(len(q),1)
+
+    def getHardwareJoinPosition(self, q):
+        hardwarePosition = []
+        for ctr in range(0, len(q)):
+            hardwarePosition.append(self.allJoin[ctr].convertToHardWarePosition(q[ctr]))
+
+        return hardwarePosition

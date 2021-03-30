@@ -14,7 +14,7 @@ class Robot:
         self.JS.addJoin(RevoluteJoin(VectorSpaceAxis.Y, np.array([0, 0.275, 0]), [0, 2*math.pi]))
         self.JS.addJoin(RevoluteJoin(VectorSpaceAxis.X, np.array([0, 0.19, 0]), [0, 2*math.pi]))
         self.solver = positionSolver()
-        self.q = [1.,1.,1.]
+        self.q = [0.3, 0,1.57]
 
     def findPosition(self, pos):
         pos = self.solver.solvePosition(self.JS, pos, self.q)
@@ -62,15 +62,14 @@ class app:
 
 
 
-
 if __name__ == '__main__':
 
     x = threading.Thread(target=waitForConnection, args=("127.0.0.1", 50000, 1, app(),))
     x.start()
 
     robot = Robot()
-    want = np.array([0.3, 0.275, -0.19]).reshape(3,1)
-    q,q2 = robot.findPosition(want)
+    want = np.array([0.3, 0.275, 0.19]).reshape(3,1)
+    q = robot.findPosition(want)
     approx = robot.getPosition(q)
     print("config:")
     print(q)
