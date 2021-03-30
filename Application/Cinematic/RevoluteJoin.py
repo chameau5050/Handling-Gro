@@ -1,5 +1,5 @@
 import math
-from pathSolver.vectorBase import *
+from Cinematic.vectorBase import *
 
 
 class RevoluteJoin:

@@ -1,7 +1,7 @@
 import unittest
 import math
-from pathSolver.vectorBase import *
-from test.TestPositionSolver.VectorTester import *
+from Cinematic.vectorBase import *
+from test.TestCinematic.VectorTester import *
 
 
 class testVectorBase(VectorTester):

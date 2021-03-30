@@ -1,7 +1,7 @@
 import numpy as np
 import math
 from enum import Enum
-from pathSolver.vectorBase import *
+from Cinematic.vectorBase import *
 
 
 
@@ -36,46 +36,6 @@ def translateY(vector, translationValue):
 
 def translateZ(vector, translationValue):
     return np.array([vector[0], vector[1], vector[2]+translationValue]).reshape(3,1)
-
-def findXRotation(rotMatrix):
-        z = np.array([0, 0, 1])
-        zTransform = rotMatrix.dot(z)
-        # remove Z dimention
-        zTransform[0] = 0
-
-        angle = math.acos(
-            z.dot(zTransform) / (math.sqrt(z.dot(z.transpose())) * math.sqrt(zTransform.dot(zTransform.transpose()))))
-
-        if zTransform[1] < 0:
-            angle = 2 * math.pi - angle
-        return angle
-
-def findYRotation(rotMatrix):
-        z = np.array([0, 0, 1])
-        zTransform = rotMatrix.dot(z)
-        # remove Z dimention
-        zTransform[1] = 0
-
-        angle = math.acos(
-            z.dot(zTransform) / (math.sqrt(z.dot(z.transpose())) * math.sqrt(zTransform.dot(zTransform.transpose()))))
-
-        if zTransform[0] < 0:
-            angle = 2 * math.pi - angle
-        return angle
-
-def findZRotation(rotMatrix):
-        x = np.array([1, 0, 0])
-        xTransform = rotMatrix.dot(x)
-        # remove Z dimention
-        xTransform[2] = 0
-
-        angle = math.acos(
-            x.dot(xTransform) / (math.sqrt(x.dot(x.transpose())) * math.sqrt(xTransform.dot(xTransform.transpose()))))
-
-        if xTransform[1] < 0:
-            angle = 2 * math.pi - angle
-        return angle
-
 
 class VectorBase:
 
