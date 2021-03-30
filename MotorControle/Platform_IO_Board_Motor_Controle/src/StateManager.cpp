@@ -32,14 +32,47 @@ StateManager::~StateManager()
 
 void StateManager::updateState(ControlMessage* reponse)
 {
+
     
     if (reponse->getType() == GO_TO_POSITION_INDEX)
     {
         goTo(reponse->getPayload(),reponse->getPayLoadSize());
     } 
-    //faire unitest pour cette fonction
+    else if (reponse->getType() == SET_LIMITES_INDEX)
+    {
 
-    //reproduire pour les autres fonctions  
+    }
+    else if (reponse->getType() == SET_HOME_POSITION_INDEX)
+    {
+
+    }
+    else if (reponse->getType() == SET_REFERENCE_POSITION_INDEX)
+    {
+
+    }
+    else if (reponse->getType() == GO_TO_HOME_INDEX)
+    {
+        callGoToHome();
+    }
+    else if (reponse->getType() == RETURN_LIMITES_INDEX)
+    {
+
+    }
+    else if (reponse->getType() == RETURN_HOME_POSITION_INDEX)
+    {
+
+    }
+    else if (reponse->getType() == RETURN_REFERENCE_POSITION_INDEX)
+    {
+
+    }
+    else if (reponse->getType() == RETURN_ACTUAL_POSITION_INDEX)
+    {
+
+    }
+        //faire unitest pour cette fonction
+
+        //reproduire pour les autres fonctions  
 }
 
 void StateManager::goTo(int payload[], int payloadsize)
