@@ -3,6 +3,7 @@
 #include "Commandwindow.h"
 #include "ui_Commandwindow.h"
 #include "Comm/Dataframe.h"
+#include <QDir>
 
 CommandWindow::CommandWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -17,7 +18,9 @@ CommandWindow::CommandWindow(QWidget *parent)
     QObject::connect(ui->ConnectCommand, SIGNAL(pressed()),this, SLOT(connectSocket()));
     QObject::connect(ui->setHome, SIGNAL(pressed()),this, SLOT(saveHome()));
     QObject::connect(ui->goToHome, SIGNAL(pressed()),this, SLOT(goHome()));
-
+    QObject::connect(ui->loadFileB, SIGNAL(pressed()),this, SLOT(loadFile()));
+    QObject::connect(ui->saveFileB, SIGNAL(pressed()),this, SLOT(saveFile()));
+    QObject::connect(ui->runFileB, SIGNAL(pressed()),this, SLOT(runFile()));
 
     socket = new QTcpSocket();
     acc = new Accumulator(this);
@@ -64,7 +67,7 @@ void CommandWindow::sendJointParameters()
         message[2] = ui->set_J3->value();
         message[3] = ui->set_J4->value();
 
-        ControlMessage msg(7,8,message);
+        ControlMessage msg(7,4,message);
         sendControlMessage(&msg);
     }
     else if (ui->cartMode->isChecked()) {
@@ -108,6 +111,123 @@ void CommandWindow::goHome()
         ui->set_C1->setValue(home_cart[0]);
         ui->set_C2->setValue(home_cart[1]);
         ui->set_C3->setValue(home_cart[2]);
+    }
+}
+
+void CommandWindow::loadFile()
+{
+    QDir dir(ui->progFileDir->text());
+    QString nameFile = ui->progFileName->text();
+    QString findFile = dir.filePath(nameFile);
+    QFile f(findFile);
+    if (f.open(QFile::ReadOnly))
+    {
+        ui->dispFile->clear();
+        QTextStream stream(&f);
+        QString line;
+        do
+        {
+            line = stream.readLine();
+            ui->dispFile->appendPlainText(line);
+        } while(!stream.atEnd());
+        f.close();
+    }
+}
+
+void CommandWindow::saveFile()
+{
+    QDir dir(ui->progFileDir->text());
+    QString nameFile = ui->progFileName->text();
+    QString findFile = dir.filePath(nameFile);
+    QFile f(findFile);
+    if (f.open(QFile::WriteOnly))
+    {
+        QTextStream stream(&f);
+        QString content = ui->dispFile->toPlainText();
+        stream << content;
+        f.close();
+    }
+}
+
+void CommandWindow::runFile()
+{
+    QDir dir(ui->progFileDir->text());
+    QString nameFile = ui->progFileName->text();
+    QString findFile = dir.filePath(nameFile);
+    QFile f(findFile);
+    if (f.open(QFile::ReadOnly))
+    {
+        QTextStream stream(&f);
+        QString line;
+        bool ok;
+        bool jointH = false;
+        bool cartH = false;
+        do
+        {
+            line = stream.readLine();
+            QStringList command = line.split(QString(','));
+            if (command[0] == QString('J'))
+            {
+                int message[4];
+                message[0] = command[1].toInt(&ok,10);
+                message[1] = command[2].toInt(&ok,10);
+                message[2] = command[3].toInt(&ok,10);
+                message[3] = command[4].toInt(&ok,10);
+
+                ControlMessage msg(7,4,message);
+                sendControlMessage(&msg);
+            }
+            else if (command[0] == QString('C'))
+            {
+                int message[3];
+                bool ok;
+                message[0] = command[1].toInt(&ok,10);
+                message[1] = command[2].toInt(&ok,10);
+                message[2] = command[3].toInt(&ok,10);
+
+                ControlMessage msg(7,3,message);
+                sendControlMessage(&msg);
+            }
+            else if (command[0] == QString("HJ"))
+            {
+                home_joint[0] = command[1].toInt(&ok,10);
+                home_joint[1] = command[2].toInt(&ok,10);
+                home_joint[2] = command[3].toInt(&ok,10);
+                home_joint[3] = command[4].toInt(&ok,10);
+                jointH = true;
+                cartH = false;
+            }
+            else if (command[0] == QString("HC"))
+            {
+                home_cart[0] = command[1].toInt(&ok,10);
+                home_cart[1] = command[2].toInt(&ok,10);
+                home_cart[2] = command[3].toInt(&ok,10);
+                cartH = true;
+                jointH = false;
+            }
+            else if (command[0] == QString("GH"))
+            {
+                if (cartH)
+                {
+                    //ControlMessage msg(7,3,home_cart);
+                    //sendControlMessage(&msg);
+                }
+                else if (jointH)
+                {
+                    //ControlMessage msg(7,3,home_joint);
+                    //sendControlMessage(&msg);
+                }
+            }
+            else if (command[0] == QString("GO"))
+            {
+                //Open gripper command
+            }
+            else if (command[0] == QString("GC"))
+            {
+                //Close gripper command
+            }
+        } while(!stream.atEnd());
+        f.close();
     }
 }
 

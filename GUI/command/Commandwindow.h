@@ -31,11 +31,14 @@ public slots:
     void goHome();
     void connectSocket();
     void readData();
+    void loadFile();
+    void saveFile();
+    void runFile();
 private:
     Ui::CommandWindow *ui;
     QTcpSocket* socket;
     Accumulator* acc;
-    float home_joint[4];
-    float home_cart[3];
+    float home_joint[4] = {0,0,0,0};
+    float home_cart[3] = {0,0,0};
 };
 #endif // COMMANDWINDOW_H
