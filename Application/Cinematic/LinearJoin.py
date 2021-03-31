@@ -2,7 +2,7 @@ from Cinematic.vectorBase import *
 
 
 class LinearJoin:
-    def __init__(self,translationAxis, nextJoinRelativePosition, axisLimit = [0,10]):
+    def __init__(self,translationAxis, nextJoinRelativePosition, axisLimit = [0,10], hardwareIntervalStep = 2000):
         if translationAxis == VectorSpaceAxis.X:
             self.translationMatrix = translateX
         elif translationAxis == VectorSpaceAxis.Y:
@@ -21,7 +21,7 @@ class LinearJoin:
         self.axisMin = axisLimit[0]
         self.axisMax = axisLimit[1]
 
-
+        self.hardwareIntervalStep = hardwareIntervalStep
 
     def getRotationMatrix(self,state):
         return self.rotationMatrix
@@ -33,6 +33,9 @@ class LinearJoin:
             return self.translationMatrix(self.nexJoinRelativePosition, self.axisMin)
         else:
             return self.translationMatrix(self.nexJoinRelativePosition, joinState)
+
+    def convertToHardWarePosition(self, q):
+        return math.floor((q-self.axisMin)/((self.axisMax-self.axisMin)/self.hardwareIntervalStep))
 
     def getMinLimit(self):
         return self.axisMin
