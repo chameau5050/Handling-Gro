@@ -37,6 +37,9 @@ class LinearJoin:
     def convertToHardWarePosition(self, q):
         return math.floor((q-self.axisMin)/((self.axisMax-self.axisMin)/self.hardwareIntervalStep))
 
+    def convertHardWarePositionToModelPosition(self, step):
+        return self.axisMin + step*((self.axisMax-self.axisMin)/self.hardwareIntervalStep)
+
     def getMinLimit(self):
         return self.axisMin
 
