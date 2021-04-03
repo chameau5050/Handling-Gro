@@ -25,6 +25,10 @@ public:
     void sendJSon(QJsonDocument doc);
     void sendControlMessage(ControlMessage* msg);
     bool messageReceved(char* rawDataFrame,unsigned int lenght);
+
+    bool sendCartesienPosition(QStringList command);
+    bool sendJoinPosition(QStringList command);
+
 public slots:
     void sendJointParameters();
     void saveHome();

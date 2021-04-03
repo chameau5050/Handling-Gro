@@ -67,7 +67,7 @@ void CommandWindow::sendJointParameters()
         message[2] = ui->set_J3->value();
         message[3] = ui->set_J4->value();
 
-        ControlMessage msg(7,4,message);
+        ControlMessage msg(CONTROL_MESSAGE_ID::SET_JOIN_POSITION,4,message);
         sendControlMessage(&msg);
     }
     else if (ui->cartMode->isChecked()) {
@@ -75,7 +75,7 @@ void CommandWindow::sendJointParameters()
         message[0] = ui->set_C1->value();
         message[1] = ui->set_C2->value();
         message[2] = ui->set_C3->value();
-        ControlMessage msg(7,3,message);
+        ControlMessage msg(CONTROL_MESSAGE_ID::SET_CARTESIEN_POSITION,3,message);
         sendControlMessage(&msg);
     }
 }
@@ -149,6 +149,33 @@ void CommandWindow::saveFile()
     }
 }
 
+bool CommandWindow::sendCartesienPosition(QStringList command)
+{
+    bool ok;
+    int message[3];
+    message[0] = command[1].toInt(&ok,10);
+    message[1] = command[2].toInt(&ok,10);
+    message[2] = command[3].toInt(&ok,10);
+
+    ControlMessage msg(CONTROL_MESSAGE_ID::SET_CARTESIEN_POSITION,3,message);
+    sendControlMessage(&msg);
+    return ok;
+}
+
+bool CommandWindow::sendJoinPosition(QStringList command)
+{
+    bool ok;
+    int message[4];
+    message[0] = command[1].toInt(&ok,10);
+    message[1] = command[2].toInt(&ok,10);
+    message[2] = command[3].toInt(&ok,10);
+    message[3] = command[4].toInt(&ok,10);
+
+    ControlMessage msg(CONTROL_MESSAGE_ID::SET_JOIN_POSITION,4,message);
+    sendControlMessage(&msg);
+    return ok;
+}
+
 void CommandWindow::runFile()
 {
     QDir dir(ui->progFileDir->text());
@@ -168,25 +195,11 @@ void CommandWindow::runFile()
             QStringList command = line.split(QString(','));
             if (command[0] == QString('J'))
             {
-                int message[4];
-                message[0] = command[1].toInt(&ok,10);
-                message[1] = command[2].toInt(&ok,10);
-                message[2] = command[3].toInt(&ok,10);
-                message[3] = command[4].toInt(&ok,10);
-
-                ControlMessage msg(7,4,message);
-                sendControlMessage(&msg);
+               ok = sendJoinPosition(command);
             }
             else if (command[0] == QString('C'))
             {
-                int message[3];
-                bool ok;
-                message[0] = command[1].toInt(&ok,10);
-                message[1] = command[2].toInt(&ok,10);
-                message[2] = command[3].toInt(&ok,10);
-
-                ControlMessage msg(7,3,message);
-                sendControlMessage(&msg);
+               ok = sendCartesienPosition(command);
             }
             else if (command[0] == QString("HJ"))
             {
@@ -253,7 +266,6 @@ void CommandWindow::sendControlMessage(ControlMessage* msg)
 
 void CommandWindow::sendJSon(QJsonDocument doc)
 {
-    QJsonDocument allo;
     QByteArray json = doc.toJson(QJsonDocument::JsonFormat::Compact);
     DataFrame frame(1,json.data(),json.count());
 
