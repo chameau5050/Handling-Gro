@@ -1,6 +1,7 @@
 class ControlMessage:
     SET_HOME = 3
     SET_JOIN_POSITION = 7
+    SET_CARTESIAN_POSITION = 8
     GOTO_HOME = 9
     OPEN_GRIPPER = 10
     CLOSE_GRIPPER = 12

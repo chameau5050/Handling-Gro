@@ -12,6 +12,7 @@ from test.TestCinematic.TestRevoluteJoin import *
 from test.TestCinematic.TestJoinSystem import *
 from test.TestCinematic.TestLinearJoin import *
 from test.TestCinematic.TestPositonSolver import *
+from test.TestCinematic.testRobotAPI import *
 
 if __name__ == '__main__':
     unittest.main()

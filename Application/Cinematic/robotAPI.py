@@ -41,10 +41,10 @@ class robotAPI:
         self.q = q
 
     def openGripper(self, rate):
-        self.driveManager.openGriper(rate)
+        self.driveManager.openGripper(rate)
 
-    def openClose(self, rate):
-        self.driveManager.closeGriper(rate)
+    def closeGripper(self, rate):
+        self.driveManager.closeGripper(rate)
 
     def setHome(self, qHome):
         self.driveManager.setHome(qHome)
@@ -52,4 +52,22 @@ class robotAPI:
     def goToHome(self):
         self.driveManager.gotoHome()
 
+    def executeCommand(self, controlMsg):
+        if controlMsg.getType() == ControlMessage.SET_JOIN_POSITION:
+            self.moveInJoinTo(controlMsg.getPayload())
+
+        elif controlMsg.getType() == ControlMessage.SET_CARTESIAN_POSITION:
+            self.moveInCartesianTo(controlMsg.getPayload())
+
+        elif controlMsg.getType() == ControlMessage.SET_HOME:
+            self.setHome(controlMsg.getPayload())
+
+        elif controlMsg.getType() == ControlMessage.OPEN_GRIPPER:
+            self.openGripper(controlMsg.getPayload()[0])
+
+        elif controlMsg.getType() == ControlMessage.CLOSE_GRIPPER:
+            self.closeGripper(controlMsg.getPayload()[0])
+
+        elif controlMsg.getType() == ControlMessage.GOTO_HOME:
+            self.goToHome()
 
