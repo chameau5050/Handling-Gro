@@ -95,3 +95,12 @@ class TestJoinSystem(VectorTester):
         JS = JoinSystem([LinearJoin(VectorSpaceAxis.Z, np.array([0, 0, 1]), axisLimit=[0,1], hardwareIntervalStep=5000)])
         JS.addJoin(RevoluteJoin(VectorSpaceAxis.X, np.array([0, 0, 1]), axisLimit=[0,6], hardwareIntervalStep=7000))
         self.assertEqual([500, 3616], JS.getHardwareJoinPosition([0.1, 3.1]))
+
+    def test_convertHardwarePositionToModelPosition(self):
+        JS = JoinSystem(
+                [LinearJoin(VectorSpaceAxis.Z, np.array([0, 0, 1]), axisLimit=[0, 1], hardwareIntervalStep=5000)])
+        JS.addJoin(
+                RevoluteJoin(VectorSpaceAxis.X, np.array([0, 0, 1]), axisLimit=[0, 6], hardwareIntervalStep=7000))
+        pos = JS.convertHardWarePositionToModelPosition([500, 3616])
+        self.assertAlmostEqual(0.1, pos[0], delta=0.001)
+        self.assertAlmostEqual(3.1, pos[1], delta=0.001)
