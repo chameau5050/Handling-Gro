@@ -2,6 +2,7 @@
 #include <unity.h>
 #include "testComm/testComm.h"
 #include "Test_Join.h"
+#include "Test_DriveManager.h"
 
 
 void setup() {
@@ -17,11 +18,12 @@ void loop()
     //initialisation
     TestComm test_comm;
     Test_Join test_join;
+    Test_DriveManager test_drivemanager;
 
-    //lunch_ de_test
+    //launch all test
     test_comm.test();
     test_join.test();
-
+    test_drivemanager.test();
 
     UNITY_END(); // stop unit testing
     
