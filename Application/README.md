@@ -9,7 +9,7 @@
 <div id="badges">
     
 
-[![License: GPL-3.0](https://img.shields.io/badge/License-GPLv3-blue.svg?style=flat-square)](https://github.com/SPUdeS/SPUdeS/blob/main/LICENSE) 
+[![License: GPL-3.0](https://img.shields.io/badge/License-GPLv3-blue.svg?style=flat-square)](https://github.com/chameau5050/Handling-Gro/main/LICENSE) 
 
 </div>
 
@@ -40,28 +40,18 @@
 ## <a id="Setup"></a>Setup
 1. Buy the component in the [External Resources](#Resources) section.
 2. Use the [CAD models](https://github.com/chameau5050/Handling-Gro/tree/main/Mechanical/STL%20(For%203D%20printing)) to 3D print all the different parts of the robot.
-3. Do the electrical connections using the [electrical schematics](https://github.com/SPUdeS/SPUdeS/blob/main/Documentation/Electical%20schematics.pdf) in the documentation section.
-3. Set up the [Raspberry Pi](#Computer) by connecting it with the [Arduino](#Controller), your computer and the to a power source.
-4. Download or clone the repository in the Raspberry Pi.
-5. Verify your Python version (3.5 and above) and the port series.
-6. Build and transfer all the code to the Arduino and Raspberry Pi.
-7. Open the interface and look at the [platform operation](#Operation) section.
+3. Do the electrical connections using the [electrical schematics](https://github.com/chameau5050/Handling-Gro/) in the documentation section.
+4. Set up the [Raspberry Pi](#Computer) by connecting it with the [OpenCr](#Controller_OpenCr), your computer and the to a power source.
+5. Download or clone the repository in the Raspberry Pi.
+6. Verify your Python version (3.5 and above) and the port series.
+7. Build and transfer all the code to the OpenCr (or Arduino) and Raspberry Pi.
+8. Open the interface and look your new Handgling GRO robot in action.
+9. For more information, see the [documentation]((#Documentation)) section
 ## <a id="Documentation"></a>Documentation
 
-The dynamic system can be found in the [Geometric model](https://github.com/SPUdeS/SPUdeS/tree/main/Geometric%20model) folder.
+All the different information is available [here](https://github.com/chameau5050/Handling-Gro/wiki) in the project wiki.
 ## <a id="Operation"></a>Platform Operation
-
-The camera feed can show the Stewart platform instantly. The platform can be controlled using the following buttons on the interface:
-
-<div id="Interface">
-    <img src="./Documentation/img/InterfaceButtons.png" alt="Platform Assembly" width="264"/>
-</div>
-
-- It is possible to enter the angle value of all the motor (by default, all the motor should have the same angle).
-
-- The Homing Button brings the stewart platform at its initial centered position.  
-
-- The Move Up Button brings the stewart platform a bit over its actual position
+-TODO
 ## <a id="Resources"></a>External Resources
 This section specifies the external resources used in the project.
 
@@ -70,10 +60,16 @@ This section specifies the external resources used in the project.
 - Model: Raspberry Pi 3 Model 3B+
 - Quantity: 1
 
-#### <a id="Controller"></a>Microcontroller
+#### <a id="Controller_OpenCr"></a>Microcontroller
+- Brand: [OpenCr](https://store.arduino.cc/mega-2560-r3)
+- Model: OpenCr
+- Quantity: 1
+
+#### <a id="Controller"></a>Microcontroller (optional)
 - Brand: [Arduino](https://store.arduino.cc/mega-2560-r3)
 - Model: Mega 2560 REV3
 - Quantity: 1
+- **If you want to use other motors than dynamixel motors.
 
 <!--#### <a id="Servo"></a>Servomotors
 - Brand: [Hitec RCD](https://hitecrcd.com/products/servos/sport-servos/analog-sport-servos/hs-422/product)
@@ -99,12 +95,12 @@ This section specifies the external resources used in the project.
 - Brand: [Adafruit](https://www.amazon.ca/Adafruit-2201-Sub-micro-Servo-SG51R/dp/B0137LG0KW)
 - Model: SG51R
 - Quantity: 6
-
-#### <a id="Power"></a>Power Supply: Motor/Arduino
-- Brand: [CUI Inc.](https://www.digikey.com/en/products/detail/cui-inc/SWI10-5-N-P5/6618696)
-- Model: SWI10-5-N
-- Quantity: 1
 -->
+#### <a id="Power"></a>Power Supply: Motor/(OpenCr or Arduino)
+- Brand: [PowerPayless Inc](https://www.amazon.com/7-5A-Power-Adapter-Device-Payless/dp/B01CYZWAWY)
+- Model: B01CYZWAWY (65107)
+- Quantity: 1
+
 #### <a id="Rods"></a> Linear Rods
 - Brand: [yqltd](https://www.amazon.ca/CNBTR-Horizontal-Bearing-Bushing-Optical/dp/B01KLE9QEU)
 - ASIN: CNBTR4040 road
