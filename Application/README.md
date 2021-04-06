@@ -39,7 +39,7 @@
 
 ## <a id="Setup"></a>Setup
 1. Buy the component in the [External Resources](#Resources) section.
-2. Use the [CAD models](https://github.com/SPUdeS/SPUdeS/tree/main/CADs) to 3D print the [base](https://github.com/SPUdeS/SPUdeS/blob/main/CADs/Base.SLDPRT), the [platform](https://github.com/SPUdeS/SPUdeS/blob/main/CADs/Platform.SLDPRT) and the [servo arms](https://github.com/SPUdeS/SPUdeS/blob/main/CADs/Legs.SLDASM).
+2. Use the [CAD models](https://github.com/chameau5050/Handling-Gro/tree/main/Mechanical/STL%20(For%203D%20printing)) to 3D print all the different parts of the robot.
 3. Do the electrical connections using the [electrical schematics](https://github.com/SPUdeS/SPUdeS/blob/main/Documentation/Electical%20schematics.pdf) in the documentation section.
 3. Set up the [Raspberry Pi](#Computer) by connecting it with the [Arduino](#Controller), your computer and the to a power source.
 4. Download or clone the repository in the Raspberry Pi.
