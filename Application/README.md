@@ -50,7 +50,7 @@
 ## <a id="Documentation"></a>Documentation
 
 All the different information is available [here](https://github.com/chameau5050/Handling-Gro/wiki) in the project wiki.
-## <a id="Operation"></a>Platform Operation
+## <a id="Operation"></a>Robot Operation
 -TODO
 ## <a id="Resources"></a>External Resources
 This section specifies the external resources used in the project.
