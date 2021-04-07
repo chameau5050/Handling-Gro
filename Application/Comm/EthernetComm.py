@@ -50,7 +50,7 @@ class EthernetComm:
                     break
                 else:
                     self.acc.accumulate(data)
-            except BlockingIOError:
+            except:
                 return None
 
     def sendJSon(self, JSON):
