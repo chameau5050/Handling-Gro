@@ -86,9 +86,9 @@ class EthernetComm:
                 print("frameRemoved :")
                 print("remove frame :", str(frame.getPayload().decode()))
 
-                print(json.loads(str(frame.getPayload(), encoding="UTF-8")))
+                print(json.loads(str(frame.getPayload().decode())))
                 print("payload read")
-                return json.loads(str(frame.getPayload(), encoding="UTF-8"))
+                return json.loads(str(frame.getPayload().decode()))
         return None
 
     def isAlive(self):
