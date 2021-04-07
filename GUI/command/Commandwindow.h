@@ -26,23 +26,35 @@ public:
     void sendControlMessage(ControlMessage* msg);
     bool messageReceved(char* rawDataFrame,unsigned int lenght);
 
-    bool sendCartesienPosition(QStringList command);
-    bool sendJoinPosition(QStringList command);
+    bool sendCartesianPosition(QStringList command);
+    bool sendJointPosition(QStringList command);
 
 public slots:
     void sendJointParameters();
-    void saveHome();
+    void setHome();
     void goHome();
     void connectSocket();
     void readData();
     void loadFile();
     void saveFile();
     void runFile();
+    void openFile();
+    void saveFileAs();
+    void zeroIn();
+    void commandMoveHere();
+    void commandGoHome();
+    void commandSetHomeHere();
+    void commandOpenGripper();
+    void commandCloseGripper();
+    void hideJoint();
+    void hideCartesian();
+    void openGripper();
+    void closeGripper();
 private:
     Ui::CommandWindow *ui;
     QTcpSocket* socket;
     Accumulator* acc;
-    float home_joint[4] = {0,0,0,0};
-    float home_cart[3] = {0,0,0};
+    int home_joint[4] = {0, 0, 0, 0};
+    int home_cart[3] = {0, 0, 0};
 };
 #endif // COMMANDWINDOW_H

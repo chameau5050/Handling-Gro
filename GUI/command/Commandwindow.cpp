@@ -4,23 +4,43 @@
 #include "ui_Commandwindow.h"
 #include "Comm/Dataframe.h"
 #include <QDir>
+#include <QFileDialog>
+#include <QMessageBox>
+#include <QStringBuilder>
 
 CommandWindow::CommandWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::CommandWindow)
 {
     ui->setupUi(this);
-    /*QObject::connect(ui->set_J1,SIGNAL(valueChanged(int)),this,SLOT(sendJointPosition(int)));
-    QObject::connect(ui->set_J2,SIGNAL(valueChanged(int)),this,SLOT(sendJointPosition(int)));
-    QObject::connect(ui->set_J3,SIGNAL(valueChanged(int)),this,SLOT(sendJointPosition(int)));
-    QObject::connect(ui->set_J4,SIGNAL(valueChanged(int)),this,SLOT(sendJointPosition(int)));*/
     QObject::connect(ui->sendCommend,SIGNAL(pressed()),this, SLOT(sendJointParameters()));
     QObject::connect(ui->ConnectCommand, SIGNAL(pressed()),this, SLOT(connectSocket()));
-    QObject::connect(ui->setHome, SIGNAL(pressed()),this, SLOT(saveHome()));
+    QObject::connect(ui->setHome, SIGNAL(pressed()),this, SLOT(setHome()));
     QObject::connect(ui->goToHome, SIGNAL(pressed()),this, SLOT(goHome()));
+    QObject::connect(ui->zeroButton, SIGNAL(pressed()),this, SLOT(zeroIn()));
     QObject::connect(ui->loadFileB, SIGNAL(pressed()),this, SLOT(loadFile()));
     QObject::connect(ui->saveFileB, SIGNAL(pressed()),this, SLOT(saveFile()));
     QObject::connect(ui->runFileB, SIGNAL(pressed()),this, SLOT(runFile()));
+    QObject::connect(ui->loadFileName, SIGNAL(pressed()),this, SLOT(openFile()));
+    QObject::connect(ui->saveFileName, SIGNAL(pressed()),this, SLOT(saveFileAs()));
+    QObject::connect(ui->cmd_moveHere, SIGNAL(pressed()),this, SLOT(commandMoveHere()));
+    QObject::connect(ui->cmd_goHome, SIGNAL(pressed()),this, SLOT(commandGoHome()));
+    QObject::connect(ui->cmd_setHomeHere, SIGNAL(pressed()),this, SLOT(commandSetHomeHere()));
+    QObject::connect(ui->cmd_openGripper, SIGNAL(pressed()),this, SLOT(commandOpenGripper()));
+    QObject::connect(ui->cmd_closeGripper, SIGNAL(pressed()),this, SLOT(commandCloseGripper()));
+    QObject::connect(ui->jointMode, SIGNAL(pressed()),this, SLOT(hideCartesian()));
+    QObject::connect(ui->cartMode, SIGNAL(pressed()),this, SLOT(hideJoint()));
+    QObject::connect(ui->openGripperB, SIGNAL(pressed()),this, SLOT(openGripper()));
+    QObject::connect(ui->closeGripperB, SIGNAL(pressed()),this, SLOT(closeGripper()));
+
+    ui->set_C1->hide();
+    ui->set_C2->hide();
+    ui->set_C3->hide();
+    ui->paramLabel1->setText("Joint 1");
+    ui->paramLabel2->setText("Joint 2");
+    ui->paramLabel3->setText("Joint 3");
+    ui->paramLabel4->setText("Joint 4");
+
 
     socket = new QTcpSocket();
     acc = new Accumulator(this);
@@ -56,6 +76,40 @@ void CommandWindow::readData()
     }
 }
 
+void CommandWindow::openGripper()
+{
+    ControlMessage msg(CONTROL_MESSAGE_ID::OPEN_GRIPPER);
+    sendControlMessage(&msg);
+}
+
+void CommandWindow::closeGripper()
+{
+    ControlMessage msg(CONTROL_MESSAGE_ID::CLOSE_GRIPPER);
+    sendControlMessage(&msg);
+}
+
+void CommandWindow::hideJoint()
+{
+    ui->set_J4->hide();
+    ui->set_C1->hide();
+    ui->set_C2->hide();
+    ui->set_C3->hide();
+    ui->paramLabel1->setText("X");
+    ui->paramLabel2->setText("Y");
+    ui->paramLabel3->setText("Z");
+    ui->paramLabel4->setText(" ");
+}
+void CommandWindow::hideCartesian()
+{
+    ui->set_C1->hide();
+    ui->set_C2->hide();
+    ui->set_C3->hide();
+    ui->set_J4->show();
+    ui->paramLabel1->setText("Joint 1");
+    ui->paramLabel2->setText("Joint 2");
+    ui->paramLabel3->setText("Joint 3");
+    ui->paramLabel4->setText("Joint 4");
+}
 
 void CommandWindow::sendJointParameters()
 {
@@ -72,15 +126,15 @@ void CommandWindow::sendJointParameters()
     }
     else if (ui->cartMode->isChecked()) {
         int message[3];
-        message[0] = ui->set_C1->value();
-        message[1] = ui->set_C2->value();
-        message[2] = ui->set_C3->value();
+        message[0] = ui->set_J1->value();
+        message[1] = ui->set_J2->value();
+        message[2] = ui->set_J3->value();
         ControlMessage msg(CONTROL_MESSAGE_ID::SET_CARTESIEN_POSITION,3,message);
         sendControlMessage(&msg);
     }
 }
 
-void CommandWindow::saveHome()
+void CommandWindow::setHome()
 {
     if (ui->jointMode->isChecked())
     {
@@ -88,38 +142,97 @@ void CommandWindow::saveHome()
         home_joint[1] = ui->set_J2->value();
         home_joint[2] = ui->set_J3->value();
         home_joint[3] = ui->set_J4->value();
+        ControlMessage msg(CONTROL_MESSAGE_ID::SET_HOME,4,home_joint);
+        sendControlMessage(&msg);
     }
     else if (ui->cartMode->isChecked())
     {
-        home_cart[0] = ui->set_C1->value();
-        home_cart[1] = ui->set_C2->value();
-        home_cart[2] = ui->set_C3->value();
+        home_cart[0] = ui->set_J1->value();
+        home_cart[1] = ui->set_J2->value();
+        home_cart[2] = ui->set_J3->value();
+        ControlMessage msg(CONTROL_MESSAGE_ID::SET_HOME,3,home_cart);
+        sendControlMessage(&msg);
     }
 }
 
 void CommandWindow::goHome()
 {
-    if (ui->jointMode->isChecked())
-    {
-        ui->set_J1->setValue(home_joint[0]);
-        ui->set_J2->setValue(home_joint[1]);
-        ui->set_J3->setValue(home_joint[2]);
-        ui->set_J4->setValue(home_joint[3]);
-    }
-    else if (ui->cartMode->isChecked())
-    {
-        ui->set_C1->setValue(home_cart[0]);
-        ui->set_C2->setValue(home_cart[1]);
-        ui->set_C3->setValue(home_cart[2]);
-    }
+    ControlMessage msg(CONTROL_MESSAGE_ID::GOTO_HOME);
+    sendControlMessage(&msg);
+}
+
+void CommandWindow::zeroIn()
+{
+    int message[5] = {1, 1, 1, 1, 1};
+    ControlMessage msg(CONTROL_MESSAGE_ID::RESET_ENCODER,5,message);
+    sendControlMessage(&msg);
+}
+
+void CommandWindow::openFile()
+{
+    QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"), "/home", tr("Text files (*.txt)"));
+    ui->progFileName->setText(fileName);
+}
+
+void CommandWindow::saveFileAs()
+{
+    QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"), "/home/untitled.txt", tr("Text files (*.txt)"));
+    ui->progFileName->setText(fileName);
+}
+
+void CommandWindow::commandMoveHere()
+{
+    int message[4];
+    message[0] = ui->set_J1->value();
+    message[1] = ui->set_J2->value();
+    message[2] = ui->set_J3->value();
+    message[3] = ui->set_J4->value();
+    QString line = "Joint,"
+            % QString::number(message[0])
+            % ','
+            % QString::number(message[1])
+            % ','
+            % QString::number(message[2])
+            % ','
+            % QString::number(message[3]);
+    ui->dispFile->appendPlainText(line);
+}
+void CommandWindow::commandGoHome()
+{
+    QString line = "GoHome";
+    ui->dispFile->appendPlainText(line);
+}
+void CommandWindow::commandSetHomeHere()
+{
+    int message[4];
+    message[0] = ui->set_J1->value();
+    message[1] = ui->set_J2->value();
+    message[2] = ui->set_J3->value();
+    message[3] = ui->set_J4->value();
+    QString line = "HomeJoint,"
+            % QString::number(message[0])
+            % ','
+            % QString::number(message[1])
+            % ','
+            % QString::number(message[2])
+            % ','
+            % QString::number(message[3]);
+    ui->dispFile->appendPlainText(line);
+}
+void CommandWindow::commandOpenGripper()
+{
+    QString line = "GripperOpen";
+    ui->dispFile->appendPlainText(line);
+}
+void CommandWindow::commandCloseGripper()
+{
+    QString line = "GripperClose";
+    ui->dispFile->appendPlainText(line);
 }
 
 void CommandWindow::loadFile()
 {
-    QDir dir(ui->progFileDir->text());
-    QString nameFile = ui->progFileName->text();
-    QString findFile = dir.filePath(nameFile);
-    QFile f(findFile);
+    QFile f(ui->progFileName->text());
     if (f.open(QFile::ReadOnly))
     {
         ui->dispFile->clear();
@@ -136,10 +249,7 @@ void CommandWindow::loadFile()
 
 void CommandWindow::saveFile()
 {
-    QDir dir(ui->progFileDir->text());
-    QString nameFile = ui->progFileName->text();
-    QString findFile = dir.filePath(nameFile);
-    QFile f(findFile);
+    QFile f(ui->progFileName->text());
     if (f.open(QFile::WriteOnly))
     {
         QTextStream stream(&f);
@@ -149,7 +259,7 @@ void CommandWindow::saveFile()
     }
 }
 
-bool CommandWindow::sendCartesienPosition(QStringList command)
+bool CommandWindow::sendCartesianPosition(QStringList command)
 {
     bool ok;
     int message[3];
@@ -162,7 +272,7 @@ bool CommandWindow::sendCartesienPosition(QStringList command)
     return ok;
 }
 
-bool CommandWindow::sendJoinPosition(QStringList command)
+bool CommandWindow::sendJointPosition(QStringList command)
 {
     bool ok;
     int message[4];
@@ -178,66 +288,59 @@ bool CommandWindow::sendJoinPosition(QStringList command)
 
 void CommandWindow::runFile()
 {
-    QDir dir(ui->progFileDir->text());
-    QString nameFile = ui->progFileName->text();
-    QString findFile = dir.filePath(nameFile);
-    QFile f(findFile);
+    QFile f(ui->progFileName->text());
     if (f.open(QFile::ReadOnly))
     {
         QTextStream stream(&f);
         QString line;
         bool ok;
-        bool jointH = false;
-        bool cartH = false;
         do
         {
             line = stream.readLine();
             QStringList command = line.split(QString(','));
-            if (command[0] == QString('J'))
+            if (command[0] == QString("Joint"))
             {
-               ok = sendJoinPosition(command);
+               ok = sendJointPosition(command);
             }
-            else if (command[0] == QString('C'))
+            else if (command[0] == QString("Cartesian"))
             {
-               ok = sendCartesienPosition(command);
+               ok = sendCartesianPosition(command);
             }
-            else if (command[0] == QString("HJ"))
+            else if (command[0] == QString("HomeJoint"))
             {
                 home_joint[0] = command[1].toInt(&ok,10);
                 home_joint[1] = command[2].toInt(&ok,10);
                 home_joint[2] = command[3].toInt(&ok,10);
                 home_joint[3] = command[4].toInt(&ok,10);
-                jointH = true;
-                cartH = false;
+                ControlMessage msg(CONTROL_MESSAGE_ID::SET_HOME,4,home_joint);
+                sendControlMessage(&msg);
             }
-            else if (command[0] == QString("HC"))
+            else if (command[0] == QString("HomeCartesian"))
             {
                 home_cart[0] = command[1].toInt(&ok,10);
                 home_cart[1] = command[2].toInt(&ok,10);
                 home_cart[2] = command[3].toInt(&ok,10);
-                cartH = true;
-                jointH = false;
+                ControlMessage msg(CONTROL_MESSAGE_ID::SET_HOME,3,home_cart);
+                sendControlMessage(&msg);
             }
-            else if (command[0] == QString("GH"))
+            else if (command[0] == QString("GoHome"))
             {
-                if (cartH)
-                {
-                    //ControlMessage msg(7,3,home_cart);
-                    //sendControlMessage(&msg);
-                }
-                else if (jointH)
-                {
-                    //ControlMessage msg(7,3,home_joint);
-                    //sendControlMessage(&msg);
-                }
+                ControlMessage msg(CONTROL_MESSAGE_ID::GOTO_HOME);
+                sendControlMessage(&msg);
             }
-            else if (command[0] == QString("GO"))
+            else if (command[0] == QString("GripperOpen"))
             {
-                //Open gripper command
+                ControlMessage msg(CONTROL_MESSAGE_ID::OPEN_GRIPPER);
+                sendControlMessage(&msg);
             }
-            else if (command[0] == QString("GC"))
+            else if (command[0] == QString("GripperClose"))
             {
-                //Close gripper command
+                ControlMessage msg(CONTROL_MESSAGE_ID::CLOSE_GRIPPER);
+                sendControlMessage(&msg);
+            }
+            else
+            {
+                QMessageBox::warning(this, tr("Command error"), "WARNING: " + line + " is not a valid command. This command will be skipped",QMessageBox::Close);
             }
         } while(!stream.atEnd());
         f.close();

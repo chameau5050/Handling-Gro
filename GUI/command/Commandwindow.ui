@@ -61,7 +61,7 @@
         <number>50</number>
        </property>
        <item row="3" column="0">
-        <widget class="QLabel" name="label_3">
+        <widget class="QLabel" name="paramLabel3">
          <property name="font">
           <font>
            <pointsize>12</pointsize>
@@ -76,7 +76,7 @@
         </widget>
        </item>
        <item row="2" column="0">
-        <widget class="QLabel" name="label_2">
+        <widget class="QLabel" name="paramLabel2">
          <property name="font">
           <font>
            <pointsize>12</pointsize>
@@ -108,7 +108,7 @@
         </widget>
        </item>
        <item row="1" column="0">
-        <widget class="QLabel" name="label">
+        <widget class="QLabel" name="paramLabel1">
          <property name="font">
           <font>
            <pointsize>12</pointsize>
@@ -123,7 +123,7 @@
         </widget>
        </item>
        <item row="4" column="0">
-        <widget class="QLabel" name="label_4">
+        <widget class="QLabel" name="paramLabel4">
          <property name="font">
           <font>
            <pointsize>12</pointsize>
@@ -283,6 +283,9 @@
          <property name="text">
           <string>CARTESIAN</string>
          </property>
+         <property name="checked">
+          <bool>false</bool>
+         </property>
         </widget>
        </item>
       </layout>
@@ -400,8 +403,8 @@
      <widget class="QPushButton" name="setHome">
       <property name="geometry">
        <rect>
-        <x>30</x>
-        <y>410</y>
+        <x>670</x>
+        <y>30</y>
         <width>121</width>
         <height>61</height>
        </rect>
@@ -423,8 +426,8 @@
      <widget class="QPushButton" name="goToHome">
       <property name="geometry">
        <rect>
-        <x>30</x>
-        <y>480</y>
+        <x>670</x>
+        <y>100</y>
         <width>121</width>
         <height>61</height>
        </rect>
@@ -443,6 +446,66 @@
        <string>GO TO HOME</string>
       </property>
      </widget>
+     <widget class="QPushButton" name="zeroButton">
+      <property name="geometry">
+       <rect>
+        <x>670</x>
+        <y>170</y>
+        <width>121</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>ZEROTAGE</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="openGripperB">
+      <property name="geometry">
+       <rect>
+        <x>670</x>
+        <y>240</y>
+        <width>121</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>OPEN GRIPPER</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="closeGripperB">
+      <property name="geometry">
+       <rect>
+        <x>670</x>
+        <y>310</y>
+        <width>121</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>CLOSE GRIPPER</string>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="tab_2">
      <attribute name="title">
@@ -454,12 +517,12 @@
         <x>410</x>
         <y>10</y>
         <width>381</width>
-        <height>541</height>
+        <height>271</height>
        </rect>
       </property>
       <property name="font">
        <font>
-        <pointsize>12</pointsize>
+        <pointsize>11</pointsize>
        </font>
       </property>
       <property name="lineWrapMode">
@@ -472,15 +535,15 @@
      <widget class="QWidget" name="verticalLayoutWidget">
       <property name="geometry">
        <rect>
-        <x>50</x>
-        <y>40</y>
+        <x>30</x>
+        <y>0</y>
         <width>321</width>
-        <height>471</height>
+        <height>540</height>
        </rect>
       </property>
-      <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0,0,0,0,0,0">
+      <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0,0,0,0,0,0,0">
        <property name="spacing">
-        <number>50</number>
+        <number>34</number>
        </property>
        <item>
         <widget class="QLabel" name="label_8">
@@ -504,14 +567,26 @@
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="progFileDir">
+        <widget class="QPushButton" name="loadFileName">
          <property name="font">
           <font>
-           <pointsize>8</pointsize>
+           <pointsize>11</pointsize>
           </font>
          </property>
          <property name="text">
-          <string>C:/Users/vince/Documents/GitHub/Handling-Gro/GUI/command</string>
+          <string>Load file name</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="saveFileName">
+         <property name="font">
+          <font>
+           <pointsize>11</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Save file name</string>
          </property>
         </widget>
        </item>
@@ -536,11 +611,8 @@
         <widget class="QLineEdit" name="progFileName">
          <property name="font">
           <font>
-           <pointsize>12</pointsize>
+           <pointsize>8</pointsize>
           </font>
-         </property>
-         <property name="text">
-          <string>testUI.txt</string>
          </property>
         </widget>
        </item>
@@ -587,6 +659,81 @@
         </widget>
        </item>
       </layout>
+     </widget>
+     <widget class="QPushButton" name="cmd_goHome">
+      <property name="geometry">
+       <rect>
+        <x>560</x>
+        <y>300</y>
+        <width>131</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Go to Home</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="cmd_moveHere">
+      <property name="geometry">
+       <rect>
+        <x>420</x>
+        <y>420</y>
+        <width>131</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Move to current position</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="cmd_setHomeHere">
+      <property name="geometry">
+       <rect>
+        <x>420</x>
+        <y>300</y>
+        <width>131</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="text">
+       <string>Save Home as 
+current position</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="cmd_openGripper">
+      <property name="geometry">
+       <rect>
+        <x>420</x>
+        <y>360</y>
+        <width>131</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="text">
+       <string>Open Gripper</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="cmd_closeGripper">
+      <property name="geometry">
+       <rect>
+        <x>560</x>
+        <y>360</y>
+        <width>131</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="text">
+       <string>Close Gripper</string>
+      </property>
      </widget>
     </widget>
    </widget>

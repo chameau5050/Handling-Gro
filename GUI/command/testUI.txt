@@ -1,6 +1,6 @@
-SH,C,120,0,1
-J,20,45,21,44
-GO
-J,35,45,21,44
-GC
-GH
+HomeCartesian,120,33,1
+Joint,20,45,21,44
+GripperOpen
+Cartesian,35,45,21
+GripperClose
+GoHome
