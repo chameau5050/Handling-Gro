@@ -39,5 +39,5 @@ class app:
 
 if __name__ == '__main__':
 
-    x = threading.Thread(target=waitForConnection, args=("192.168.1.126", 50002, 1, app(),))
+    x = threading.Thread(target=waitForConnection, args=("192.168.1.126", 50003, 1, app(),))
     x.start()
