@@ -83,7 +83,9 @@ class EthernetComm:
             print("frame readable: ", frame.getPayload())
             if frame.getType() == EthernetComm.JSONTYPE:
                 self.frameReceveList.remove(frame)
+                print("remove frame :")
                 print(json.loads(str(frame.getPayload(), encoding="UTF-8")))
+                print("payload read")
                 return json.loads(str(frame.getPayload(), encoding="UTF-8"))
         return None
 
