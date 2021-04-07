@@ -57,10 +57,12 @@ class Accumulator:
                 print("payload read size:", self.endOfPayloadIndex)
 
         elif self.state == AccumulatorState.READPAYLOAD:
+            print("read payload")
             self.writeByte(byte)
 
             if self.bufferIndex == self.endOfPayloadIndex:
                 self.fowardReceveMessage()
+                print("forward frame : ")
                 self.reset()
 
     def fowardReceveMessage(self):
