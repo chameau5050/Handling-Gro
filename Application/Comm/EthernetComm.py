@@ -72,6 +72,7 @@ class EthernetComm:
         for frame in self.frameReceveList:
             print("frame type: ", frame.getType())
             if frame.getType() == EthernetComm.JSONTYPE:
+                print("frame available: ", frame.getPayload())
                 return True
         return False
 
