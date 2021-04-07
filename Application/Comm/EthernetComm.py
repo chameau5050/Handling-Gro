@@ -45,7 +45,7 @@ class EthernetComm:
         while data:
             try:
                 data = self.sock.recv(1024)
-
+                print(data)
                 if not data:
                     break
                 else:

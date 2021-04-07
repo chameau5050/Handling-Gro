@@ -28,7 +28,7 @@ class app:
     def newConnection(self, conn):
         self.commPort = EthernetComm(conn)
         self.messageIO.addDevice(self.commPort)
-
+        print("conected")
         while True:
             msg = self.messageIO.readMessage(1)
             if msg != None:
