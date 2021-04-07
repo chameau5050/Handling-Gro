@@ -78,7 +78,7 @@ class EthernetComm:
 
     def readJSon(self):
         self.extractRecevedData()
-
+        print("try to read")
         for frame in self.frameReceveList:
             if frame.getType() == EthernetComm.JSONTYPE:
                 self.frameReceveList.remove(frame)
