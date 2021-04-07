@@ -69,7 +69,7 @@ class EthernetComm:
         self.extractRecevedData()
 
         for frame in self.frameReceveList:
-            printf("frame type: ", frame.getType)
+            printf("frame type: ", frame.getType())
             if frame.getType() == EthernetComm.JSONTYPE:
                 return True
         return False
