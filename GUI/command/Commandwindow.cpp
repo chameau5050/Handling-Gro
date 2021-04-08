@@ -115,21 +115,21 @@ void CommandWindow::sendJointParameters()
 {
     if (ui->jointMode->isChecked())
     {
-        int message[4];
+        float message[4];
         message[0] = ui->set_J1->value();
         message[1] = ui->set_J2->value();
         message[2] = ui->set_J3->value();
         message[3] = ui->set_J4->value();
 
-        ControlMessage msg(CONTROL_MESSAGE_ID::SET_JOIN_POSITION,4,message);
+        ControlMessagefloatingPoint msg(CONTROL_MESSAGE_ID::SET_JOIN_POSITION_MODEL,4,message);
         sendControlMessage(&msg);
     }
     else if (ui->cartMode->isChecked()) {
-        int message[3];
+        float message[3];
         message[0] = ui->set_J1->value();
         message[1] = ui->set_J2->value();
         message[2] = ui->set_J3->value();
-        ControlMessage msg(CONTROL_MESSAGE_ID::SET_CARTESIEN_POSITION,3,message);
+        ControlMessagefloatingPoint msg(CONTROL_MESSAGE_ID::SET_CARTESIEN_POSITION,3,message);
         sendControlMessage(&msg);
     }
 }
@@ -142,7 +142,7 @@ void CommandWindow::setHome()
         home_joint[1] = ui->set_J2->value();
         home_joint[2] = ui->set_J3->value();
         home_joint[3] = ui->set_J4->value();
-        ControlMessage msg(CONTROL_MESSAGE_ID::SET_HOME,4,home_joint);
+        ControlMessage msg(CONTROL_MESSAGE_ID::SET_HOME_MODEL,4,home_joint);
         sendControlMessage(&msg);
     }
     else if (ui->cartMode->isChecked())
@@ -150,7 +150,7 @@ void CommandWindow::setHome()
         home_cart[0] = ui->set_J1->value();
         home_cart[1] = ui->set_J2->value();
         home_cart[2] = ui->set_J3->value();
-        ControlMessage msg(CONTROL_MESSAGE_ID::SET_HOME,3,home_cart);
+        ControlMessage msg(CONTROL_MESSAGE_ID::SET_HOME_MODEL,3,home_cart);
         sendControlMessage(&msg);
     }
 }
@@ -281,7 +281,7 @@ bool CommandWindow::sendJointPosition(QStringList command)
     message[2] = command[3].toInt(&ok,10);
     message[3] = command[4].toInt(&ok,10);
 
-    ControlMessage msg(CONTROL_MESSAGE_ID::SET_JOIN_POSITION,4,message);
+    ControlMessage msg(CONTROL_MESSAGE_ID::SET_JOIN_POSITION_MODEL,4,message);
     sendControlMessage(&msg);
     return ok;
 }
@@ -312,7 +312,7 @@ void CommandWindow::runFile()
                 home_joint[1] = command[2].toInt(&ok,10);
                 home_joint[2] = command[3].toInt(&ok,10);
                 home_joint[3] = command[4].toInt(&ok,10);
-                ControlMessage msg(CONTROL_MESSAGE_ID::SET_HOME,4,home_joint);
+                ControlMessage msg(CONTROL_MESSAGE_ID::SET_HOME_MODEL,4,home_joint);
                 sendControlMessage(&msg);
             }
             else if (command[0] == QString("HomeCartesian"))
@@ -320,7 +320,7 @@ void CommandWindow::runFile()
                 home_cart[0] = command[1].toInt(&ok,10);
                 home_cart[1] = command[2].toInt(&ok,10);
                 home_cart[2] = command[3].toInt(&ok,10);
-                ControlMessage msg(CONTROL_MESSAGE_ID::SET_HOME,3,home_cart);
+                ControlMessage msg(CONTROL_MESSAGE_ID::SET_HOME_MODEL,3,home_cart);
                 sendControlMessage(&msg);
             }
             else if (command[0] == QString("GoHome"))
@@ -348,6 +348,25 @@ void CommandWindow::runFile()
 }
 
 void CommandWindow::sendControlMessage(ControlMessage* msg)
+{
+    QJsonObject recordObject;
+    recordObject.insert("type",QJsonValue::fromVariant(msg->getType()));
+    recordObject.insert("PLS",QJsonValue::fromVariant(msg->getPayLoadSize()));
+
+    if(msg->getPayLoadSize() > 0){
+
+        QJsonArray array;
+        for(int x = 0; x < msg->getPayLoadSize();x++)
+        {
+            array.append(QJsonValue::fromVariant(msg->getPayload()[x]));
+        }
+
+        recordObject.insert("data",array);
+    }
+    sendJSon(QJsonDocument(recordObject));
+}
+
+void CommandWindow::sendControlMessage(ControlMessagefloatingPoint* msg)
 {
     QJsonObject recordObject;
     recordObject.insert("type",QJsonValue::fromVariant(msg->getType()));

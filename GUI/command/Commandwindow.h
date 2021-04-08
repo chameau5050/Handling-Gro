@@ -24,8 +24,9 @@ public:
     ~CommandWindow();
     void sendJSon(QJsonDocument doc);
     void sendControlMessage(ControlMessage* msg);
-    bool messageReceved(char* rawDataFrame,unsigned int lenght);
+    void sendControlMessage(ControlMessagefloatingPoint* msg);
 
+    bool messageReceved(char* rawDataFrame,unsigned int lenght);
     bool sendCartesianPosition(QStringList command);
     bool sendJointPosition(QStringList command);
 
