@@ -70,24 +70,15 @@ class EthernetComm:
         self.extractRecevedData()
 
         for frame in self.frameReceveList:
-            print("frame type: ", frame.getType())
             if frame.getType() == EthernetComm.JSONTYPE:
-                print("frame available: ", frame.getPayload())
                 return True
         return False
 
     def readJSon(self):
         self.extractRecevedData()
-        print("try to read")
         for frame in self.frameReceveList:
-            print("frame readable: ", frame.getPayload())
             if frame.getType() == EthernetComm.JSONTYPE:
                 self.frameReceveList.remove(frame)
-                print("frameRemoved :")
-                print("remove frame :", str(frame.getPayload().decode()))
-
-                print(json.loads(str(frame.getPayload().decode())))
-                print("payload read")
                 return json.loads(str(frame.getPayload().decode()))
         return None
 

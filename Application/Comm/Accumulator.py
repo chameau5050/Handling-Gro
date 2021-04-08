@@ -31,7 +31,6 @@ class Accumulator:
     def addData(self, byte):
 
         if self.state == AccumulatorState.READSTARTBYTES:
-            print("startByte")
             self.writeByte(byte)
 
             if self.bufferIndex == Frame.TypeIndex:
@@ -41,28 +40,23 @@ class Accumulator:
                     self.reset()
 
         elif self.state == AccumulatorState.READTYPE:
-            print("read type")
             self.writeByte(byte)
 
             if self.bufferIndex == Frame.PayloadSizeIndex:
                 self.state = AccumulatorState.READPAYLOADSIZE
 
         elif self.state == AccumulatorState.READPAYLOADSIZE:
-            print("read payload size")
             self.writeByte(byte)
 
             if self.bufferIndex == Frame.PayloadIndex:
                 self.state = AccumulatorState.READPAYLOAD
                 self.endOfPayloadIndex = self.readSizeOfPayload()
-                print("payload read size:", self.endOfPayloadIndex)
 
         elif self.state == AccumulatorState.READPAYLOAD:
-            print("read payload")
             self.writeByte(byte)
 
             if self.bufferIndex == self.endOfPayloadIndex:
                 self.fowardReceveMessage()
-                print("forward frame : ")
                 self.reset()
 
     def fowardReceveMessage(self):

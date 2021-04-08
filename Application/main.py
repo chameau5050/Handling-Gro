@@ -17,7 +17,7 @@ class app:
     def __init__(self):
         self.commPort = None
         self.messageIO = MessageIO()
-        self.messageIO.addDevice(SerialComm("/dev/ttyACM0", 57000))
+        self.messageIO.addDevice(SerialComm("COM3", 57000))
         self.driveManager = DriveManager([0,0,0], self.messageIO)
         self.JS = JoinSystem([LinearJoin(VectorSpaceAxis.X, np.array([0, 0, 0]), [0, 0.40])])
         self.JS.addJoin(RevoluteJoin(VectorSpaceAxis.Y, np.array([0, 0.275, 0]), [0, 2 * math.pi]))
@@ -28,7 +28,6 @@ class app:
     def newConnection(self, conn):
         self.commPort = EthernetComm(conn)
         self.messageIO.addDevice(self.commPort)
-        print("conected")
         while True:
             msg = self.messageIO.readMessage(1)
             if msg != None:
@@ -39,5 +38,5 @@ class app:
 
 if __name__ == '__main__':
 
-    x = threading.Thread(target=waitForConnection, args=("192.168.1.126", 50010, 1, app(),))
+    x = threading.Thread(target=waitForConnection, args=("127.0.0.1", 50000, 1, app(),))
     x.start()
