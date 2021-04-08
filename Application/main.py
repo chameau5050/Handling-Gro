@@ -17,7 +17,7 @@ class app:
     def __init__(self):
         self.commPort = None
         self.messageIO = MessageIO()
-        self.messageIO.addDevice(SerialComm("COM3", 57000))
+        self.messageIO.addDevice(SerialComm("COM4", 57000))
         self.driveManager = DriveManager([0,0,0], self.messageIO)
         self.JS = JoinSystem([LinearJoin(VectorSpaceAxis.X, np.array([0, 0, 0]), [0, 0.40])])
         self.JS.addJoin(RevoluteJoin(VectorSpaceAxis.Y, np.array([0, 0.275, 0]), [0, 2 * math.pi]))
