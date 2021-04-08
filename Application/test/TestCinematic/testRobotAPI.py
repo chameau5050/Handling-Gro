@@ -36,6 +36,33 @@ class testRobotAPI(unittest.TestCase):
         self.assertEqual(test_ctrl_2, test_msg_2.getPayload())
         self.assertEqual(ControlMessage.SET_HOME, test_msg_2.getType())
 
+    def test_executeCommandSetHome_Model(self):
+        msgManager = self.createTestMessageIO()
+
+        controller = [1, 1, 0]
+        driveManager = DriveManager(controller, msgManager)
+
+        JS = self.createTestJoinSystem()
+
+        self.robot = robotAPI(JS, [1, 1, 1], driveManager)
+
+        newHome = [0.5, 0.2, 0.1]
+
+        msg = ControlMessage(ControlMessage.SET_HOME_MODEL, newHome)
+        self.robot.executeCommand(msg)
+
+        test_msg_1 = msgManager.readMessage(0)
+        test_msg_2 = msgManager.readMessage(1)
+
+        test_ctrl_1 = [10]
+        test_ctrl_2 = [50, 20]
+
+        self.assertEqual(test_ctrl_1, test_msg_1.getPayload())
+        self.assertEqual(ControlMessage.SET_HOME, test_msg_1.getType())
+
+        self.assertEqual(test_ctrl_2, test_msg_2.getPayload())
+        self.assertEqual(ControlMessage.SET_HOME, test_msg_2.getType())
+
     def test_executeCommandGOTOHome(self):
         msgManager = self.createTestMessageIO()
 
@@ -130,6 +157,62 @@ class testRobotAPI(unittest.TestCase):
 
         self.assertEqual(test_ctrl_2, test_msg_2.getPayload())
         self.assertEqual(ControlMessage.SET_JOIN_POSITION, test_msg_2.getType())
+
+    def test_executeCommandSet_Join_Position(self):
+        msgManager = self.createTestMessageIO()
+
+        controller = [1, 1, 0]
+        driveManager = DriveManager(controller, msgManager)
+
+        JS = self.createTestJoinSystem()
+
+        self.robot = robotAPI(JS, [1, 1, 1], driveManager)
+
+        newPosition = [40, 23, 11]
+
+        msg = ControlMessage(ControlMessage.SET_JOIN_POSITION, newPosition)
+        self.robot.executeCommand(msg)
+
+        test_msg_1 = msgManager.readMessage(0)
+        test_msg_2 = msgManager.readMessage(1)
+
+        test_ctrl_1 = [11]
+        test_ctrl_2 = [40, 23]
+
+        self.assertEqual(test_ctrl_1, test_msg_1.getPayload())
+        self.assertEqual(ControlMessage.SET_JOIN_POSITION, test_msg_1.getType())
+
+        self.assertEqual(test_ctrl_2, test_msg_2.getPayload())
+        self.assertEqual(ControlMessage.SET_JOIN_POSITION, test_msg_2.getType())
+
+
+    def test_executeCommandSet_Join_Position_Model(self):
+        msgManager = self.createTestMessageIO()
+
+        controller = [1, 1, 0]
+        driveManager = DriveManager(controller, msgManager)
+
+        JS = self.createTestJoinSystem()
+
+        self.robot = robotAPI(JS, [1, 1, 1], driveManager)
+
+        newPosition = [0.5, 0.2, 0.1]
+
+        msg = ControlMessage(ControlMessage.SET_JOIN_POSITION_MODEL, newPosition)
+        self.robot.executeCommand(msg)
+
+        test_msg_1 = msgManager.readMessage(0)
+        test_msg_2 = msgManager.readMessage(1)
+
+        test_ctrl_1 = [10]
+        test_ctrl_2 = [50, 20]
+
+        self.assertEqual(test_ctrl_1, test_msg_1.getPayload())
+        self.assertEqual(ControlMessage.SET_JOIN_POSITION, test_msg_1.getType())
+
+        self.assertEqual(test_ctrl_2, test_msg_2.getPayload())
+        self.assertEqual(ControlMessage.SET_JOIN_POSITION, test_msg_2.getType())
+
 
     def createTestJoinSystem(self):
         JS = JoinSystem([LinearJoin(VectorSpaceAxis.X, np.array([0, 0, 0]), [0, 0.40])])

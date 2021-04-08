@@ -1,5 +1,7 @@
 class ControlMessage:
     SET_HOME = 3
+    SET_HOME_MODEL = 4
+    SET_JOIN_POSITION_MODEL = 6
     SET_JOIN_POSITION = 7
     SET_CARTESIAN_POSITION = 8
     GOTO_HOME = 9
