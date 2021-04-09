@@ -92,6 +92,20 @@ class TestJoinSystem(VectorTester):
         self.assertMatrixEqual(expected, JS.findPositionGradient([1, math.pi/2], 0.00001))
 
     def test_getHardwarePosition(self):
-        JS = JoinSystem([LinearJoin(VectorSpaceAxis.Z, np.array([0, 0, 1]), axisLimit=[0,1], hardwareIntervalStep=5000)])
-        JS.addJoin(RevoluteJoin(VectorSpaceAxis.X, np.array([0, 0, 1]), axisLimit=[0,6], hardwareIntervalStep=7000))
+        JS = JoinSystem([LinearJoin(VectorSpaceAxis.Z, np.array([0, 0, 1]), axisLimit=[0,1], hardwareStepDistance=1/5000)])
+        JS.addJoin(RevoluteJoin(VectorSpaceAxis.X, np.array([0, 0, 1]), axisLimit=[0,6], hardwareStepDistance=6/7000))
         self.assertEqual([500, 3616], JS.getHardwareJoinPosition([0.1, 3.1]))
+
+    def test_getHardwarePositionReverse(self):
+        JS = JoinSystem([LinearJoin(VectorSpaceAxis.Z, np.array([0, 0, 1]), axisLimit=[0, 1], hardwareStepDistance=1 / 5000,isJoinReverse=True)])
+        JS.addJoin(RevoluteJoin(VectorSpaceAxis.X, np.array([0, 0, 1]), axisLimit=[0, 6], hardwareStepDistance=6 / 7000, isJoinReverse=True))
+        self.assertEqual([4500, 3383], JS.getHardwareJoinPosition([0.1, 3.1]))
+
+    def test_convertHardwarePositionToModelPosition(self):
+        JS = JoinSystem(
+                [LinearJoin(VectorSpaceAxis.Z, np.array([0, 0, 1]), axisLimit=[0, 1], hardwareStepDistance=1/5000)])
+        JS.addJoin(
+                RevoluteJoin(VectorSpaceAxis.X, np.array([0, 0, 1]), axisLimit=[0, 6], hardwareStepDistance=6/7000))
+        pos = JS.convertHardWarePositionToModelPosition([500, 3616])
+        self.assertAlmostEqual(0.1, pos[0], delta=0.001)
+        self.assertAlmostEqual(3.1, pos[1], delta=0.001)

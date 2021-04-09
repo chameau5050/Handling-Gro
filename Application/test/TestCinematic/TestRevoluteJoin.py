@@ -77,6 +77,10 @@ class TestRevoluteJoin(VectorTester):
         self.assertVectorEqual(expected, joinY.getNextJoinRelativePosition(0))
         self.assertVectorEqual(expected, joinZ.getNextJoinRelativePosition(0))
 
-
+    def test_convertToHardwareReverseMode(self):
+        join = RevoluteJoin(VectorSpaceAxis.X, np.array([0, 0, 1]), axisLimit=[-2, 4], hardwareStepDistance=(6/2000), isJoinReverse=True)
+        self.assertEqual(0, join.convertToHardWarePosition(4))
+        self.assertEqual(1000, join.convertToHardWarePosition(1))
+        self.assertEqual(333, join.convertToHardWarePosition(3))
 
 
