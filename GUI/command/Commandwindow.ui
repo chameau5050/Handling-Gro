@@ -150,6 +150,12 @@
            <pointsize>12</pointsize>
           </font>
          </property>
+         <property name="decimals">
+          <number>3</number>
+         </property>
+         <property name="minimum">
+          <double>-99.998999999999995</double>
+         </property>
         </widget>
        </item>
        <item row="2" column="1">
@@ -165,6 +171,12 @@
            <pointsize>12</pointsize>
           </font>
          </property>
+         <property name="decimals">
+          <number>3</number>
+         </property>
+         <property name="minimum">
+          <double>-100.000000000000000</double>
+         </property>
         </widget>
        </item>
        <item row="3" column="1">
@@ -179,6 +191,12 @@
           <font>
            <pointsize>12</pointsize>
           </font>
+         </property>
+         <property name="decimals">
+          <number>3</number>
+         </property>
+         <property name="minimum">
+          <double>-100.000000000000000</double>
          </property>
         </widget>
        </item>
@@ -201,6 +219,12 @@
            <pointsize>12</pointsize>
           </font>
          </property>
+         <property name="decimals">
+          <number>3</number>
+         </property>
+         <property name="minimum">
+          <double>-100.000000000000000</double>
+         </property>
         </widget>
        </item>
        <item row="1" column="2">
@@ -215,6 +239,12 @@
           <font>
            <pointsize>12</pointsize>
           </font>
+         </property>
+         <property name="decimals">
+          <number>3</number>
+         </property>
+         <property name="minimum">
+          <double>-100.000000000000000</double>
          </property>
         </widget>
        </item>
@@ -231,6 +261,12 @@
            <pointsize>12</pointsize>
           </font>
          </property>
+         <property name="decimals">
+          <number>3</number>
+         </property>
+         <property name="minimum">
+          <double>-100.000000000000000</double>
+         </property>
         </widget>
        </item>
        <item row="3" column="2">
@@ -245,6 +281,12 @@
           <font>
            <pointsize>12</pointsize>
           </font>
+         </property>
+         <property name="decimals">
+          <number>3</number>
+         </property>
+         <property name="minimum">
+          <double>-100.000000000000000</double>
          </property>
         </widget>
        </item>
