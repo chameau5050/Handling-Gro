@@ -2,7 +2,7 @@ from Cinematic.vectorBase import *
 
 
 class LinearJoin:
-    def __init__(self,translationAxis, nextJoinRelativePosition, axisLimit = [0,10], hardwareStepDistance = 0.01):
+    def __init__(self,translationAxis, nextJoinRelativePosition, axisLimit = [0,10], hardwareStepDistance = 0.01, isJoinReverse = False):
         if translationAxis == VectorSpaceAxis.X:
             self.translationMatrix = translateX
         elif translationAxis == VectorSpaceAxis.Y:
@@ -22,8 +22,9 @@ class LinearJoin:
         self.axisMax = axisLimit[1]
 
         self.hardwareStepDistance = hardwareStepDistance
+        self.isJoinReverse = isJoinReverse
 
-    def getRotationMatrix(self,state):
+    def getRotationMatrix(self, state):
         return self.rotationMatrix
 
     def getNextJoinRelativePosition(self, joinState):
@@ -35,10 +36,17 @@ class LinearJoin:
             return self.translationMatrix(self.nexJoinRelativePosition, joinState)
 
     def convertToHardWarePosition(self, q):
-        return math.floor((q-self.axisMin)/self.hardwareStepDistance)
+        if self.isJoinReverse:
+            return math.floor((self.axisMax-q) / self.hardwareStepDistance)
+        else:
+            return math.floor((q-self.axisMin)/self.hardwareStepDistance)
 
     def convertHardWarePositionToModelPosition(self, step):
-        return self.axisMin + step*self.hardwareStepDistance
+        if self.isJoinReverse:
+            return self.axisMax - step*self.hardwareStepDistance
+        else:
+            return self.axisMin + step*self.hardwareStepDistance
+
 
     def getMinLimit(self):
         return self.axisMin
