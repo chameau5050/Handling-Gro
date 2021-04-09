@@ -1,9 +1,12 @@
 #ifndef UNIT_TEST
 
+#define debug 0
+
 #include <Arduino.h>
 #include <ArduinoJson.h>
 #include <String.h>
 #include <DynamixelWorkbench.h>
+#include <Servo.h>
 
 #if defined(__OPENCM904__)
   #define DEVICE_NAME "3" //Dynamixel on Serial3(USART3)  <-OpenCM 485EXP
@@ -35,6 +38,7 @@ SerialComm SC(&Serial);
 #define RETURN_HOME_POSITION_INDEX 13
 #define RETURN_REFERENCE_POSITION_INDEX 15
 #define RETURN_ACTUAL_POSITION_INDEX 17
+#define ACTION_ON_GRIPPER 24
 
 // Definition des parametres important pour le fonctionnement des moteurs Dynamixel
 // Definition of parameters important for the operation of Dynamixel motors
@@ -42,34 +46,101 @@ DynamixelWorkbench dxl_wb;
 uint8_t get_id[16];
 uint8_t scan_cnt = 0;
 uint8_t ping_cnt = 0;
-
 bool isAvailableID(uint8_t id);
 void split(String data, char separator, String* temp);
 void printInst();
+
+// Definition de la classe moteur pour les moteurs STEP
+// Definition of the motor class for STEP motors
+TinyStepper_28BYJ_48 stepper;
+
+// Definition de la classe moteur pour les moteurs SERVO
+// Definition of the motor class for SERVO motors
+Servo servo;
 
 
 // Definition des defines pour les parametres des moteurs
 // Definition of defines for engine parameters 
 #define NbrMotor 5
 #define NbrMotorDynamixel 4
-#define NbrMotorStepper 1
+#define NbrMotorStepper 0
+#define NbrMotorServo 1
+
+
+
 
 int defineID[NbrMotor]= {1,2,3,4,5};
 
-int LimiteMax[NbrMotor] = {819210,8193,8193,8193,50000};
+int LimiteMax[NbrMotor] = {819210,114096,112000,113400,50000};
 int LimiteMin[NbrMotor] = {0,0,0,0,0};
-int Home[NbrMotor]= {1000,0,0,0,0}; 
-
-// Definition de la classe moteur pour les moteurs STEP
-// Definition of the motor class for dynamixel STEP
-TinyStepper_28BYJ_48 stepper;
+int Home[NbrMotor]= {1000,0,0,0,0};
+int ReferencePosition[NbrMotor]= {10000,300,300,0,0};
+int PasInitialisation[NbrMotor]= {200,50,45,50,4096};   //Set les pas du moeur lors de l'initialisation des moteurs 
+int PetitPasInitialisation[NbrMotor]= {50,10,10,10,4096}; 
+int ActualPosition[NbrMotor]= {1000,100,100,100,4096};
+int inPinsInterupteurNumber[NbrMotor] = {11,6,7,11,9};//{11,6,7,8,9}{8,8,8,8,8}
+int reverseInitialisation[NbrMotor] = {0,1,1,1,0};
+int initialisationAuDepart[NbrMotor] = {0,0,0,0,1};//{1,1,1,1,1};
 
 //Définir les parametres pour les interrupteurs
-#define inpinsdynamixel 3
+//#define inpinsdynamixel 3
 #define nb_Step_for_dynamixel_moteur 506
-
-#define inpinstepp 2
+#define inpinstepp 3
 #define nb_Step_for_step_moteur 2048
+
+class motorservo
+{
+  public:
+  motorservo(int id)
+  {
+    const int MOTOR_IN_PIN = 3;
+    //this->id = id;//si sa marche sans, enlever cette ligne
+    
+    servo.attach(MOTOR_IN_PIN);
+    #if debug ==1
+    if (servo.attached())
+    {
+    Serial.println("motor :");
+    Serial.print(id);
+    Serial.print(" ready.");
+    }
+    else 
+    {
+      Serial.println("motor :");
+      Serial.print(id);
+      Serial.print(" non ready.");
+    }
+    #endif
+   };
+  
+  void gotoa(int32_t pos)
+  {
+    servo.write(pos);;
+  };
+
+  void setHomingOffset(int32_t pos)
+  {
+    #if debug ==1
+    Serial.println("Maybe, not avalable with this motor.");
+    #endif
+  }
+  
+  int32_t GetPosition1()
+  {
+    long actualPos = servo.read();
+    return actualPos;
+  }
+
+  int32_t GetReferencePosition1()
+  {
+    #if debug ==1
+    Serial.println("Maybe, not avalable with this motor.");
+    #endif
+    return -1;
+  }
+ };
+
+ 
 
 
 class motorstepper
@@ -91,12 +162,13 @@ class motorstepper
     //Code pour le réglage des moteurs dans differents modes
     stepper.setSpeedInStepsPerSecond(500);
     stepper.setAccelerationInStepsPerSecondPerSecond(500);
-    
+    #if debug ==1
     Serial.println("");
     Serial.print("If light On, steppermotor ");
     Serial.print(id);
     Serial.print(" ready. If light OFF, this steppermotor is NOT ready");
     Serial.println("");
+    #endif
    };
   
   void gotoa(int32_t pos)
@@ -107,8 +179,10 @@ class motorstepper
 
   void setHomingOffset(int32_t pos)
   {
+    #if debug ==1
     Serial.println("Fonction not working at 100%: Error");
     Serial.println("Maybe, not avalable with this motor.");
+    #endif
     stepper.setCurrentPositionInSteps(pos);
   }
   
@@ -120,7 +194,9 @@ class motorstepper
 
   int32_t GetReferencePosition1()
   {
+    #if debug ==1
     Serial.println("Maybe, not avalable with this motor.");
+    #endif
     return -1;
   }
  };
@@ -157,7 +233,56 @@ class motor
    //result1 = dxl_wb.setExtendedPositionControlMode((int8_t)id,  &log);
 //Essaie #4   
     result = dxl_wb.currentBasedPositionMode((int8_t)id, 100, &log);
+    if( id != 1)
+    {
+      int resultss1 =  dxl_wb.itemWrite(id, "Profile_Velocity", 20, &log);
+      int resultss2 =  dxl_wb.itemWrite(id, "Goal_PWM", 885, &log);
+      int resultss3 =  dxl_wb.itemWrite(id, "Goal_Velocity", 200, &log);
+      int resultss4 =  dxl_wb.itemWrite(id, "Goal_Current", 1193, &log);
+      #if debug ==1
+      if (resultss1 == 0 || resultss2 == 0 || resultss3 == 0 || resultss4 == 0  )
+      {
+        Serial.println(log);
+        Serial.println("Failed to set one of these setting: Profile_Velocity, Goal_PWM, Goal_Velocitu and Goal_Current ");
+      }
+      else
+      {
+        Serial.print("Succeed to set setting : Profile_Velocity, Goal_PWM, Goal_Velocitu and Goal_Current ");
+      }
+      #endif
+    }
+
+      if( id != 1)
+    {
+      int results =  dxl_wb.itemWrite(id, "Profile_Velocity", 20, &log);
+      #if debug ==1
+      if (results == 0   )
+      {
+        Serial.println(log);
+        Serial.println("Failed to set reverse mode");
+      }
+      else
+      {
+        Serial.print("Succeed to set reverse mode ");
+      }
+      #endif
+    }
+    if( id != 5)
+    {
+      result = dxl_wb.torqueOn(id, &log);
+      #if debug ==1
+      if (result==1)
+      {
+        Serial.println("torque On ");
+      }
+      else
+      {
+        Serial.print("torque off");
+      }
+      #endif
+    }
     result3 = dxl_wb.ledOn((uint8_t) id, &log);
+    #if debug ==1
     if(result3==1)
     {
       Serial.println("");
@@ -174,6 +299,7 @@ class motor
       Serial.print(" not ready");
       Serial.println("");
     }
+    #endif
   };
   
   int id;
@@ -186,9 +312,9 @@ class motor
 
   void setHomingOffset(int32_t pos)
   {
-    Serial.println("Fonction not working at 100%: Error");
     bool resultss = false;
     resultss =  dxl_wb.itemWrite(id, "Homing_Offset", pos, &log);
+    #if debug ==1
     if (resultss == false)
     {
       Serial.println(log);
@@ -198,6 +324,7 @@ class motor
     {
       Serial.print("Succeed to set Homing_Offset");
     }
+    #endif
   }
   
   int32_t GetPosition1()
@@ -205,6 +332,7 @@ class motor
     bool results;
     int32_t get_data = 0;
     results = dxl_wb.itemRead(id, "Present_Position", &get_data, &log);
+    #if debug ==1
     if (results == false)
     {
       Serial.println(log);
@@ -216,6 +344,7 @@ class motor
       Serial.print(get_data);
       Serial.println(")");
     }
+    #endif
     return get_data;
   }
 
@@ -224,6 +353,7 @@ class motor
     bool results;
     int32_t get_data = 0;
     results = dxl_wb.itemRead(id, "Homing_Offset", &get_data, &log);
+    #if debug ==1
     if (results == false)
     {
       Serial.println(log);
@@ -235,90 +365,193 @@ class motor
       Serial.print(get_data);
       Serial.println(")");
     }
+    #endif
     return get_data;
   }
  };
 
 
 motor* Reference[NbrMotorDynamixel];
+motorservo* ReferenceServo[NbrMotorServo];
 motorstepper* ReferenceStepper[NbrMotorStepper];
+
 
 
 void setup() 
 {
   Serial.begin(BAUD);
   IO.addDevice(&SC);
-  pinMode(inpinstepp, INPUT);
+  for (int PIN=0;PIN<(NbrMotorDynamixel+NbrMotorStepper);PIN++)
+  {
+    pinMode(inPinsInterupteurNumber[PIN], INPUT);
+  }
   delay(10);
-
-  
-  delay(7000); // A ENLEVER C JUSTE POUR TEST
 }
 
 void loop() 
 {
-  ControlMessage* msg = IO.readMessage(0);
-
   for (int m=0;m<NbrMotorDynamixel;m++)
   {
     if (Reference[m] == 0)
     {
         Reference[m] = new motor(defineID[m]);
+        #if debug ==1
         Serial.println("Je set un motor");
+        #endif
     }
     
   }
-
+  
+  for (int M=0;M<NbrMotorServo;M++)
+  {
+    if (ReferenceServo[M] == 0) 
+    {
+        ReferenceServo[M] = new motorservo(defineID[M]);
+        #if debug ==1
+        Serial.println("Je set un servomotor");
+        #endif
+    }
+  }
+  
   for (int M=0;M<NbrMotorStepper;M++)
   {
     if (ReferenceStepper[M] == 0) 
     {
         ReferenceStepper[M] = new motorstepper(defineID[M]);
+        #if debug ==1
         Serial.println("Je set un steppermotor");
+        #endif
     }
   }
 
-
-
-
-
-//  for (int m=0;m<NbrMotor;m++)
-//  {
-//    if ((Reference[m] == 0)&& (m < NbrMotorDynamixel))
-//    {
-//        Reference[m] = new motor(defineID[m]);
-//        Serial.println("Je set un motor");
-//    }
-//    //else if((ReferenceStepper[(m-NbrMotorDynamixel)] == 0) && (m >= NbrMotorDynamixel))
-//    else if((ReferenceStepper[0] == 0) && (m >= NbrMotorDynamixel))
-//    {
-//        ReferenceStepper[m] = new motorstepper(defineID[m]);
-//        Serial.println("Je set un steppermotor");
-//    }
-//  }
-
   
-  if(msg != 0)
+
+  //INITIALISATION INITIALES DU ROBOT: MOTEUR DYNAMIXEL ET STEPPER
+  for (int i=0;i<(NbrMotor-NbrMotorServo);i++)
+  {
+    if (initialisationAuDepart[i] == 1)
+    {
+        #if debug ==1
+        Serial.println("debut de l<essaie avec les switch du moteur:");
+        Serial.println(i);
+        #endif
+        ActualPosition[i] = (Reference[i])->GetPosition1();
+        int ajout = ActualPosition[i];
+//APPROCHEMENT #1          
+        int readingstepper = digitalRead(inPinsInterupteurNumber[i]);
+        while(readingstepper == 0)
+        {
+          if (reverseInitialisation[i] == 1)
+          {
+            ajout += PasInitialisation[i];
+          }
+          else
+          {
+            ajout -= PasInitialisation[i];
+          }
+          
+          if (i < NbrMotorDynamixel)
+          {
+            Reference[i]->gotoa(ajout);
+            delay(750);
+          }
+          else if (i >= NbrMotorDynamixel)
+          {
+            ReferenceStepper[i]->gotoa(ajout);
+            delay(2000);
+            //Je peut aussi set ca position actuelle comme je le veux
+          }
+          readingstepper = digitalRead(inPinsInterupteurNumber[i]);
+        }
+//APPROCHEMENT #2
+        delay(2000);
+        if (reverseInitialisation[i] == 1)
+          {
+             ajout -= 4*PetitPasInitialisation[i];
+          }
+          else
+          {
+             ajout += 4*PetitPasInitialisation[i];
+          }
+        
+        if (i < NbrMotorDynamixel)
+        {
+          Reference[i]->gotoa(ajout);
+          delay(750);
+        }
+        else if (i >= NbrMotorDynamixel)
+        {
+          ReferenceStepper[i]->gotoa(ajout);
+          delay(2000);
+        }
+//APPROCHEMENT #3
+        delay(750);
+        int readingstepper_fine = digitalRead(inPinsInterupteurNumber[i]);
+        while(readingstepper_fine == 0)
+        {
+          if (reverseInitialisation[i] == 1)
+          {
+            ajout += PetitPasInitialisation[i];
+          }
+          else
+          {
+            ajout -= PetitPasInitialisation[i];
+          }
+
+          if (i < NbrMotorDynamixel)
+          {
+            Reference[i]->gotoa(ajout);
+            delay(500);
+          }
+          else if (i >= NbrMotorDynamixel)
+          {
+            ReferenceStepper[i]->gotoa(ajout);
+            delay(1000);
+            //Je peut aussi set ca position actuelle comme je le veux
+          }
+          readingstepper_fine = digitalRead(inPinsInterupteurNumber[i]);
+        }
+   
+        ActualPosition[i] = ajout;
+        ReferencePosition[i] = ajout;
+        #if debug ==1
+        //Serial.println("La nouvelle valeur du home position pour step =");
+        //Serial.println(Home[i]);
+        #endif
+      }
+      initialisationAuDepart[i] = 0;
+    }
+//INITIALISATION INITIALES DU ROBOT: MOTEUR SRVO
+  if (NbrMotorServo != 0)
+  {
+    //Serial.println(initialisationAuDepart[4]);
+    int valeurservo = NbrMotorDynamixel + NbrMotorStepper;
+    for (int ii = valeurservo;ii>=NbrMotor;ii++)
+    {
+      //Serial.println(ii);
+      //Serial.println(NbrMotor);
+      if (initialisationAuDepart[ii] == 1);
+      {
+        ReferenceServo[ii]->gotoa(0);//0 if the referenco position for SERVO?
+        //ActualPosition[ii] = (ReferenceServo[ii])->GetPosition1();
+        ActualPosition[ii] = 0;
+        initialisationAuDepart[ii] = 0;
+        //Serial.println(initialisationAuDepart[ii]);
+        #if debug ==1
+           Serial.println("Initialisation du servo ");
+           Serial.println(ii);
+           Serial.println("completer");
+        #endif
+      }
+    }
+  }
+
+    
+  ControlMessage* msg = IO.readMessage(0);
+ if(msg != 0)
   {
     for (int i=0;i<msg->getPayLoadSize();i++)
     {
-//CODE POUR INITIALISER LES MOTEURS
-//CODE TO INITIALIZE THE MOTORS      
-//      if ((Reference[i] == 0)&& (i < NbrMotorDynamixel))
-//      {
-//          Reference[i] = new motor(defineID[i]);
-//          Serial.println("Motor");
-//          Serial.println(i);
-//          Serial.println("activer");
-//      }
-//      else if((ReferenceStepper[i] == 0) && (i >= NbrMotorDynamixel))
-//      {
-//          ReferenceStepper[i] = new motorstepper(defineID[i]);
-//          Serial.println("StepperMotor");
-//          Serial.println(i);
-//          Serial.println("activer");
-//      }
-
 //CODE POUR LES DIFFERENTES OPERATIONS A EFFECTUER PAR LE MOTEURS
 //CODE FOR THE DIFFERENT OPERATIONS TO BE CARRIED OUT BY THE ENGINES
       
@@ -330,6 +563,41 @@ void loop()
           msg->getPayload()[i] = LimiteMax[i];
         }
 
+        ActualPosition[i] = msg->getPayload()[i]+ReferencePosition[i];
+        if (i < NbrMotorDynamixel)
+        {
+          if (reverseInitialisation[i] == 1)
+          {
+             Reference[i]->gotoa(ReferencePosition[i]-(msg->getPayload()[i]));
+          }
+          else
+          {
+            Reference[i]->gotoa(ReferencePosition[i]+msg->getPayload()[i]);
+          }
+          ActualPosition[i] = (Reference[i])->GetPosition1();
+         }
+        else if(i >= NbrMotorDynamixel)
+        {
+          ReferenceStepper[i]->gotoa(msg->getPayload()[i]);
+          ActualPosition[i] = msg->getPayload()[i];
+        }
+        
+      }
+//Set position = 77: La nouvelle fonction GoTo
+      if (msg->getType()== 77)
+      {
+        int valeurRecu = msg->getPayload()[i];
+        int valeurModifier = 0;      
+//        if (valeurRecu >= LimiteMax[i])
+//        {
+//          valeurRecu = LimiteMax[i];
+//          msg->getPayload()[i] = LimiteMax[i];
+//        }
+//        if (valeurRecu <= LimiteMin[i])
+//        {
+//          msg->getPayload()[i] = LimiteMin[i];
+//        }
+        
         if (i < NbrMotorDynamixel)
         {
           Reference[i]->gotoa(msg->getPayload()[i]);
@@ -339,7 +607,6 @@ void loop()
           ReferenceStepper[i]->gotoa(msg->getPayload()[i]);
         }
       }
-
       //Set limite = 1
       else if (msg->getType()== SET_LIMITES_INDEX)
       {
@@ -355,72 +622,142 @@ void loop()
       //Set reference position = 5 
       else if (msg->getType()== SET_REFERENCE_POSITION_INDEX)
       {
-        if ((i < NbrMotorDynamixel)&&(msg->getPayload()[i] == 1))
+        Serial.println("debut de l<essaie avec les switch du moteur:");
+        Serial.println(i);
+        if (msg->getPayload()[i] == 1)
         {
-          int ajout = 1000;//ou mettre sa position actuelle??
-          int readingstepper = digitalRead(inpinstepp);
+          ActualPosition[i] = (Reference[i])->GetPosition1();
+          int ajout = ActualPosition[i];
+//APPROCHEMENT #1          
+          int readingstepper = digitalRead(inPinsInterupteurNumber[i]);
+          Serial.println(readingstepper);
           while(readingstepper == 0)
           {
-            ajout -= nb_Step_for_dynamixel_moteur;
+            if (reverseInitialisation[i] == 1)
+            {
+              ajout += PasInitialisation[i];
+            }
+            else
+            {
+              ajout -= PasInitialisation[i];
+            }
+            
+            if (i < NbrMotorDynamixel)
+            {
+              Reference[i]->gotoa(ajout);
+              delay(750);
+            }
+            else if (i >= NbrMotorDynamixel)
+            {
+              ReferenceStepper[i]->gotoa(ajout);
+              delay(2000);
+              //Je peut aussi set ca position actuelle comme je le veux
+            }
+            readingstepper = digitalRead(inPinsInterupteurNumber[i]);
+          }
+//APPROCHEMENT #2
+          delay(2000);
+          if (reverseInitialisation[i] == 1)
+            {
+               ajout -= 4*PetitPasInitialisation[i];
+            }
+            else
+            {
+               ajout += 4*PetitPasInitialisation[i];
+            }
+          
+          if (i < NbrMotorDynamixel)
+          {
             Reference[i]->gotoa(ajout);
             delay(750);
-            readingstepper = digitalRead(inpinstepp);
-            
           }
-          
-          Home[i] = ajout;
-          msg->getPayload()[i] = Home[i];        
-        }
-        else if((i >= NbrMotorDynamixel)&&(msg->getPayload()[i] == 1))
-        {
-          int ajout = 0;//ou mettre sa position actuelle??
-          int readingstepper = digitalRead(inpinstepp);
-          while(readingstepper == 0)
+          else if (i >= NbrMotorDynamixel)
           {
-            ajout -= nb_Step_for_step_moteur;
             ReferenceStepper[i]->gotoa(ajout);
-            
             delay(2000);
-            readingstepper = digitalRead(inpinstepp);
-            
           }
-          
-          Home[i] = ajout;
-          msg->getPayload()[i] = Home[i];
-         }
-        
-        Serial.println("La nouvelle valeur du home position pour step =");
-        Serial.println(Home[i]);
-        delay(1000);
+//APPROCHEMENT #3
+          delay(750);
+          int readingstepper_fine = digitalRead(inPinsInterupteurNumber[i]);
+          while(readingstepper_fine == 0)
+          {
+            if (reverseInitialisation[i] == 1)
+            {
+              ajout += PetitPasInitialisation[i];
+            }
+            else
+            {
+              ajout -= PetitPasInitialisation[i];
+            }
 
-        
-//        if (msg->getPayload()[i] == 1)
-//        {
-//          delete Reference[i];
-//          Reference[i] = new motor(defineID[i]);
-//        }
-//          Reference[i]->setHomingOffset(msg->getPayload()[i]); 
-//          Serial.println("Fonction not working at 100%: Error");     
+            if (i < NbrMotorDynamixel)
+            {
+              Reference[i]->gotoa(ajout);
+              delay(500);
+            }
+            else if (i >= NbrMotorDynamixel)
+            {
+              ReferenceStepper[i]->gotoa(ajout);
+              delay(2000);
+              //Je peut aussi set ca position actuelle comme je le veux
+            }
+            readingstepper_fine = digitalRead(inPinsInterupteurNumber[i]);
+          }
+     
+          ActualPosition[i] = ajout;
+          ReferencePosition[i] = ajout;
+          msg->getPayload()[i] = ReferencePosition[i];
+          Serial.println("La nouvelle valeur du home position pour step =");
+          Serial.println(Home[i]);
+          delay(1000);
+        }     
       }
               
       //Go to HOME = 9
       else if (msg->getType()== GO_TO_HOME_INDEX)
       {
-
+        ActualPosition[i] = msg->getPayload()[i];
+        
         if (i < NbrMotorDynamixel)
         {
-          Home[i] = msg->getPayload()[i];
-          Reference[i]->gotoa(Home[i]);
+          if (reverseInitialisation[i] == 1)
+          {
+             Reference[i]->gotoa(ReferencePosition[i]-(Home[i]));
+          }
+          else
+          {
+            Reference[i]->gotoa(ReferencePosition[i]+Home[i]);
+          }
+          ActualPosition[i] = (Reference[i])->GetPosition1();
+
         }
         else if(i >= NbrMotorDynamixel)
         {
-          Home[i] = msg->getPayload()[i];
           ReferenceStepper[i]->gotoa(Home[i]);
-        }
+          ActualPosition[i] = Home[i];
+        } 
+      }
 
-        
-//        Home[i] = msg->getPayload()[i];
-//        Reference[i]->gotoa(Home[i]);
+
+      
+      //Action on gripper = 24
+      else if (msg->getType()== ACTION_ON_GRIPPER)
+      {
+        if (i < (NbrMotorDynamixel + NbrMotorStepper) && NbrMotorStepper !=0)
+        {
+          ReferenceStepper[i]->gotoa((msg->getPayload()[i]));
+          ActualPosition[i] = (ReferenceStepper[i])->GetPosition1();
+        }
+        if(i >= (NbrMotorDynamixel + NbrMotorStepper) && NbrMotorServo != 0)
+        {
+          float valeur = float((msg->getPayload()[i]))/270*180;
+          int valeur_int = valeur;
+          ReferenceServo[i]->gotoa(valeur_int);
+          //ReferenceServo[i]->gotoa((msg->getPayload()[i]));
+          Serial.println(valeur_int);
+          ActualPosition[i] = msg->getPayload()[i];
+          //ActualPosition[i] = (ReferenceServo[i])->GetPosition1();
+        }
       }
 
       
@@ -442,19 +779,37 @@ void loop()
       //return reference position = 15
       else if (msg->getType()== RETURN_REFERENCE_POSITION_INDEX)
       {
-        Serial.println("Fonction not complete: Error");
-        msg->getPayload()[i] = (Reference[i])->GetReferencePosition1();
+        if (i < NbrMotorDynamixel)
+        {
+//        Serial.println("Fonction not complete: Error");
+//        msg->getPayload()[i] = (Reference[i])->GetReferencePosition1();
+          msg->getPayload()[i] = ReferencePosition[i];
+        }
+        else if(i >= NbrMotorDynamixel)
+        {
+          msg->getPayload()[i] = ReferencePosition[i];
+        }       
       }
 
       //return actual position = 17
       else if (msg->getType()== RETURN_ACTUAL_POSITION_INDEX)
       {
-         msg->getPayload()[i] = (Reference[i])->GetPosition1();
+        if (i < NbrMotorDynamixel)
+        {
+          ActualPosition[i] = (Reference[i])->GetPosition1();
+        }
+        else if(i >= NbrMotorDynamixel)
+        {
+          ActualPosition[i] = (ReferenceStepper[i])->GetPosition1();
+        }
+        msg->getPayload()[i] = ActualPosition[i];
       }
     }
     delay(1000);
-    ControlMessage responce(msg->getType()+1, msg->getPayLoadSize(), msg->getPayload());
-    IO.sendMessage(0,responce);
+    #if debug ==1
+      ControlMessage responce(msg->getType()+1, msg->getPayLoadSize(), msg->getPayload());
+      IO.sendMessage(0,responce);
+    #endif
     delete msg;
   }
   else
