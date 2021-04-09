@@ -55,7 +55,7 @@ private:
     Ui::CommandWindow *ui;
     QTcpSocket* socket;
     Accumulator* acc;
-    int home_joint[4] = {0, 0, 0, 0};
-    int home_cart[3] = {0, 0, 0};
+    float home_joint[4] = {0, 0, 0, 0};
+    float home_cart[3] = {0, 0, 0};
 };
 #endif // COMMANDWINDOW_H

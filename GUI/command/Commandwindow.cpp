@@ -142,7 +142,7 @@ void CommandWindow::setHome()
         home_joint[1] = ui->set_J2->value();
         home_joint[2] = ui->set_J3->value();
         home_joint[3] = ui->set_J4->value();
-        ControlMessage msg(CONTROL_MESSAGE_ID::SET_HOME_MODEL,4,home_joint);
+        ControlMessagefloatingPoint msg(CONTROL_MESSAGE_ID::SET_HOME_MODEL,4,home_joint);
         sendControlMessage(&msg);
     }
     else if (ui->cartMode->isChecked())
@@ -150,7 +150,7 @@ void CommandWindow::setHome()
         home_cart[0] = ui->set_J1->value();
         home_cart[1] = ui->set_J2->value();
         home_cart[2] = ui->set_J3->value();
-        ControlMessage msg(CONTROL_MESSAGE_ID::SET_HOME_MODEL,3,home_cart);
+        ControlMessagefloatingPoint msg(CONTROL_MESSAGE_ID::SET_HOME_MODEL,3,home_cart);
         sendControlMessage(&msg);
     }
 }
@@ -182,7 +182,7 @@ void CommandWindow::saveFileAs()
 
 void CommandWindow::commandMoveHere()
 {
-    int message[4];
+    float message[4];
     message[0] = ui->set_J1->value();
     message[1] = ui->set_J2->value();
     message[2] = ui->set_J3->value();
@@ -204,7 +204,7 @@ void CommandWindow::commandGoHome()
 }
 void CommandWindow::commandSetHomeHere()
 {
-    int message[4];
+    float message[4];
     message[0] = ui->set_J1->value();
     message[1] = ui->set_J2->value();
     message[2] = ui->set_J3->value();
@@ -262,12 +262,12 @@ void CommandWindow::saveFile()
 bool CommandWindow::sendCartesianPosition(QStringList command)
 {
     bool ok;
-    int message[3];
-    message[0] = command[1].toInt(&ok,10);
-    message[1] = command[2].toInt(&ok,10);
-    message[2] = command[3].toInt(&ok,10);
+    float message[3];
+    message[0] = command[1].toFloat(&ok);
+    message[1] = command[2].toFloat(&ok);
+    message[2] = command[3].toFloat(&ok);
 
-    ControlMessage msg(CONTROL_MESSAGE_ID::SET_CARTESIEN_POSITION,3,message);
+    ControlMessagefloatingPoint msg(CONTROL_MESSAGE_ID::SET_CARTESIEN_POSITION,3,message);
     sendControlMessage(&msg);
     return ok;
 }
@@ -275,13 +275,13 @@ bool CommandWindow::sendCartesianPosition(QStringList command)
 bool CommandWindow::sendJointPosition(QStringList command)
 {
     bool ok;
-    int message[4];
-    message[0] = command[1].toInt(&ok,10);
-    message[1] = command[2].toInt(&ok,10);
-    message[2] = command[3].toInt(&ok,10);
-    message[3] = command[4].toInt(&ok,10);
+    float message[4];
+    message[0] = command[1].toFloat(&ok);
+    message[1] = command[2].toFloat(&ok);
+    message[2] = command[3].toFloat(&ok);
+    message[3] = command[4].toFloat(&ok);
 
-    ControlMessage msg(CONTROL_MESSAGE_ID::SET_JOIN_POSITION_MODEL,4,message);
+    ControlMessagefloatingPoint msg(CONTROL_MESSAGE_ID::SET_JOIN_POSITION_MODEL,4,message);
     sendControlMessage(&msg);
     return ok;
 }
@@ -308,19 +308,19 @@ void CommandWindow::runFile()
             }
             else if (command[0] == QString("HomeJoint"))
             {
-                home_joint[0] = command[1].toInt(&ok,10);
-                home_joint[1] = command[2].toInt(&ok,10);
-                home_joint[2] = command[3].toInt(&ok,10);
-                home_joint[3] = command[4].toInt(&ok,10);
-                ControlMessage msg(CONTROL_MESSAGE_ID::SET_HOME_MODEL,4,home_joint);
+                home_joint[0] = command[1].toFloat(&ok);
+                home_joint[1] = command[2].toFloat(&ok);
+                home_joint[2] = command[3].toFloat(&ok);
+                home_joint[3] = command[4].toFloat(&ok);
+                ControlMessagefloatingPoint msg(CONTROL_MESSAGE_ID::SET_HOME_MODEL,4,home_joint);
                 sendControlMessage(&msg);
             }
             else if (command[0] == QString("HomeCartesian"))
             {
-                home_cart[0] = command[1].toInt(&ok,10);
-                home_cart[1] = command[2].toInt(&ok,10);
-                home_cart[2] = command[3].toInt(&ok,10);
-                ControlMessage msg(CONTROL_MESSAGE_ID::SET_HOME_MODEL,3,home_cart);
+                home_cart[0] = command[1].toFloat(&ok);
+                home_cart[1] = command[2].toFloat(&ok);
+                home_cart[2] = command[3].toFloat(&ok);
+                ControlMessagefloatingPoint msg(CONTROL_MESSAGE_ID::SET_HOME_MODEL,3,home_cart);
                 sendControlMessage(&msg);
             }
             else if (command[0] == QString("GoHome"))
