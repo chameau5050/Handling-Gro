@@ -12,6 +12,7 @@ class positionSolver:
         return error
 
     def solvePosition(self, joinSystem, wantedPosition, guessConfiguration, rate=0.1, maxError = 0.001):
+        wantedPosition = np.array(wantedPosition)
         q = np.array(guessConfiguration).reshape(len(guessConfiguration), 1)
         wantedPosition = wantedPosition.reshape(3, 1)
         for x in range(1, 50):
