@@ -33,9 +33,7 @@ CommandWindow::CommandWindow(QWidget *parent)
     QObject::connect(ui->openGripperB, SIGNAL(pressed()),this, SLOT(openGripper()));
     QObject::connect(ui->closeGripperB, SIGNAL(pressed()),this, SLOT(closeGripper()));
 
-    ui->set_C1->hide();
-    ui->set_C2->hide();
-    ui->set_C3->hide();
+
     ui->paramLabel1->setText("Joint 1");
     ui->paramLabel2->setText("Joint 2");
     ui->paramLabel3->setText("Joint 3");
@@ -91,24 +89,18 @@ void CommandWindow::closeGripper()
 void CommandWindow::hideJoint()
 {
     ui->set_J4->hide();
-    ui->set_C1->hide();
-    ui->set_C2->hide();
-    ui->set_C3->hide();
     ui->paramLabel1->setText("X");
     ui->paramLabel2->setText("Y");
     ui->paramLabel3->setText("Z");
-    ui->paramLabel4->setText(" ");
+    ui->paramLabel4->hide();
 }
 void CommandWindow::hideCartesian()
 {
-    ui->set_C1->hide();
-    ui->set_C2->hide();
-    ui->set_C3->hide();
     ui->set_J4->show();
     ui->paramLabel1->setText("Joint 1");
     ui->paramLabel2->setText("Joint 2");
     ui->paramLabel3->setText("Joint 3");
-    ui->paramLabel4->setText("Joint 4");
+    ui->paramLabel4->show();
 }
 
 void CommandWindow::sendJointParameters()
