@@ -6,17 +6,19 @@ class robotAPI:
     def __init__(self, JS, basePosition, driveManager):
         self.JS = JS
         self.driveManager = driveManager
-        self.solver = positionSolver
+        self.solver = positionSolver()
         self.q = basePosition
 
     def findPosition(self, pos):
-        pos = self.solver.solvePosition(self.JS, pos, self.q)
+        pos = self.solver.solvePosition(joinSystem=self.JS, wantedPosition=pos, guessConfiguration=self.q,maxError=1)
         return pos
 
     def moveInCartesianTo(self, newPosition):
         newJoinPosition = self.findPosition(newPosition)
-        if newJoinPosition != None:
-            self.moveInJoinTo(newJoinPosition)
+        if newJoinPosition is not None:
+            print("fuck")
+            hardWarePosition = self.JS.getHardwareJoinPosition( newJoinPosition)
+            self.moveInJoinTo(hardWarePosition)
 
     def moveXWorld(self, dis):
         newPosition = self.JS.getLastJoinPosition(self.q) + np.array([dis, 0, 0]).reshape(3,1)
@@ -29,6 +31,9 @@ class robotAPI:
     def moveZWorld(self, dis):
         newPosition = self.JS.getLastJoinPosition(self.q) + np.array([0, 0, dis]).reshape(3, 1)
         self.moveInCartesianTo(newPosition)
+
+    def moveInModelCoor(self,q):
+        self.moveInJoinTo(self.JS.getHardwareJoinPosition(q))
 
     def moveInJoinTo(self, newJoinPosition):
         self.driveManager.setJoinPosition(newJoinPosition)
