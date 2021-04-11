@@ -35,19 +35,19 @@ class TestRevoluteJoin(VectorTester):
         self.initJoin(1, 5, 5, 1)
 
     def test_convertToHardwarePositionPositive(self):
-        join = RevoluteJoin(VectorSpaceAxis.X, np.array([0, 0, 1]),axisLimit=[0, 6], hardwareIntervalStep=2000)
+        join = RevoluteJoin(VectorSpaceAxis.X, np.array([0, 0, 1]),axisLimit=[0, 6], hardwareStepDistance=6/2000)
         self.assertEqual(0, join.convertToHardWarePosition(0))
         self.assertEqual(333, join.convertToHardWarePosition(1))
         self.assertEqual(1666, join.convertToHardWarePosition(5))
 
     def test_convertToHardwarePositionNegativeMinLimit(self):
-        join = RevoluteJoin(VectorSpaceAxis.X, np.array([0, 0, 1]),axisLimit=[-2, 4], hardwareIntervalStep=2000)
+        join = RevoluteJoin(VectorSpaceAxis.X, np.array([0, 0, 1]),axisLimit=[-2, 4], hardwareStepDistance=6/2000)
         self.assertEqual(666, join.convertToHardWarePosition(0))
         self.assertEqual(1000, join.convertToHardWarePosition(1))
         self.assertEqual(1666, join.convertToHardWarePosition(3))
 
     def test_convertToHardwarePositionToModelPosition(self):
-        join = RevoluteJoin(VectorSpaceAxis.X, np.array([0, 0, 1]),axisLimit=[0, 6], hardwareIntervalStep=2000)
+        join = RevoluteJoin(VectorSpaceAxis.X, np.array([0, 0, 1]),axisLimit=[0, 6], hardwareStepDistance=6/2000)
         self.assertEqual(0, join.convertHardWarePositionToModelPosition(0))
         self.assertEqual(3, join.convertHardWarePositionToModelPosition(1000))
         self.assertEqual(0.15, join.convertHardWarePositionToModelPosition(50))
@@ -82,6 +82,10 @@ class TestRevoluteJoin(VectorTester):
         self.assertVectorEqual(expected, joinY.getNextJoinRelativePosition(0))
         self.assertVectorEqual(expected, joinZ.getNextJoinRelativePosition(0))
 
-
+    def test_convertToHardwareReverseMode(self):
+        join = RevoluteJoin(VectorSpaceAxis.X, np.array([0, 0, 1]), axisLimit=[-2, 4], hardwareStepDistance=(6/2000), isJoinReverse=True)
+        self.assertEqual(0, join.convertToHardWarePosition(4))
+        self.assertEqual(1000, join.convertToHardWarePosition(1))
+        self.assertEqual(333, join.convertToHardWarePosition(3))
 
 

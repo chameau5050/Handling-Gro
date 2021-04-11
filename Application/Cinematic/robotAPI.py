@@ -6,17 +6,19 @@ class robotAPI:
     def __init__(self, JS, basePosition, driveManager):
         self.JS = JS
         self.driveManager = driveManager
-        self.solver = positionSolver
+        self.solver = positionSolver()
         self.q = basePosition
 
     def findPosition(self, pos):
-        pos = self.solver.solvePosition(self.JS, pos, self.q)
+        pos = self.solver.solvePosition(joinSystem=self.JS, wantedPosition=pos, guessConfiguration=self.q,maxError=1)
         return pos
 
     def moveInCartesianTo(self, newPosition):
         newJoinPosition = self.findPosition(newPosition)
-        if newJoinPosition != None:
-            self.moveInJoinTo(newJoinPosition)
+        if newJoinPosition is not None:
+            print("fuck")
+            hardWarePosition = self.JS.getHardwareJoinPosition( newJoinPosition)
+            self.moveInJoinTo(hardWarePosition)
 
     def moveXWorld(self, dis):
         newPosition = self.JS.getLastJoinPosition(self.q) + np.array([dis, 0, 0]).reshape(3,1)
@@ -29,6 +31,9 @@ class robotAPI:
     def moveZWorld(self, dis):
         newPosition = self.JS.getLastJoinPosition(self.q) + np.array([0, 0, dis]).reshape(3, 1)
         self.moveInCartesianTo(newPosition)
+
+    def moveInModelCoor(self,q):
+        self.moveInJoinTo(self.JS.getHardwareJoinPosition(q))
 
     def moveInJoinTo(self, newJoinPosition):
         self.driveManager.setJoinPosition(newJoinPosition)
@@ -46,11 +51,19 @@ class robotAPI:
     def closeGripper(self, rate):
         self.driveManager.closeGripper(rate)
 
-    def setHome(self, qHome):
+    def setHomeStep(self, qHome):
         self.driveManager.setHome(qHome)
 
     def goToHome(self):
         self.driveManager.gotoHome()
+
+    def setPositionModel(self, q):
+        hardWarePosition = self.JS.getHardwareJoinPosition(q)
+        self.moveInJoinTo(hardWarePosition)
+
+    def setHomeModel(self, qHome):
+        hardWarePosition = self.JS.getHardwareJoinPosition(qHome)
+        self.setHomeStep(hardWarePosition)
 
     def executeCommand(self, controlMsg):
         if controlMsg.getType() == ControlMessage.SET_JOIN_POSITION:
@@ -60,7 +73,7 @@ class robotAPI:
             self.moveInCartesianTo(controlMsg.getPayload())
 
         elif controlMsg.getType() == ControlMessage.SET_HOME:
-            self.setHome(controlMsg.getPayload())
+            self.setHomeStep(controlMsg.getPayload())
 
         elif controlMsg.getType() == ControlMessage.OPEN_GRIPPER:
             self.openGripper(controlMsg.getPayload()[0])
@@ -70,4 +83,9 @@ class robotAPI:
 
         elif controlMsg.getType() == ControlMessage.GOTO_HOME:
             self.goToHome()
+        elif controlMsg.getType() == ControlMessage.SET_HOME_MODEL:
+            self.setHomeModel(controlMsg.getPayload())
+        elif controlMsg.getType() == ControlMessage.SET_JOIN_POSITION_MODEL:
+            self.setPositionModel(controlMsg.getPayload())
+
 
