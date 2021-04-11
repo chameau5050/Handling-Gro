@@ -1,3 +1,5 @@
+import math
+
 from Comm.SerialComm import *
 from Cinematic.PositionSolver import *
 from Comm.ControlMessage import *
@@ -60,7 +62,8 @@ class robotAPI:
         elif rate < 0:
             rate = 0
 
-        position = self.gripperMin + (self.gripperMax - self.gripperMin) * rate
+        position = math.floor(self.gripperMin + (self.gripperMax - self.gripperMin) * rate)
+
         self.driveManager.setGripperPosition(position)
 
     def setHomeStep(self, qHome):
