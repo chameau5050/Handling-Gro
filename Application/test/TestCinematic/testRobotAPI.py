@@ -130,6 +130,69 @@ class testRobotAPI(unittest.TestCase):
         self.assertEqual(test_ctrl, test_msg.getPayload())
         self.assertEqual(ControlMessage.OPEN_GRIPPER, test_msg.getType())
 
+    def test_executeSetGripperPositionRateMax(self):
+        msgManager = self.createTestMessageIO()
+
+        controller = [1, 1, 0]
+        driveManager = DriveManager(controller, msgManager, controllerIndexOfGripper=1)
+
+        JS = self.createTestJoinSystem()
+
+        self.robot = robotAPI(JS, [1, 1, 1], driveManager, gripperLimit=[170, 240])
+
+        rate = [100]
+
+        msg = ControlMessage(ControlMessage.SET_GRIPPER_POSITION_RATE, rate)
+        self.robot.executeCommand(msg)
+
+        test_msg = msgManager.readMessage(1)
+        test_ctrl = [240]
+
+        self.assertEqual(test_ctrl, test_msg.getPayload())
+        self.assertEqual(ControlMessage.SET_GRIPPER_POSITION, test_msg.getType())
+
+    def test_executeSetGripperPositionRateMin(self):
+        msgManager = self.createTestMessageIO()
+
+        controller = [1, 1, 0]
+        driveManager = DriveManager(controller, msgManager, controllerIndexOfGripper=1)
+
+        JS = self.createTestJoinSystem()
+
+        self.robot = robotAPI(JS, [1, 1, 1], driveManager, gripperLimit=[170, 240])
+
+        rate = [0]
+
+        msg = ControlMessage(ControlMessage.SET_GRIPPER_POSITION_RATE, rate)
+        self.robot.executeCommand(msg)
+
+        test_msg = msgManager.readMessage(1)
+        test_ctrl = [170]
+
+        self.assertEqual(test_ctrl, test_msg.getPayload())
+        self.assertEqual(ControlMessage.SET_GRIPPER_POSITION, test_msg.getType())
+
+    def test_executeSetGripperPositionRateHalf(self):
+        msgManager = self.createTestMessageIO()
+
+        controller = [1, 1, 0]
+        driveManager = DriveManager(controller, msgManager, controllerIndexOfGripper=1)
+
+        JS = self.createTestJoinSystem()
+
+        self.robot = robotAPI(JS, [1, 1, 1], driveManager, gripperLimit=[170, 240])
+
+        rate = [0.5]
+
+        msg = ControlMessage(ControlMessage.SET_GRIPPER_POSITION_RATE, rate)
+        self.robot.executeCommand(msg)
+
+        test_msg = msgManager.readMessage(1)
+        test_ctrl = [205]
+
+        self.assertEqual(test_ctrl, test_msg.getPayload())
+        self.assertEqual(ControlMessage.SET_GRIPPER_POSITION, test_msg.getType())
+
 
     def test_executeCommandSet_Join_Position(self):
         msgManager = self.createTestMessageIO()
