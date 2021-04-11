@@ -80,7 +80,7 @@ int PetitPasInitialisation[NbrMotor]= {50,10,10,10,4096};
 int ActualPosition[NbrMotor]= {1000,100,100,100,4096};
 int inPinsInterupteurNumber[NbrMotor] = {11,6,7,11,9};//{11,6,7,8,9}{8,8,8,8,8}
 int reverseInitialisation[NbrMotor] = {0,1,1,1,0};
-int initialisationAuDepart[NbrMotor] = {0,0,0,0,1};//{1,1,1,1,1};
+int initialisationAuDepart[NbrMotor] = {1,1,1,1,1};//{1,1,1,1,1};
 
 //Définir les parametres pour les interrupteurs
 //#define inpinsdynamixel 3
