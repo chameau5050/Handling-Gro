@@ -7,6 +7,8 @@ class ControlMessage:
     GOTO_HOME = 9
     OPEN_GRIPPER = 10
     CLOSE_GRIPPER = 12
+    SET_GRIPPER_POSITION = 24
+    SET_GRIPPER_POSITION_RATE = 25
 
     def __init__(self, type, payload=[]):
         self.type = type

@@ -81,6 +81,25 @@ class TestDriveManager(unittest.TestCase):
         self.assertEqual(test_ctrl, test_msg.getPayload())
         self.assertEqual(ControlMessage.CLOSE_GRIPPER, test_msg.getType())
 
+
+    def test_setGripperPosition(self):
+        controller = [1, 1, 0]
+        msgManager = MessageIO()
+        msgManager.addDevice(testCommDevice(True))
+        msgManager.addDevice(testCommDevice(True))
+        driveManager = DriveManager(controller, msgManager, controllerIndexOfGripper=1)
+
+
+        driveManager.setGripperPosition(100)
+
+        test_msg = msgManager.readMessage(1)
+
+        test_ctrl = [100]
+
+
+        self.assertEqual(test_ctrl, test_msg.getPayload())
+        self.assertEqual(ControlMessage.SET_GRIPPER_POSITION, test_msg.getType())
+
     def test_setHome(self):
         controller = [1, 1, 0]
         msgManager = MessageIO()

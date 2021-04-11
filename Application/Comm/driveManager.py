@@ -12,15 +12,15 @@ class DriveManager:
         return self.jointIndex
 
     def setJoinPosition(self, position):
-        msg = ControlMessage(7, position)
+        msg = ControlMessage(ControlMessage.SET_JOIN_POSITION, position)
         self.sendToMsgToAllController(msg)
 
     def setHome(self, newHome):
-        msg = ControlMessage(3, newHome)
+        msg = ControlMessage(ControlMessage.SET_HOME, newHome)
         self.sendToMsgToAllController(msg)
 
     def gotoHome(self):
-        msg = ControlMessage(9)
+        msg = ControlMessage(ControlMessage.GOTO_HOME)
         self.sendToMsgToAllControllerwithoutPayload(msg)
 
     def sendToMsgToAllController(self, ctrlmsg):
@@ -43,12 +43,14 @@ class DriveManager:
             self.msgManager.sendMessage(index, msg)
 
     def openGripper(self, rate):
-        msg = ControlMessage(10, [rate])
+        msg = ControlMessage(ControlMessage.OPEN_GRIPPER, [rate])
         self.msgManager.sendMessage(self.controllerIndexOfGripper, msg)
 
     def closeGripper(self, rate):
-        msg = ControlMessage(12, [rate])
+        msg = ControlMessage(ControlMessage.CLOSE_GRIPPER, [rate])
         self.msgManager.sendMessage(self.controllerIndexOfGripper, msg)
 
-
+    def setGripperPosition(self, position):
+        msg = ControlMessage(ControlMessage.SET_GRIPPER_POSITION, [position])
+        self.msgManager.sendMessage(self.controllerIndexOfGripper, msg)
 

@@ -3,11 +3,14 @@ from Cinematic.PositionSolver import *
 from Comm.ControlMessage import *
 
 class robotAPI:
-    def __init__(self, JS, basePosition, driveManager):
+    def __init__(self, JS, basePosition, driveManager,gripperLimit=[170, 240]):
         self.JS = JS
         self.driveManager = driveManager
         self.solver = positionSolver()
         self.q = basePosition
+
+        self.gripperMin = gripperLimit[0]
+        self.gripperMax = gripperLimit[1]
 
     def findPosition(self, pos):
         pos = self.solver.solvePosition(joinSystem=self.JS, wantedPosition=pos, guessConfiguration=self.q,maxError=1)
@@ -51,6 +54,15 @@ class robotAPI:
     def closeGripper(self, rate):
         self.driveManager.closeGripper(rate)
 
+    def setGripperPositionRate(self, rate):
+        if rate > 1:
+            rate = 1
+        elif rate < 0:
+            rate = 0
+
+        position = self.gripperMin + (self.gripperMax - self.gripperMin) * rate
+        self.driveManager.setGripperPosition(position)
+
     def setHomeStep(self, qHome):
         self.driveManager.setHome(qHome)
 
@@ -83,9 +95,14 @@ class robotAPI:
 
         elif controlMsg.getType() == ControlMessage.GOTO_HOME:
             self.goToHome()
+
         elif controlMsg.getType() == ControlMessage.SET_HOME_MODEL:
             self.setHomeModel(controlMsg.getPayload())
+
         elif controlMsg.getType() == ControlMessage.SET_JOIN_POSITION_MODEL:
             self.setPositionModel(controlMsg.getPayload())
+
+        elif controlMsg.getType() == ControlMessage.SET_GRIPPER_POSITION_RATE:
+            self.setGripperPositionRate(controlMsg.getPayload()[0])
 
 
