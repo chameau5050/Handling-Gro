@@ -76,7 +76,8 @@ void CommandWindow::readData()
 
 void CommandWindow::openGripper()
 {
-    ControlMessage msg(CONTROL_MESSAGE_ID::OPEN_GRIPPER);
+    float rate = float(ui->gripperSlider->value())/100;
+    ControlMessagefloatingPoint msg(CONTROL_MESSAGE_ID::SET_GRIPPER_POSITION_RATE,1,&rate);
     sendControlMessage(&msg);
 }
 
