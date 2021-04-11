@@ -65,6 +65,12 @@ class TestLinearJoin(VectorTester):
         self.assertEqual(1000, join.convertToHardWarePosition(1))
         self.assertEqual(1666, join.convertToHardWarePosition(3))
 
+    def test_convertToHardwareReverseMode(self):
+        join = LinearJoin(VectorSpaceAxis.X, np.array([0, 0, 1]), axisLimit=[-2, 4], hardwareStepDistance=(6/2000), isJoinReverse=True)
+        self.assertEqual(0, join.convertToHardWarePosition(4))
+        self.assertEqual(1000, join.convertToHardWarePosition(1))
+        self.assertEqual(333, join.convertToHardWarePosition(3))
+
     def test_isLimitJoinLimitWorking(self):
         join = LinearJoin(VectorSpaceAxis.X, np.array([0, 0, 1]), [5, 1])
         self.assertMatrixEqual(join.getNextJoinRelativePosition(5), join.getNextJoinRelativePosition(6))
