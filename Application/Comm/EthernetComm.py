@@ -35,7 +35,7 @@ class EthernetComm:
         if len(self.frameReceveList) > 0:
             frameToReturn = self.frameReceveList[0]
             del self.frameReceveList[0]
-            print(frameToReturn)
+ 
             return frameToReturn
         else:
             return None
