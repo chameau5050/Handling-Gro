@@ -26,6 +26,7 @@
 - [Setup](#Setup)
 - [Documentation](#Documentation)
 - [Platform Operation](#Operation)
+- [Authors](#Authors)
 - [External Resources](#Resources)
     - [Single-Board Computer](#Computer)
     - [Microcontroller](#Controller)
@@ -52,6 +53,15 @@
 All the different information is available [here](https://github.com/chameau5050/Handling-Gro/wiki) in the project wiki.
 ## <a id="Operation"></a>Robot Operation
 -TODO
+
+## <a id="Authors"></a>Authors
+- Olivier Demers - _Initial work_ - [chameau5050](https://github.com/chameau5050)
+- Jérémy Giguère - _Initial work_ - [gigj1302](https://github.com/gigj1302)
+- Philippe Gadeyne - _Initial work_ - 
+- Francis Amyot - _Initial work_ 
+- Vincent-Xavier Voyer - _Initial work_ - 
+
+
 ## <a id="Resources"></a>External Resources
 This section specifies the external resources used in the project.
 
@@ -86,12 +96,17 @@ This section specifies the external resources used in the project.
 - Model: 28BYJ-48 
 - Quantity: 1
 
+#### <a id="ServoMotor"></a>ServoMotors
+- Brand: [a changer_Elegoo](https://www.elegoo.com/products/elegoo-uln2003-5v-stepper-motor-uln2003-driver-board)
+- Model: 28BYJ-48 : change pour le bon modèle
+- Quantity: 1
+
 #### <a id="DriveBoard"></a>DriveBoard
 - Brand: [Elegoo](https://www.elegoo.com/products/elegoo-uln2003-5v-stepper-motor-uln2003-driver-board)
 - Model: ULN2003 
 - Quantity: 1
 <!--
-#### <a id="Servo"></a>Servomotors
+#### <a id="info"></a>exemple pour le commenter
 - Brand: [Adafruit](https://www.amazon.ca/Adafruit-2201-Sub-micro-Servo-SG51R/dp/B0137LG0KW)
 - Model: SG51R
 - Quantity: 6
@@ -113,4 +128,4 @@ This section specifies the external resources used in the project.
 
 
 ## <a id="License"></a>License
-This project is licenced under a  [![GPL-3.0](https://img.shields.io/badge/License-GPLv3-blue.svg?style=flat-square)](https://github.com/SPUdeS/SPUdeS/blob/main/LICENSE) license.
+This project is licenced under a  [![GPL-3.0](https://img.shields.io/badge/License-GPLv3-blue.svg?style=flat-square)](https://github.com/chameau5050/Handling-Gro/blob/main/LICENSE) license.
