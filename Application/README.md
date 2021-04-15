@@ -67,6 +67,7 @@ Mettres a jour les lien pour les taches built and transfert code to Raspberry Pi
 7. Build and transfer all the code to the OpenCr (or Arduino). See [Compilation procedure](https://github.com/chameau5050/Handling-Gro/) documentation.
 8. Build and transfer all the code to Raspberry Pi. See [Compilation procedure](https://github.com/chameau5050/Handling-Gro/) documentation.
 8. Open the interface and look your new Handgling GRO robot in action.
+8. Congigure UI with Qt????
 9. For more information, see the [documentation]((#Documentation)) section
 ## <a id="Documentation"></a>Documentation
 
