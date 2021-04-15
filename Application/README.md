@@ -23,10 +23,11 @@
 </div>
 
 ## Table of Contents
+- [Authors](#Authors)
 - [Setup](#Setup)
 - [Documentation](#Documentation)
 - [Platform Operation](#Operation)
-- [Authors](#Authors)
+- [Recommended manufacturing device](#Recommended_device)
 - [External Resources](#Resources)
     - [Single-Board Computer](#Computer)
     - [Microcontroller](#Controller)
@@ -42,6 +43,14 @@
 AJOUTER AUSSI LES DIFFERENTS LIENS QUE J AI EN BAS CAR IL NE FIGURE PAS ICI
     
 [//]: # (------------------------------------------------)
+## <a id="Authors"></a>Authors
+- Olivier Demers - _Initial work_ - [chameau5050](https://github.com/chameau5050)
+- Jérémy Giguère - _Initial work_ - [gigj1302](https://github.com/gigj1302)
+- Philippe Gadeyne - _Initial work_ - 
+- Francis Amyot - _Initial work_ 
+- Vincent-Xavier Voyer - _Initial work_ - 
+METTRE LE LIEN VERS LA PHOTO DES MEMBRES DE L'ÉQUIPE DU PROJET
+
 
 ## <a id="Setup"></a>Setup
 mettre a jour les numeros!!!!
@@ -62,17 +71,18 @@ Mettres a jour les lien pour les taches built and transfert code to Raspberry Pi
 ## <a id="Documentation"></a>Documentation
 
 All the different information is available [here](https://github.com/chameau5050/Handling-Gro/wiki) in the project wiki.
+
 ## <a id="Operation"></a>Robot Operation
 -TODO
 
-## <a id="Authors"></a>Authors
-- Olivier Demers - _Initial work_ - [chameau5050](https://github.com/chameau5050)
-- Jérémy Giguère - _Initial work_ - [gigj1302](https://github.com/gigj1302)
-- Philippe Gadeyne - _Initial work_ - 
-- Francis Amyot - _Initial work_ 
-- Vincent-Xavier Voyer - _Initial work_ - 
-
-METTRE LE LIEN VERS LA PHOTO DES MEMBRES DE L'ÉQUIPE DU PROJET
+## <a id="Recommended_device"></a>Recommended manufacturing device
+The following rapid design devices are required for this project are:
+- For plastic part 
+  - 3D Printer
+  
+- For wood part (choose one of the 2 following choices) 
+  - Laser cutter
+  - Basic tools for wood (drill, saw, sand paper, ...)
 
 ## <a id="Resources"></a>External Resources
 This section specifies the external resources used in the project.
