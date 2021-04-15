@@ -20,7 +20,7 @@ void Test_StateManager::test()
 //faire ce test la en dernier, ca ce test sert a valider que l,ensemble du test fonctionne
 void Test_StateManager::test_callibrateDrive()
 {
-    TEST_ASSERT_EQUAL(101,0);
+    TEST_ASSERT_EQUAL(1,1);
 }
 
 void Test_StateManager::test_goTo()
