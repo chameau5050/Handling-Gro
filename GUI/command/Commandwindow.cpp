@@ -32,7 +32,7 @@ CommandWindow::CommandWindow(QWidget *parent)
     QObject::connect(ui->cartMode, SIGNAL(pressed()),this, SLOT(hideJoint()));
     QObject::connect(ui->openGripperB, SIGNAL(pressed()),this, SLOT(openGripper()));
     QObject::connect(ui->closeGripperB, SIGNAL(pressed()),this, SLOT(closeGripper()));
-
+    ui->closeGripperB->hide();
 
     ui->paramLabel1->setText("Joint 1");
     ui->paramLabel2->setText("Joint 2");
@@ -60,6 +60,18 @@ CommandWindow::~CommandWindow()
 void CommandWindow::connectSocket()
 {
     socket->connectToHost(ui->targetIp->text(),ui->targetPort->text().toInt());
+    //Change the color of the button based on the connection state (UNFINISHED)
+    /*ui->ConnectCommand->setStyleSheet("background-color: green");
+    bool state = socket->isOpen();
+    if(state == 1)
+    {
+        ui->ConnectCommand->setStyleSheet("background-color: green");
+    }
+    else
+    {
+        ui->ConnectCommand->setStyleSheet("background-color: red");
+    }*/
+
 }
 
 void CommandWindow::readData()
@@ -214,12 +226,12 @@ void CommandWindow::commandSetHomeHere()
 }
 void CommandWindow::commandOpenGripper()
 {
-    QString line = "GripperOpen";
+    QString line = "Gripper,0";
     ui->dispFile->appendPlainText(line);
 }
 void CommandWindow::commandCloseGripper()
 {
-    QString line = "GripperClose";
+    QString line = "Gripper,100";
     ui->dispFile->appendPlainText(line);
 }
 
@@ -321,16 +333,17 @@ void CommandWindow::runFile()
                 ControlMessage msg(CONTROL_MESSAGE_ID::GOTO_HOME);
                 sendControlMessage(&msg);
             }
-            else if (command[0] == QString("GripperOpen"))
+            else if (command[0] == QString("Gripper"))
             {
-                ControlMessage msg(CONTROL_MESSAGE_ID::OPEN_GRIPPER);
+                float rate = command[1].toFloat(&ok);
+                ControlMessagefloatingPoint msg(CONTROL_MESSAGE_ID::SET_GRIPPER_POSITION_RATE,1,&rate);
                 sendControlMessage(&msg);
             }
-            else if (command[0] == QString("GripperClose"))
+            /*else if (command[0] == QString("GripperClose"))
             {
                 ControlMessage msg(CONTROL_MESSAGE_ID::CLOSE_GRIPPER);
                 sendControlMessage(&msg);
-            }
+            }*/
             else
             {
                 QMessageBox::warning(this, tr("Command error"), "WARNING: " + line + " is not a valid command. This command will be skipped",QMessageBox::Close);
