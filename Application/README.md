@@ -16,7 +16,7 @@
 [//]: # (------------------------------------------------)
 
 **This is an academic project by robotics engineering undergraduates at Université de Sherbrooke.**
-**Handling GRO is a five degrees of freedom fanuc robot. This is an academic project by robotics engineering undergraduates at l'Université de Sherbrooke.**
+**Handling GRO is a five degrees of freedom robot. This is an academic project by robotics engineering undergraduates at l'Université de Sherbrooke.**
 
 <div id="platform" align="center">
     <img src="./Documentation/img/HandlingGRO.png" alt="Robot Assembly" width="703"/>
@@ -30,22 +30,33 @@
 - [External Resources](#Resources)
     - [Single-Board Computer](#Computer)
     - [Microcontroller](#Controller)
-    - [Servomotors](#Servo)
-    - [Power Supply: Motor/Arduino](#Power)
-    - [Servo Rods](#Rods)
+    - [Dynamixel motors](#dynamixel) 
+    - [Steppermotor](#StepperMotor)
+    - [DriveBoard (with steppermotor)](#DriveBoard)
+    - [Servomotor](#ServoMotor)
+    - [Power Supply: Motor/(OpenCr or Arduino)](#Power)
+    - [Linear Rods](#Rods)
+    - [linear_bearing](#linear_bearing)
+- [License](#License)
 
-
+AJOUTER AUSSI LES DIFFERENTS LIENS QUE J AI EN BAS CAR IL NE FIGURE PAS ICI
     
 [//]: # (------------------------------------------------)
 
 ## <a id="Setup"></a>Setup
+mettre a jour les numeros!!!!
+Mettres a jour les lien pour les taches built and transfert code to OpenCr
+Mettres a jour les lien pour les taches built and transfert code to Raspberry Pi
+
 1. Buy the component in the [External Resources](#Resources) section.
 2. Use the [CAD models](https://github.com/chameau5050/Handling-Gro/tree/main/Mechanical/STL%20(For%203D%20printing)) to 3D print all the different parts of the robot.
-3. Do the electrical connections using the [electrical schematics](https://github.com/chameau5050/Handling-Gro/) in the documentation section.
+3. Assemble the robot according to the [assembly guide](https://github.com/chameau5050/Handling-Gro/).
+4. Do the electrical connections using the [electrical schematics](https://github.com/chameau5050/Handling-Gro/) in the documentation section.
 4. Set up the [Raspberry Pi](#Computer) by connecting it with the [OpenCr](#Controller_OpenCr), your computer and the to a power source.
 5. Download or clone the repository in the Raspberry Pi.
 6. Verify your Python version (3.5 and above) and the port series.
-7. Build and transfer all the code to the OpenCr (or Arduino) and Raspberry Pi.
+7. Build and transfer all the code to the OpenCr (or Arduino). See [Compilation procedure](https://github.com/chameau5050/Handling-Gro/) documentation.
+8. Build and transfer all the code to Raspberry Pi. See [Compilation procedure](https://github.com/chameau5050/Handling-Gro/) documentation.
 8. Open the interface and look your new Handgling GRO robot in action.
 9. For more information, see the [documentation]((#Documentation)) section
 ## <a id="Documentation"></a>Documentation
@@ -61,6 +72,7 @@ All the different information is available [here](https://github.com/chameau5050
 - Francis Amyot - _Initial work_ 
 - Vincent-Xavier Voyer - _Initial work_ - 
 
+METTRE LE LIEN VERS LA PHOTO DES MEMBRES DE L'ÉQUIPE DU PROJET
 
 ## <a id="Resources"></a>External Resources
 This section specifies the external resources used in the project.
@@ -75,36 +87,33 @@ This section specifies the external resources used in the project.
 - Model: OpenCr
 - Quantity: 1
 
-#### <a id="Controller"></a>Microcontroller (optional)
+#### <a id="Controller_Arduino"></a>Microcontroller (optional)
 - Brand: [Arduino](https://store.arduino.cc/mega-2560-r3)
 - Model: Mega 2560 REV3
 - Quantity: 1
 - **If you want to use other motors than dynamixel motors.
 
-<!--#### <a id="Servo"></a>Servomotors
-- Brand: [Hitec RCD](https://hitecrcd.com/products/servos/sport-servos/analog-sport-servos/hs-422/product)
-- Model: HS-422
-- Quantity: 6
--->
 #### <a id="dynamixel"></a>Dynamixel_motors
 - Brand: [Dynamixel](https://www.robotis.us/dynamixel-xm430-w350-r/)
 - Model: XM430-W350
 - Quantity: 4
 
-#### <a id="SteperMotor"></a>SteperMotors
+#### <a id="SteperMotor"></a>Stepermotor
 - Brand: [Elegoo](https://www.elegoo.com/products/elegoo-uln2003-5v-stepper-motor-uln2003-driver-board)
 - Model: 28BYJ-48 
 - Quantity: 1
 
-#### <a id="ServoMotor"></a>ServoMotors
-- Brand: [a changer_Elegoo](https://www.elegoo.com/products/elegoo-uln2003-5v-stepper-motor-uln2003-driver-board)
-- Model: 28BYJ-48 : change pour le bon modèle
-- Quantity: 1
-
-#### <a id="DriveBoard"></a>DriveBoard
+#### <a id="DriveBoard"></a>DriveBoard (with steppermotor)
 - Brand: [Elegoo](https://www.elegoo.com/products/elegoo-uln2003-5v-stepper-motor-uln2003-driver-board)
 - Model: ULN2003 
 - Quantity: 1
+
+#### <a id="ServoMotor"></a>Servomotor
+- Brand: [Miuzei](https://www.amazon.ca/-/fr/Miuzei-num%C3%A9rique-%C3%A9tanche-voiture-contr%C3%B4le/dp/B07MDM1C3M)
+- Model: Miuzei Servo Motor 20 Kg
+- Quantity: 1
+
+
 <!--
 #### <a id="info"></a>exemple pour le commenter
 - Brand: [Adafruit](https://www.amazon.ca/Adafruit-2201-Sub-micro-Servo-SG51R/dp/B0137LG0KW)
