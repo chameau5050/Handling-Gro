@@ -67,15 +67,13 @@ Servo servo;
 #define NbrMotorServo 1
 
 
-
-
 int defineID[NbrMotor]= {1,2,3,4,5};
 
 int LimiteMax[NbrMotor] = {819210,114096,112000,113400,50000};
 int LimiteMin[NbrMotor] = {0,0,0,0,0};
 int Home[NbrMotor]= {1000,0,0,0,0};
 int ReferencePosition[NbrMotor]= {10000,300,300,0,0};
-int PasInitialisation[NbrMotor]= {200,50,45,50,4096};   //Set les pas du moeur lors de l'initialisation des moteurs 
+int PasInitialisation[NbrMotor]= {200,50,45,50,4096};
 int PetitPasInitialisation[NbrMotor]= {50,10,10,10,4096}; 
 int ActualPosition[NbrMotor]= {1000,100,100,100,4096};
 int inPinsInterupteurNumber[NbrMotor] = {11,6,7,11,9};//{11,6,7,8,9}{8,8,8,8,8}
@@ -94,7 +92,6 @@ class motorservo
   motorservo(int id)
   {
     const int MOTOR_IN_PIN = 3;
-    //this->id = id;//si sa marche sans, enlever cette ligne
     
     servo.attach(MOTOR_IN_PIN);
     #if debug ==1
@@ -154,7 +151,6 @@ class motorstepper
     const int MOTOR_IN3_PIN = 10;
     const int MOTOR_IN4_PIN = 11;
     const int STEPS_PER_REVOLUTION = 2048;
-    //this->ids = ids;//si sa marche sans, enlever cette ligne
     
     stepper.connectToPins(MOTOR_IN1_PIN, MOTOR_IN2_PIN, MOTOR_IN3_PIN, MOTOR_IN4_PIN);
     
@@ -437,7 +433,7 @@ void loop()
         #endif
         ActualPosition[i] = (Reference[i])->GetPosition1();
         int ajout = ActualPosition[i];
-//APPROCHEMENT #1          
+//APPROCHE #1          
         int readingstepper = digitalRead(inPinsInterupteurNumber[i]);
         while(readingstepper == 0)
         {
@@ -463,7 +459,7 @@ void loop()
           }
           readingstepper = digitalRead(inPinsInterupteurNumber[i]);
         }
-//APPROCHEMENT #2
+//APPROCHE #2
         delay(2000);
         if (reverseInitialisation[i] == 1)
           {
@@ -484,7 +480,7 @@ void loop()
           ReferenceStepper[i]->gotoa(ajout);
           delay(2000);
         }
-//APPROCHEMENT #3
+//APPROCHE #3
         delay(750);
         int readingstepper_fine = digitalRead(inPinsInterupteurNumber[i]);
         while(readingstepper_fine == 0)
@@ -521,22 +517,18 @@ void loop()
       }
       initialisationAuDepart[i] = 0;
     }
+//INITIAL INITIALISATIO  FOR ROBOT: SERVOMOTOR
 //INITIALISATION INITIALES DU ROBOT: MOTEUR SRVO
   if (NbrMotorServo != 0)
   {
-    //Serial.println(initialisationAuDepart[4]);
     int valeurservo = NbrMotorDynamixel + NbrMotorStepper;
     for (int ii = valeurservo;ii>=NbrMotor;ii++)
     {
-      //Serial.println(ii);
-      //Serial.println(NbrMotor);
       if (initialisationAuDepart[ii] == 1);
       {
         ReferenceServo[ii]->gotoa(0);//0 if the referenco position for SERVO?
-        //ActualPosition[ii] = (ReferenceServo[ii])->GetPosition1();
         ActualPosition[ii] = 0;
         initialisationAuDepart[ii] = 0;
-        //Serial.println(initialisationAuDepart[ii]);
         #if debug ==1
            Serial.println("Initialisation du servo ");
            Serial.println(ii);
@@ -583,21 +575,12 @@ void loop()
         }
         
       }
-//Set position = 77: La nouvelle fonction GoTo
+//Set position = 77: La nouvelle fonction GoTo sans la section 
       if (msg->getType()== 77)
       {
         int valeurRecu = msg->getPayload()[i];
         int valeurModifier = 0;      
-//        if (valeurRecu >= LimiteMax[i])
-//        {
-//          valeurRecu = LimiteMax[i];
-//          msg->getPayload()[i] = LimiteMax[i];
-//        }
-//        if (valeurRecu <= LimiteMin[i])
-//        {
-//          msg->getPayload()[i] = LimiteMin[i];
-//        }
-        
+
         if (i < NbrMotorDynamixel)
         {
           Reference[i]->gotoa(msg->getPayload()[i]);
@@ -628,7 +611,7 @@ void loop()
         {
           ActualPosition[i] = (Reference[i])->GetPosition1();
           int ajout = ActualPosition[i];
-//APPROCHEMENT #1          
+//APPROCHE #1          
           int readingstepper = digitalRead(inPinsInterupteurNumber[i]);
           Serial.println(readingstepper);
           while(readingstepper == 0)
@@ -655,7 +638,7 @@ void loop()
             }
             readingstepper = digitalRead(inPinsInterupteurNumber[i]);
           }
-//APPROCHEMENT #2
+//APPROCHE #2
           delay(2000);
           if (reverseInitialisation[i] == 1)
             {
@@ -676,7 +659,7 @@ void loop()
             ReferenceStepper[i]->gotoa(ajout);
             delay(2000);
           }
-//APPROCHEMENT #3
+//APPROCHE #3
           delay(750);
           int readingstepper_fine = digitalRead(inPinsInterupteurNumber[i]);
           while(readingstepper_fine == 0)
@@ -823,7 +806,7 @@ void loop()
 #endif
 
 /*
- * COMMANDE DE TEST 
+ * COMMANDE DE TESTFOR UNIT TEST
 {​​"type":7,"PLS":1,"data":[19389]}​​
 {​​"type":7,"PLS":1,"data":[19389]}​​
 {​​"type":7,"PLS":3,"data":[10389,5000,0]}​​
