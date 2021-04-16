@@ -37,7 +37,8 @@
     - [Servomotor](#ServoMotor)
     - [Power Supply: Motor/(OpenCr or Arduino)](#Power)
     - [Linear Rods](#Rods)
-    - [linear_bearing](#linear_bearing)
+    - [Linear bearing](#linear_bearing)
+    - [Timing belt](#Timing_belt)
 - [License](#License)
 
 AJOUTER AUSSI LES DIFFERENTS LIENS QUE J AI EN BAS CAR IL NE FIGURE PAS ICI
@@ -145,6 +146,12 @@ This section specifies the external resources used in the project.
 - Brand: [yqltd](https://www.amazon.ca/CNBTR-Horizontal-Bearing-Bushing-Optical/dp/B01KLE9QEU)
 - ASIN: CNBTR4040 bearing
 - Quantity: 4
+
+
+#### <a id="Timing_belt"></a> Timing belt
+- Brand: [yqltd](https://www.amazon.ca/CNBTR-Horizontal-Bearing-Bushing-Optical/dp/B01KLE9QEU)
+- ASIN: CNBTR4040 bearing
+- Quantity: 1
 
 
 ## <a id="License"></a>License
