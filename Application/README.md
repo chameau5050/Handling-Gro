@@ -50,7 +50,7 @@ AJOUTER AUSSI LES DIFFERENTS LIENS QUE J AI EN BAS CAR IL NE FIGURE PAS ICI
 - Philippe Gadeyne - _Initial work_ - 
 - Francis Amyot - _Initial work_ 
 - Vincent-Xavier Voyer - _Initial work_ - 
-METTRE LE LIEN VERS LA PHOTO DES MEMBRES DE L'ÉQUIPE DU PROJET
+- METTRE LE LIEN VERS LA PHOTO DES MEMBRES DE L'ÉQUIPE DU PROJET
 
 
 ## <a id="Setup"></a>Setup
@@ -149,8 +149,8 @@ This section specifies the external resources used in the project.
 
 
 #### <a id="Timing_belt"></a> Timing belt
-- Brand: [yqltd](https://www.amazon.ca/CNBTR-Horizontal-Bearing-Bushing-Optical/dp/B01KLE9QEU)
-- ASIN: CNBTR4040 bearing
+- Brand: [Uranny](https://www.amazon.ca/gp/product/B071HKC52V/ref=ppx_yo_dt_b_asin_image_o04_s00?ie=UTF8&psc=1&fbclid=IwAR3l580aQXrcDcnFzXKQVBHzXT6OlFWot1Oq8B5DTtPKzNiy5tsO_97gNR8)
+- ASIN: Timing Belt 6mm Wide & 10X 5MM Pulley for 3D Printer
 - Quantity: 1
 
 
