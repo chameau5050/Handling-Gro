@@ -1,6 +1,5 @@
 #include <unity.h> 
 #include "Test_Join.h"
-#include "Test_Join.h"
 #include "TestJoinDevice.h"
 
 void Test_Join::test()
