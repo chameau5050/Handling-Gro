@@ -19,7 +19,7 @@
 **Handling GRO is a five degrees of freedom robot. This is an academic project by robotics engineering undergraduates at l'Université de Sherbrooke.**
 
 <div id="platform" align="center">
-    <img src="./Documentation/image/HandlingGRO.png" alt="Robot Assembly" width="703"/>
+    <img src="./Documentation/img/HandlingGRO.png" alt="Robot Assembly" width="703"/>
 </div>
 
 ## Table of Contents
