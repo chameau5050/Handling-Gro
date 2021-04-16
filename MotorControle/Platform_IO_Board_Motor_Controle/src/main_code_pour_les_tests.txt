@@ -6,7 +6,7 @@
 #include "Comm/SerialComm.h"
 #include "Comm/ControlMessage.h"
 #include "Comm/MessageIO.h"
-#include "StateManager.h"
+
 #include "DriveManager.h"
 #include "StepperJoin.h"
 
@@ -14,64 +14,30 @@
 //#define BAUD 9600 
 #define BAUD 115200 
 
-#define NbrMotor 5
-#define NbrMotorDynamixel 4
-#define NbrMotorStepper 1
-#define NbrMotor 1
-
 MessageIO IO;
 SerialComm SC(&Serial);
-StateManager* statemanager;
-DriveManager* drivemanager;
 
-
-#define NUMERO_DU_TEST_A_EFFECTUER 0
-// voici le liogne a modifier pour vous les gars pour vos tests
-// 0 = le mode normal de la programation des moteurs
-// 1 = un test unitaire sur le stepper motor qui marche
-// 2 = un autre test unitaire sur le stepper motor qui marche aussi
-
-void setup() 
-{
+void setup() {
   Serial.begin(BAUD);
   IO.addDevice(&SC);
-
-if (NUMERO_DU_TEST_A_EFFECTUER == 0)
-  {
-  //Définitions des différents joins selon les moteurs!
-    StepperJoin* join1 = new StepperJoin(0,228100,0,0,0);
-    drivemanager = new DriveManager();
-    drivemanager->addJoin(join1);
-
-    StepperJoin* join2 = new StepperJoin(0,228100,0,0,0);
-    drivemanager->addJoin(join2);
-
-    statemanager = new StateManager(drivemanager);
-  }
 }
 
 #define NUMERO_DU_TEST_A_EFFECTUER 1
-// voici le liogne a modifier pour vous les gars pour vos tests
+
 void loop() {
 
-  if (NUMERO_DU_TEST_A_EFFECTUER == 0)
-  {
-    ControlMessage* msg = IO.readMessage(0);
-      
-    if(msg != 0)
-    {
-      statemanager->updateState(msg);
-
-      ControlMessage responce(msg->getType()+1, msg->getPayLoadSize(), msg->getPayload());
-      IO.sendMessage(0,responce);
-      delete msg;
-    }else
-    {
-      //auto responce = ControlMessage(-1);
-      //IO.sendMessage(0,responce);
-    }
-  }
-    // put your main code here, to run repeatedly:
+  // ControlMessage* msg = IO.readMessage(0);
+  
+  // if(msg != 0)
+  // {
+  //   ControlMessage responce(msg->getType()+1, msg->getPayLoadSize(), msg->getPayload());
+  //   IO.sendMessage(0,responce);
+  //   delete msg;
+  // }else
+  // {
+  //   //auto responce = ControlMessage(-1);
+  //   //IO.sendMessage(0,responce);
+  // }
 
   if (NUMERO_DU_TEST_A_EFFECTUER == 1)
   {
@@ -97,6 +63,7 @@ void loop() {
 
     delay(5000);
   }
+
   
   else if (NUMERO_DU_TEST_A_EFFECTUER == 2)
   {
@@ -116,6 +83,9 @@ void loop() {
 
   }
 
+ 
+  
+  // put your main code here, to run repeatedly:
 }
 
 #endif

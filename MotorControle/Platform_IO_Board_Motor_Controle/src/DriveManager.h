@@ -15,6 +15,7 @@ class DriveManager
         void goToPosition(Vector <int> position);
         void setHomePosition(Vector <int> position);
         void calibrateAllJoin();
+        void goToPosition(int position[],int size);
     private:
         Vector <Join*> Joins;
 };

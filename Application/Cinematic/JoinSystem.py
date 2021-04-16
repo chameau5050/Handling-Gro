@@ -50,8 +50,8 @@ class JoinSystem:
         for x in range(0, len(q)):
             before = q.copy()
             after = q.copy()
-            before[x] -= h
-            after[x] += h
+            before[x] = float(before[x]) - h
+            after[x] = float(after[x]) + h
             delq = (costFunction(wantedPosition, self.getLastJoinPosition(after)) - costFunction(wantedPosition, self.getLastJoinPosition(before))) / (2 * h)
             if gradient is None:
                 gradient = delq
