@@ -97,7 +97,6 @@ void loop() {
 
     delay(5000);
   }
-
   
   else if (NUMERO_DU_TEST_A_EFFECTUER == 2)
   {

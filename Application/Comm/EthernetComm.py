@@ -34,7 +34,8 @@ class EthernetComm:
 
         if len(self.frameReceveList) > 0:
             frameToReturn = self.frameReceveList[0]
-            del self.frameReceveList[-1]
+            del self.frameReceveList[0]
+ 
             return frameToReturn
         else:
             return None
@@ -45,15 +46,14 @@ class EthernetComm:
         while data:
             try:
                 data = self.sock.recv(1024)
-
                 if not data:
                     break
                 else:
                     self.acc.accumulate(data)
-            except BlockingIOError:
+            except:
                 return None
 
-    def sendJSON(self, JSON):
+    def sendJSon(self, JSON):
         frame = self.JSONtoFrame(JSON)
         self.sendFrame(frame)
 
@@ -75,11 +75,10 @@ class EthernetComm:
 
     def readJSon(self):
         self.extractRecevedData()
-
         for frame in self.frameReceveList:
             if frame.getType() == EthernetComm.JSONTYPE:
                 self.frameReceveList.remove(frame)
-                return json.loads(str(frame.getPayload(), encoding="UTF-8"))
+                return json.loads(str(frame.getPayload().decode()))
         return None
 
     def isAlive(self):
