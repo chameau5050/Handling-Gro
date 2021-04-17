@@ -15,11 +15,11 @@
 
 [//]: # (------------------------------------------------)
 
-**This is an academic project by robotics engineering undergraduates at Université de Sherbrooke.**
-**Handling GRO is a five degrees of freedom robot. This is an academic project by robotics engineering undergraduates at l'Université de Sherbrooke.**
+**This is an academic project by robotics engineering students at Université de Sherbrooke.**
+**Handling GRO is a four degrees of freedom robot.**
 
 <div id="platform" align="center">
-    <img src="./Documentation/img/HandlingGRO.png" alt="Robot Assembly" width="703"/>
+    <img src="./Docs/bro_bot_final.jpg" alt="Robot Assembly" width="703"/>
 </div>
 
 ## Table of Contents
@@ -65,11 +65,11 @@ Mettres a jour les lien pour les taches built and transfert code to Raspberry Pi
 4. Set up the [Raspberry Pi](#Computer) by connecting it with the [OpenCr](#Controller_OpenCr), your computer and the to a power source.
 5. Download or clone the repository in the Raspberry Pi.
 6. Verify your Python version (3.5 and above) and the port series.
-7. Build and transfer all the code to the OpenCr (or Arduino). See [Compilation procedure](https://github.com/chameau5050/Handling-Gro/) documentation.
+7. Build and transfer all the code to the OpenCr (or Arduino). See [Compilation procedure](https://github.com/chameau5050/Handling-Gro/wiki/setup-IDE-for-ControlMotor(OpenCr)) documentation.
 8. Build and transfer all the code to Raspberry Pi. See [Compilation procedure](https://github.com/chameau5050/Handling-Gro/) documentation.
 8. Open the interface and look your new Handgling GRO robot in action.
-8. Congigure UI with Qt????
-9. For more information, see the [documentation]((#Documentation)) section
+8. Congigure UI with Qt
+9. For more information, see the [documentation](https://github.com/chameau5050/Handling-Gro/wiki) section
 ## <a id="Documentation"></a>Documentation
 
 All the different information is available [here](https://github.com/chameau5050/Handling-Gro/wiki) in the project wiki.
