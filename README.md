@@ -15,8 +15,8 @@
 
 [//]: # (------------------------------------------------)
 
-**This is an academic project by robotics engineering undergraduates at Université de Sherbrooke.**
-**Handling GRO is a five degrees of freedom robot. This is an academic project by robotics engineering undergraduates at l'Université de Sherbrooke.**
+**This is an academic project by robotics engineering students at Université de Sherbrooke.**
+**Handling GRO is a four degrees of freedom robot.**
 
 <div id="platform" align="center">
     <img src="./Docs/bro_bot_final.jpg" alt="Robot Assembly" width="703"/>
