@@ -68,9 +68,6 @@
 
 All the different information is available [here](https://github.com/chameau5050/Handling-Gro/wiki) in the project wiki.
 
-## <a id="Operation"></a>Robot Operation
--TODO
-
 ## <a id="Recommended_device"></a>Recommended manufacturing device
 The following rapid design devices are required for this project are:
 - For plastic part 
