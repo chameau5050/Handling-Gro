@@ -26,11 +26,10 @@
 - [Authors](#Authors)
 - [Setup](#Setup)
 - [Documentation](#Documentation)
-- [Platform Operation](#Operation)
 - [Recommended manufacturing device](#Recommended_device)
 - [External Resources](#Resources)
     - [Single-Board Computer](#Computer)
-    - [Microcontroller](#Controller)
+    - [Controller_OpenCr](#Controller)
     - [Dynamixel motors](#dynamixel) 
     - [Steppermotor](#StepperMotor)
     - [DriveBoard (with steppermotor)](#DriveBoard)
@@ -46,21 +45,21 @@
 ## <a id="Authors"></a>Authors
 - Olivier Demers - _Initial work_ - [chameau5050](https://github.com/chameau5050)
 - Jérémy Giguère - _Initial work_ - [gigj1302](https://github.com/gigj1302)
-- Philippe Gadeyne - _Initial work_ - 
+- Philippe Gadeyne - _Initial work_ - [gadp1401](https://github.com/gigj1302)
 - Francis Amyot - _Initial work_ - [FrancisAmyot](https://github.com/FrancisAmyot)
-- Vincent-Xavier Voyer - _Initial work_ - 
+- Vincent-Xavier Voyer - _Initial work_ - [Theparky105](https://github.com/Theparky105)
 
 ## <a id="Setup"></a>Setup
 
 1. Buy the component in the [External Resources](#Resources) section.
 2. Use the [CAD models](https://github.com/chameau5050/Handling-Gro/tree/main/Mechanical/STL%20(For%203D%20printing)) to 3D print all the different parts of the robot.
-3. Assemble the robot according to the [assembly guide](https://github.com/chameau5050/Handling-Gro/).
-4. Do the electrical connections using the [electrical schematics](https://github.com/chameau5050/Handling-Gro/) in the documentation section.
+3. Assemble the robot according to the [assembly guide](https://github.com/chameau5050/Handling-Gro/blob/main/Docs/Doc_mecanical/Assembly%20manual.pdf).
+4. Do the electrical connections using the [electrical schematics](https://github.com/chameau5050/Handling-Gro/blob/main/Electrical_hardware/electrical_wiring_V1.pdf) in the documentation section.
 4. Set up the [Raspberry Pi](#Computer) by connecting it with the [OpenCr](#Controller_OpenCr), your computer and the to a power source.
 5. Download or clone the repository in the Raspberry Pi.
 6. Verify your Python version (3.5 and above) and the port series.
 7. Build and transfer all the code to the OpenCr (or Arduino). See [Compilation procedure](https://github.com/chameau5050/Handling-Gro/wiki/setup-IDE-for-ControlMotor(OpenCr)) documentation.
-8. Build and transfer all the code to Raspberry Pi. See [Compilation procedure](https://github.com/chameau5050/Handling-Gro/) documentation.
+8. Build and transfer all the code to Raspberry Pi. See [Compilation procedure](https://github.com/chameau5050/Handling-Gro/wiki/setup-IDE-for-Application) documentation.
 8. Open the interface and look your new Handgling GRO robot in action.
 8. Congigure UI with Qt
 9. For more information, see the [documentation](https://github.com/chameau5050/Handling-Gro/wiki) section
@@ -94,14 +93,14 @@ This section specifies the external resources used in the project.
 - Brand: [Arduino](https://store.arduino.cc/mega-2560-r3)
 - Model: Mega 2560 REV3
 - Quantity: 1
-- **If you want to use other motors than dynamixel motors.
+- **If you want to use other motors than dynamixel motors, you can.
 
 #### <a id="dynamixel"></a>Dynamixel_motors
 - Brand: [Dynamixel](https://www.robotis.us/dynamixel-xm430-w350-r/)
 - Model: XM430-W350
 - Quantity: 4
 
-#### <a id="SteperMotor"></a>Stepermotor
+#### <a id="StepperMotor"></a>Steppermotor
 - Brand: [Elegoo](https://www.elegoo.com/products/elegoo-uln2003-5v-stepper-motor-uln2003-driver-board)
 - Model: 28BYJ-48 
 - Quantity: 1
@@ -116,13 +115,6 @@ This section specifies the external resources used in the project.
 - Model: Miuzei Servo Motor 20 Kg
 - Quantity: 1
 
-
-<!--
-#### <a id="info"></a>exemple pour le commenter
-- Brand: [Adafruit](https://www.amazon.ca/Adafruit-2201-Sub-micro-Servo-SG51R/dp/B0137LG0KW)
-- Model: SG51R
-- Quantity: 6
--->
 #### <a id="Power"></a>Power Supply: Motor/(OpenCr or Arduino)
 - Brand: [PowerPayless Inc](https://www.amazon.com/7-5A-Power-Adapter-Device-Payless/dp/B01CYZWAWY)
 - Model: B01CYZWAWY (65107)
