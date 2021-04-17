@@ -1,3 +1,5 @@
-# Handling-Gro
+# Handling-Gro GUI section
 
-here we implement the GUI part
+This is where we implement the GUI part.
+
+click on this [link](https://github.com/chameau5050/Handling-Gro/wiki) to learn more.
