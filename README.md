@@ -41,7 +41,6 @@
     - [Timing belt](#Timing_belt)
 - [License](#License)
 
-AJOUTER AUSSI LES DIFFERENTS LIENS QUE J AI EN BAS CAR IL NE FIGURE PAS ICI
     
 [//]: # (------------------------------------------------)
 ## <a id="Authors"></a>Authors
@@ -50,13 +49,8 @@ AJOUTER AUSSI LES DIFFERENTS LIENS QUE J AI EN BAS CAR IL NE FIGURE PAS ICI
 - Philippe Gadeyne - _Initial work_ - 
 - Francis Amyot - _Initial work_ 
 - Vincent-Xavier Voyer - _Initial work_ - 
-- METTRE LE LIEN VERS LA PHOTO DES MEMBRES DE L'ÉQUIPE DU PROJET
-
 
 ## <a id="Setup"></a>Setup
-mettre a jour les numeros!!!!
-Mettres a jour les lien pour les taches built and transfert code to OpenCr
-Mettres a jour les lien pour les taches built and transfert code to Raspberry Pi
 
 1. Buy the component in the [External Resources](#Resources) section.
 2. Use the [CAD models](https://github.com/chameau5050/Handling-Gro/tree/main/Mechanical/STL%20(For%203D%20printing)) to 3D print all the different parts of the robot.
