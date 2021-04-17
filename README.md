@@ -47,7 +47,7 @@
 - Olivier Demers - _Initial work_ - [chameau5050](https://github.com/chameau5050)
 - Jérémy Giguère - _Initial work_ - [gigj1302](https://github.com/gigj1302)
 - Philippe Gadeyne - _Initial work_ - 
-- Francis Amyot - _Initial work_ 
+- Francis Amyot - _Initial work_ - [FrancisAmyot](https://github.com/FrancisAmyot)
 - Vincent-Xavier Voyer - _Initial work_ - 
 
 ## <a id="Setup"></a>Setup
